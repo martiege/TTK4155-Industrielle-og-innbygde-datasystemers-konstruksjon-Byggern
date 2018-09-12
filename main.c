@@ -9,13 +9,30 @@
 #define MYUBRR F_CPU/16/BAUD-1
 
 
+volatile char *ext_adc = (char *) 0x1400;
+
 int main()
 {
     USART_Init(MYUBRR);
+
     MCUCR |= (1<<SRE);
     SFIOR |= (1 << XMM2);
 
     SRAM_test();
 
-    printf("testing\n");
+    
+
+    _delay_ms(2000);
+
+    printf("Starting...\n");
+
+    while(1)
+    {
+        //printf("Hei!\n");
+        ext_adc[0];
+        //_delay_ms(2000);
+    }
+
+    printf("Stopping...\n");
+
 }
