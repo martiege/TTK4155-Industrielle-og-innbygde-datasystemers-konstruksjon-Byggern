@@ -8,6 +8,10 @@ typedef struct Position{
 
 enum Direction{ NEUTRAL, LEFT, RIGHT, UP, DOWN };
 
+// initilization function, need to note the offset when
+// the function is executed, so that position can be
+// used as zero (subtract init value)
+void joystick_init();
 
 Position joystick_position()
 
