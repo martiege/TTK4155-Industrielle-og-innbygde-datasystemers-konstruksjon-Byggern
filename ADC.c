@@ -1,10 +1,11 @@
+#include <util/delay.h>
 #include "ADC.h"
 #include "memory_map.h"
 
-//volatile char* adc = (char *) 0x1400;
 
 int ADC_read_channel(CHANNEL c)
 {
-	return memory[ADC + c];
-	//return adc[c];
+	memory[ADC] = c;
+	_delay_ms(1);
+	return (memory[ADC] & 0x00ff);
 }

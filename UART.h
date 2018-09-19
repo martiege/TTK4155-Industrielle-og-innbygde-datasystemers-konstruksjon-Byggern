@@ -1,7 +1,9 @@
 #ifndef UART_H
 #define UART_H
+
+#define F_CPU 4915200UL
+
 #include <avr/io.h>
-//#define F_CPU 1000000UL
 #include <stdio.h>
 
 void USART_Init(unsigned int ubrr);
