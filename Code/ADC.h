@@ -2,6 +2,7 @@
 #define ADC_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
 
@@ -19,6 +20,6 @@ typedef enum CHANNEL
 } CHANNEL;
 
 
-int ADC_read_channel(CHANNEL c);
+uint8_t ADC_read_channel(CHANNEL c);
 
 #endif

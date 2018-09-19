@@ -8,7 +8,8 @@
 #include "SRAM_test.h"
 #include "ADC.h"
 #include "user_input.h"
-
+#include "OLED.h"
+#include "memory_map.h"
 
 int main()
 {
@@ -19,10 +20,13 @@ int main()
 
     SRAM_test();
 
-    printf("Starting...\n");
+    OLED_init();
 
+    printf("Starting...\n");
+    
     while(1)
     {
+        /*
         Position p = user_input_joystick_position();
         Slider s = user_input_slider_position();
         printf("\n");
@@ -32,14 +36,12 @@ int main()
         printf("Slider Left: %d\n", s.left);
         printf("Button: %d\n", user_input_joystick_button());
         user_input_joystick_print_direction(user_input_joystick_direction());
-        /*
-        printf("Channel 1: %x\n", ADC_read_channel(CH1));
-        printf("Channel 2: %x\n", ADC_read_channel(CH2));
-        printf("Channel 3: %x\n", ADC_read_channel(CH3));
-        printf("Channel 4: %x\n", ADC_read_channel(CH4));
         */
 
-        _delay_ms(1000);
+        //printf("Hei\n");
+        memory_write_oled_data(0xaf);
+
+        _delay_ms(1);
 
     }
 
