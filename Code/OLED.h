@@ -6,6 +6,8 @@ void OLED_init();
 
 void OLED_reset();
 
+void OLED_fill();
+
 void OLED_home();
 
 void OLED_goto_line(int line);

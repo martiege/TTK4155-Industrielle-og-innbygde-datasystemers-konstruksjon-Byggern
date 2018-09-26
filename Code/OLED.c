@@ -30,7 +30,30 @@ void OLED_init()
 
 void OLED_reset()
 {
+    memory_write_oled_command(0xB0);
+    memory_write_oled_command(0x00);
+    memory_write_oled_command(0x10);
+    for (int i = 0; i < 8; ++i)
+    {
+        OLED_clear_line(i);
+    }
+}
 
+void OLED_fill()
+{
+    memory_write_oled_command(0xB0);
+    memory_write_oled_command(0x00);
+    memory_write_oled_command(0x10);
+    for (int i = 0; i < 8; ++i)
+    {   
+        memory_write_oled_command(0xB0 | i);
+        memory_write_oled_command(0x00);
+        memory_write_oled_command(0x10);
+        for (int j = 0; j < 128; ++j)
+        {
+            memory_write_oled_data(0xff);
+        }
+    }
 }
 
 void OLED_home()
@@ -40,17 +63,33 @@ void OLED_home()
 
 void OLED_goto_line(int line)
 {
+    memory_write_oled_command(0x20);
+    memory_write_oled_command(1);
 
+    memory_write_oled_command(0x40 + line);
 }
 
 void OLED_goto_column(int column)
 {
+    memory_write_oled_command(0x20);
+    memory_write_oled_command(0);
 
+    memory_write_oled_command(0x21);
+    
+    memory_write_oled_command(column);    
+    memory_write_oled_command(column);
+    
 }
 
 void OLED_clear_line(int line)
 {
-
+    memory_write_oled_command(0xB0 | line);
+    memory_write_oled_command(0x00);
+    memory_write_oled_command(0x10);
+    for (int j = 0; j < 128; ++j)
+    {
+        memory_write_oled_data(0x00);
+    }
 }
 
 void OLED_pos(int row, int column)
