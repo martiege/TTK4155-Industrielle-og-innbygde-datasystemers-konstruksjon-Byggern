@@ -10,6 +10,8 @@
 #include "user_input.h"
 #include "OLED.h"
 #include "memory_map.h"
+#include "menu.h"
+#include <avr/pgmspace.h>
 
 int main()
 {
@@ -23,31 +25,22 @@ int main()
     OLED_init();
 
     printf("Starting...\n");
-    
-    //OLED_goto_line(0);
-    //OLED_goto_column(0);
-    /*
-    //addr mode
-    memory_write_oled_command(0x20);
-    memory_write_oled_command(0);
-    //set start & end addr
-    memory_write_oled_command(0x21);
-    memory_write_oled_command(0);    
-    memory_write_oled_command(128);
-    */
-
-    // OLED_goto_line(0);
 
     
     OLED_reset();
 
-    //OLED_home();
-    OLED_pos(7,10);
+   // OLED_home();
+    
+    const char* m[8] = {"hei0", "hei1", "hei2", "hei3", "hei4", "hei5", "hei6", "hei7"};
+    for(int i = 0; i < 8 ; i++)
+    {
+        printf("%s\n", m[i]);
+       
+    }
+    int pos = menu(m,8);
 
-
+    printf("%d",pos);
     int i = 0;
-
-    OLED_put_char('b');
     
 
     while(1)

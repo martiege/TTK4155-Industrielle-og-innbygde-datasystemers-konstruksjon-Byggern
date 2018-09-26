@@ -2,6 +2,8 @@
 #include "memory_map.h"
 #include "fonts.h"
 
+CURSOR cur = {0, 0};
+
 void OLED_init()
 {
     memory_write_oled_command(0xae); // display off
@@ -41,9 +43,8 @@ void OLED_reset()
 
 void OLED_fill()
 {
-    memory_write_oled_command(0xB0);
-    memory_write_oled_command(0x00);
-    memory_write_oled_command(0x10);
+    OLED_home();
+
     for (int i = 0; i < 8; ++i)
     {   
         memory_write_oled_command(0xB0 | i);
@@ -51,7 +52,7 @@ void OLED_fill()
         memory_write_oled_command(0x10);
         for (int j = 0; j < 128; ++j)
         {
-            memory_write_oled_data(0xff);
+            memory_write_oled_data(0xFF);
         }
     }
 }
@@ -93,14 +94,34 @@ void OLED_pos(uint8_t row, uint8_t column)
 
 void OLED_put_char(char c)
 {
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 5; ++i)
     {
-        //memory_write_oled_data(font4[offset][i]);
-        memory_write_oled_data(pgm_read_byte(&font4[c-' '][i])); //må lese fra progmem
+        ++cur.COL;
+        memory_write_oled_data(pgm_read_byte(&font5[c - ' '][i])); //må lese fra progmem
     }
 }
 
-void OLED_print(char* string)
+void OLED_print(const char* string)
 {
-
+    if (string != NULL)
+    {
+        char c = *string;
+        int i = 0;
+        
+        while (c != '\0')
+        {
+            if (c != '\n')
+            {
+                OLED_put_char(c);
+            }
+            else
+            {
+                cur.PAGE = (cur.PAGE + 1) % 8;
+                cur.COL  = 0;
+                OLED_pos(cur.PAGE, cur.COL);
+            }
+            
+            c = string[++i];
+        }
+    }
 }
