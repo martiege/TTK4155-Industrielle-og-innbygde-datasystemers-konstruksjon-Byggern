@@ -40,13 +40,26 @@ int main()
 
     
     OLED_reset();
-    
-    
-    
+
+    //OLED_home();
+    OLED_pos(7,10);
+
+
     int i = 0;
+
+    OLED_put_char('b');
+    
 
     while(1)
     {
+        
+        
+        _delay_ms(1000);
+
+        
+        
+        _delay_ms(1000);
+        /*
         _delay_ms(1000);
 
         OLED_fill();
@@ -55,6 +68,7 @@ int main()
 
         OLED_clear_line(2);
         OLED_clear_line(4);
+        */
     }
 
     printf("Stopping...\n");

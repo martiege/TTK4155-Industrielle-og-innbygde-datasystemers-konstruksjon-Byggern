@@ -1,6 +1,6 @@
 #include "OLED.h"
 #include "memory_map.h"
-
+#include "fonts.h"
 
 void OLED_init()
 {
@@ -58,30 +58,23 @@ void OLED_fill()
 
 void OLED_home()
 {
-
+    memory_write_oled_command(0xB0);
+    memory_write_oled_command(0x00);
+    memory_write_oled_command(0x10);
 }
 
-void OLED_goto_line(int line)
+void OLED_goto_line(uint8_t line)
 {
-    memory_write_oled_command(0x20);
-    memory_write_oled_command(1);
-
-    memory_write_oled_command(0x40 + line);
+    memory_write_oled_command(0xB0 | line);
 }
 
-void OLED_goto_column(int column)
+void OLED_goto_column(uint8_t column)
 {
-    memory_write_oled_command(0x20);
-    memory_write_oled_command(0);
-
-    memory_write_oled_command(0x21);
-    
-    memory_write_oled_command(column);    
-    memory_write_oled_command(column);
-    
+    memory_write_oled_command(0x00 | ((column & 0x0F) >> 0));
+    memory_write_oled_command(0x10 | ((column & 0xF0) >> 4));
 }
 
-void OLED_clear_line(int line)
+void OLED_clear_line(uint8_t line)
 {
     memory_write_oled_command(0xB0 | line);
     memory_write_oled_command(0x00);
@@ -92,9 +85,19 @@ void OLED_clear_line(int line)
     }
 }
 
-void OLED_pos(int row, int column)
+void OLED_pos(uint8_t row, uint8_t column)
 {
+    OLED_goto_line(row);
+    OLED_goto_column(column);
+}
 
+void OLED_put_char(char c)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        //memory_write_oled_data(font4[offset][i]);
+        memory_write_oled_data(pgm_read_byte(&font4[c-' '][i])); //må lese fra progmem
+    }
 }
 
 void OLED_print(char* string)
