@@ -25,17 +25,16 @@ int main()
     SRAM_test();
     OLED_init();
     printf("Starting...\n");
+    SPI_MasterInit();
     /*init end*/
-    
+
     while(1)
     {
+        printf("Shalalala\n");
+        SPI_MasterTransmit('a');
+        printf("HurraHUrra\n");
         
-        
-        _delay_ms(1000);
-
-        
-        
-        _delay_ms(1000);
+        //_delay_ms(1000);
 
     }
 

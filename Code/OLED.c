@@ -28,7 +28,7 @@ void OLED_init()
     memory_write_oled_command(0xa4); // out follows RAM content
     memory_write_oled_command(0xa6); // set normal display
     memory_write_oled_command(0xaf); // display on
-    
+
     OLED_reset();
 }
 
@@ -41,6 +41,8 @@ void OLED_reset()
     {
         OLED_clear_line(i);
     }
+
+    OLED_home();
 }
 
 void OLED_fill()
