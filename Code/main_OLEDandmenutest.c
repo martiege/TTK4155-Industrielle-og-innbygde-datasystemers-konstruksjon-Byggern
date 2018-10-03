@@ -16,16 +16,33 @@
 
 int main()
 {
-    /*Init start*/
     USART_Init(MYUBRR);
 
     MCUCR |= (1 << SRE);
     SFIOR |= (1 << XMM2);
 
     SRAM_test();
+
     OLED_init();
+
     printf("Starting...\n");
-    /*init end*/
+
+    
+    OLED_reset();
+
+   // OLED_home();
+    
+    const char* m[8] = {"hei0", "hei1", "hei2", "hei3", "hei4", "hei5", "hei6", "hei7"};
+    for(int i = 0; i < 8 ; i++)
+    {
+        printf("%s\n", m[i]);
+       
+    }
+    int pos = menu(m,8);
+
+    printf("%d",pos);
+    int i = 0;
+    
     
     while(1)
     {
@@ -36,7 +53,16 @@ int main()
         
         
         _delay_ms(1000);
+        /*
+        _delay_ms(1000);
 
+        OLED_fill();
+        
+        _delay_ms(1000);
+
+        OLED_clear_line(2);
+        OLED_clear_line(4);
+        */
     }
 
     printf("Stopping...\n");

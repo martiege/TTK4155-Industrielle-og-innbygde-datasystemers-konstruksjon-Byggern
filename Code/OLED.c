@@ -28,6 +28,8 @@ void OLED_init()
     memory_write_oled_command(0xa4); // out follows RAM content
     memory_write_oled_command(0xa6); // set normal display
     memory_write_oled_command(0xaf); // display on
+    
+    OLED_reset();
 }
 
 void OLED_reset()
@@ -85,6 +87,8 @@ void OLED_clear_line(uint8_t line)
         memory_write_oled_data(0x00);
     }
 }
+
+
 
 void OLED_pos(uint8_t row, uint8_t column)
 {
