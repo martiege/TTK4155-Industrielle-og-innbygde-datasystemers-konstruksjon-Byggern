@@ -11,7 +11,7 @@ typedef struct CURSOR
 
 void OLED_init();
 
-/*+ funksjon for å endre kontrast/lysstyrke ogsånn*/
+/*+ funksjon for å endre kontrast/lysstyrke og sånn*/
 
 void OLED_reset();
 
