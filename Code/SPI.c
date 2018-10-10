@@ -12,13 +12,13 @@ void SPI_MasterInit()
     SPCR |= (1 << SPE) | (1 << MSTR) | (1 << SPR0); 
 }
 
-void SPI_MasterTransmit(char cData)
+uint8_t SPI_MasterTransmit(char cData)
 {
     //PORTB &= ~(1 << PB4); 
     /*Start transmission*/
     SPDR = cData;
     /*Wait for transmission complete*/
-    while(!(SPSR & (1 << SPIF)));
+    while (!(SPSR & (1 << SPIF)));
 
     return SPDR;
 

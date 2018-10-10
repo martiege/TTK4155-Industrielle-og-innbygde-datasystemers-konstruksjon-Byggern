@@ -30,11 +30,12 @@ uint8_t MCP_read(uint8_t adr)
 }
 
 
-void MCP_write(uint8_t data)
+void MCP_write(uint8_t adr, uint8_t data)
 {
     MCP_cs(0);
 
     SPI_MasterTransmit(MCP_WRITE);
+    SPI_MasterTransmit(adr);
     SPI_MasterTransmit(data);
 
     MCP_cs(1);
