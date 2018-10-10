@@ -1,70 +1,37 @@
-#define F_CPU 4915200UL
-#define BAUD 9600
-#define MYUBRR F_CPU/16/BAUD-1
-
+#include "defines.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include "UART.h"
-#include "SRAM_test.h"
-#include "ADC.h"
-#include "user_input.h"
-#include "OLED.h"
-#include "memory_map.h"
-#include "menu.h"
 #include <avr/pgmspace.h>
-#include "CAN.h"
-#include "MCP2515.h"
-//#include "SPI.h"
 
 int main()
 {
-    /*Init start*/
     USART_Init(MYUBRR);
-
-    MCUCR |= (1 << SRE);
-    SFIOR |= (1 << XMM2);
-
-    SRAM_test();
-    OLED_init();
-    printf("Starting...\n");
-    SPI_MasterInit();
-    CAN_init();
-    /*init end*/
-    uint8_t *d = { 2 };
-    uint8_t *e = { 3 };
-
-    CAN_message m;
-    m.id = 5;
-    m.length = 1;
-    m.data = d;
-
-    CAN_message n;
-
-    CAN_send(&m);
-    //m.id = 2;
     
-
-    while(1)
-    {
-        //MCP_reset();
-        _delay_ms(5);
-        CAN_receive(&n);
-        printf("ID: %d\n", n.id);
-
-        _delay_ms(500);
+    while(1){
+      _delay_ms(1000);
+      USART_Transmit('\n');
+      USART_Transmit('\r');
+      
+      if (PORTA == 0xFF)
+      {
+          PORTA = 0;
+          USART_Transmit('A');
+          printf(", HEY STUDASS ;)");
+      }
+      else
+      {
+          PORTA = 0xFF;
+          USART_Transmit('B');   
+          //char* port_A = PORTA;
+          printf("%x%s",PORTA, "s4ever?");
+      }
+      
+      //char hey = USART_Receive();
+      //_delay_ms(1000);
+      //USART_Transmit(hey);
         
-        if (MCP_read(MCP_CANINTF) & 1)
-        {
-            printf("rec\n");
-        }
-        //m.id = 1;
-        CAN_send(&m);
-        //m.id = 2;
-
-        _delay_ms(10);
     }
-
-    printf("Stopping...\n");
 
 }
 

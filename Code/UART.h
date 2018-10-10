@@ -1,10 +1,13 @@
 #ifndef UART_H
 #define UART_H
 
-#define F_CPU 4915200UL
+#include "defines.h"
 
 #include <avr/io.h>
 #include <stdio.h>
+
+
+/* USART module for ATmega162 and ATmega 128*/
 
 void USART_Init(unsigned int ubrr);
 
