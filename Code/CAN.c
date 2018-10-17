@@ -1,8 +1,7 @@
-#define F_CPU 4915200UL
-
 #include "CAN.h"
 #include "MCP.h"
 #include "MCP2515.h"
+#include "defines.h"
 
 #include <util/delay.h>
 #include <avr/interrupt.h>
@@ -21,6 +20,8 @@ void CAN_init()
 {
     MCP_reset(); 
 
+    received = 0;
+
     uint8_t mode = MCP_read(MCP_CANSTAT);
     if (mode & MODE_MASK != MODE_CONFIG)
     {
@@ -30,31 +31,35 @@ void CAN_init()
     CAN_intr_init();    
 
     // loopback mode
-    MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK);
+    // MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK);
+    // normal mode
+    MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_NORMAL);
 
-
-    
-    
-    //noe mer??
 }
 
 
 void CAN_intr_init()
 {
+    #ifdef __AVR_ATmega2560__
+        DDRD &= ~(1 << PD0);
+    #endif
+
     cli();
 
-    GICR  |= (1 << INT0);
-    MCUCR |= (1 << ISC11);
+    INTRREG  |= (1 << INTRSEL);
+    INTRSET  |= (1 << INTRSC);
+
+    sei();
+
     received = 0;
     
     //send interrupt
-    MCP_bit_modify(MCP_CANINTE, 0x03, 0x00);
-    MCP_bit_modify(MCP_CANINTE, 0x03, 0xFF);
+    //MCP_bit_modify(MCP_CANINTE, 0x03, 0x00);
+    //MCP_bit_modify(MCP_CANINTE, 0x03, 0xFF);
 
     //Receive interrupt
     MCP_bit_modify(MCP_CANINTE, 0x01, 0x00);
     MCP_bit_modify(MCP_CANINTE, 0x01, 0xFF);
-
 
 
     // reset interrupt
@@ -65,12 +70,11 @@ void CAN_intr_init()
         received = 1;
     }
 
-    sei();
+  
 }
 
 ISR(INT0_vect)
 {
-    // received = 1;
     if (MCP_read(MCP_CANINTF) & 1)
     {
         received = 1;
@@ -101,6 +105,7 @@ void CAN_send(const CAN_message* msg)
 
 void CAN_receive(CAN_message* msg)
 {
+    //printf("rec func entered"); //works!
     //if !INT pin
     if (received)
     {
@@ -116,10 +121,14 @@ void CAN_receive(CAN_message* msg)
         {
             (msg->data)[i] = MCP_read(MCP_RXB0D0 + i);
         }
+
+        
     }
+
+    /*Clear CANINTF.RX0IF after read*/
+    MCP_bit_modify(MCP_CANINTF, 0x01, 0);
 
     // clear flags
     received = 0;
-    /*Clear CANINTF.RX0IF after read*/
-    MCP_bit_modify(MCP_CANINTF, 0x01, 0);
+    
 }

@@ -1,16 +1,19 @@
 #include "MCP.h"
 #include "SPI.h"
 #include <avr/io.h>
+#include <stdint.h>
+#include "defines.h"
 
-void MCP_cs(int i)
+
+void MCP_cs(uint8_t i)
 {
     if (i)
     {
-        PORTB |= (1 << PB4); 
+        PORTB |= (1 << SPI_SS); 
     }
     else
     {
-        PORTB &= ~(1 << PB4); 
+        PORTB &= ~(1 << SPI_SS); 
     }
 }
 
@@ -55,10 +58,11 @@ void MCP_request_to_send(/*uint8_t n*/)
 uint8_t MCP_read_status()
 {
     MCP_cs(0);
-
+    
     SPI_MasterTransmit(MCP_READ_STATUS);
 
     uint8_t status = SPI_MasterTransmit(0);
+    
     MCP_cs(1);
 
     return status;

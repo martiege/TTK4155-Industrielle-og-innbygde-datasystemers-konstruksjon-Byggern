@@ -10,13 +10,19 @@
     /* generic */
     #define F_CPU 4915200UL
 
-    /*UART*/
-    #define USSEL URSEL0
+    /*SPI & MCP*/
+    #define SPI_MOSI PB5
+    #define SPI_MISO PB6
+    #define SPI_SS PB4
+    #define SPI_SCK PB7
 
-    /*SPI*/
+    /*CAN*/
+    #define INTRREG GICR
+    #define INTRSEL INT0
 
-
-
+    #define INTRSC  ISC11
+    #define INTRSET MCUCR
+    #define INTRVAL 1
 
 
 /******** IO BOARD ********/
@@ -25,9 +31,19 @@
     /* generic */
     #define F_CPU 16000000UL
 
-    /*UART*/
-    #define USSEL UMSEL00
+    /*SPI*/
+    #define SPI_MOSI PB2
+    #define SPI_MISO PB3
+    #define SPI_SS PB7
+    #define SPI_SCK PB1
+    
+    /*CAN*/
+    #define INTRREG EIMSK
+    #define INTRSEL INT0
 
+    #define INTRSC  ISC01    
+    #define INTRSET EICRB 
+    #define INTRVAL 1
 
 #endif
 

@@ -68,7 +68,7 @@ Slider user_input_slider_position()
     return s;
 }
 
-int user_input_joystick_button()
+uint8_t user_input_joystick_button()
 {
     return !(PINB & 1);
 }

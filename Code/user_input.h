@@ -1,16 +1,18 @@
 #ifndef USER_INPUT_H
 #define USER_INPUT_H
 
+#include <stdint.h>
+
 typedef struct Position 
 {
-    int X;
-    int Y;
+    uint8_t X;
+    uint8_t Y;
 } Position;
 
 typedef struct Slider 
 {
-    int left;
-    int right;
+    uint8_t left;
+    uint8_t right;
 } Slider;
 
 typedef enum Direction { NEUTRAL, LEFT, RIGHT, UP, DOWN } Direction;
@@ -23,7 +25,7 @@ Direction user_input_joystick_direction();
 
 Slider user_input_slider_position();
 
-int user_input_joystick_button();
+uint8_t user_input_joystick_button();
 
 void user_input_joystick_print_direction(Direction d);
 

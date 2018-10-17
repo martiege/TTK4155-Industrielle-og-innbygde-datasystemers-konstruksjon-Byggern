@@ -1,6 +1,7 @@
 #ifndef ADC_H
 #define ADC_H
 
+#include "defines.h"
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -1,3 +1,4 @@
+#include "defines.h"
 #include <util/delay.h>
 #include "ADC.h"
 #include "memory_map.h"

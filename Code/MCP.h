@@ -2,11 +2,12 @@
 #define MCP_H
 
 #include <stdio.h>
+#include <stdint.h>
 #include "MCP2515.h"
 
 /* MCP2515 manipulation */ 
 
-
+void MCP_cs(uint8_t i);
 
 uint8_t MCP_read(uint8_t adr);
 
