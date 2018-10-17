@@ -1,13 +1,13 @@
 #ifndef UART_H
 #define UART_H
 
-#include "defines.h"
+
 
 #include <avr/io.h>
 #include <stdio.h>
 
 
-/* USART module for ATmega162 and ATmega 128*/
+/* USART module for ATmega162 and ATmega 2560*/
 
 void USART_Init(unsigned int ubrr);
 
@@ -16,8 +16,6 @@ void USART_Transmit(unsigned char data);
 char USART_Receive();
 
 void USART_Send(unsigned char data);
-
-//FILE* fdevopen(int(*)(char,FILE *) put, int(*)(FILE *) get); 
 
 int put_char(char data, FILE* file);
 

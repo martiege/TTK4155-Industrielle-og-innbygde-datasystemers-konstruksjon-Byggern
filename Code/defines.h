@@ -1,7 +1,8 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-//neste gang: kjøre UART på 128 og se
+#include <avr/io.h>
+
 
 /******** ATMEGA *********/
 #ifdef __AVR_ATmega162__
@@ -10,7 +11,7 @@
     #define F_CPU 4915200UL
 
     /*UART*/
-    //ser ut som de flest er like! evt endre 0
+    #define USSEL URSEL0
 
     /*SPI*/
 
@@ -19,14 +20,13 @@
 
 
 /******** IO BOARD ********/
-#elif __AVR_ATmega128__
+#elif __AVR_ATmega2560__
 
     /* generic */
     #define F_CPU 16000000UL
 
     /*UART*/
-    //ser ut som de flest er like! evt endre 0
-
+    #define USSEL UMSEL00
 
 
 #endif

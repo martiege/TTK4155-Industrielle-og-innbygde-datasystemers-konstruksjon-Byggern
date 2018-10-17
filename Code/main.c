@@ -12,7 +12,9 @@ int main()
       _delay_ms(1000);
       USART_Transmit('\n');
       USART_Transmit('\r');
+      printf(", HEY STUDASS ;)");
       
+      /*
       if (PORTA == 0xFF)
       {
           PORTA = 0;
@@ -26,6 +28,7 @@ int main()
           //char* port_A = PORTA;
           printf("%x%s",PORTA, "s4ever?");
       }
+      */
       
       //char hey = USART_Receive();
       //_delay_ms(1000);
