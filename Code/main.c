@@ -12,6 +12,8 @@
     #include "user_input.h"
     #include "ADC.h"
     #include "SRAM_test.h"
+#elif __AVR_ATmega2560__
+    #include "timer.h"
 #endif
 
 int main()
@@ -33,13 +35,17 @@ int main()
         // CAN_message rec;
         USER_DATA us;
 
+        timer_init();
+        
         while (1)
         {
             printf("ATmega2560\n");
-            _delay_ms(1000);
+            _delay_ms(20);
+
+            set_duty_cycle(50);
 
             us = input_com_recieve();
-            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
             //_delay_ms(1000);
             //CAN_receive(&rec);
 
