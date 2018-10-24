@@ -26,7 +26,8 @@ void put_message()
 
 void get_message()
 {
-    /*
+    /* 
+    
     user_data.pos.X     = message.data[0];
     user_data.pos.Y     = message.data[1];
     user_data.sli.left  = message.data[2];
