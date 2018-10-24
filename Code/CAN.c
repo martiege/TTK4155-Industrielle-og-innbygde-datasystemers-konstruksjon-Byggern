@@ -75,6 +75,7 @@ void CAN_intr_init()
 
 ISR(INT0_vect)
 {
+    //printf("Intr!\n\n");
     if (MCP_read(MCP_CANINTF) & 1)
     {
         received = 1;
@@ -105,10 +106,11 @@ void CAN_send(const CAN_message* msg)
 
 void CAN_receive(CAN_message* msg)
 {
-    //printf("rec func entered"); //works!
+    //printf("rec func entered\n"); //works!
     //if !INT pin
     if (received)
     {
+        //printf("Recieved!\n");
         // read id
         msg->id  = MCP_read(MCP_RXB0SIDH) << 3;
         msg->id |= MCP_read(MCP_RXB0SIDL) >> 5;
@@ -122,13 +124,11 @@ void CAN_receive(CAN_message* msg)
             (msg->data)[i] = MCP_read(MCP_RXB0D0 + i);
         }
 
-        
-    }
+        /*Clear CANINTF.RX0IF after read*/
+        MCP_bit_modify(MCP_CANINTF, 0x01, 0);
 
-    /*Clear CANINTF.RX0IF after read*/
-    MCP_bit_modify(MCP_CANINTF, 0x01, 0);
-
-    // clear flags
-    received = 0;
+        // clear flags
+        received = 0;
+    }  
     
 }

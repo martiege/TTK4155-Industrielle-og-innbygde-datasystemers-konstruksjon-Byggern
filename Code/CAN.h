@@ -7,11 +7,13 @@ typedef struct CAN_message
 {
     uint8_t id;
     uint8_t length;
-    uint8_t* data; //0-8 bytes
+    uint8_t data[8]; //0-8 bytes
 
 } CAN_message;
 
-uint8_t received;
+//typedef enum CAN_ID { INPUT_COM } CAN_ID;
+
+static uint8_t received;
 
 
 void CAN_init();
