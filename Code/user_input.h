@@ -5,8 +5,8 @@
 
 typedef struct Position 
 {
-    uint8_t X;
-    uint8_t Y;
+    int8_t X;
+    int8_t Y;
 } Position;
 
 typedef struct Slider 

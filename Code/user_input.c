@@ -4,33 +4,40 @@
 
 
 Position user_input_joystick_position()
-{
+{    
     Position p;
-    p.X  = ADC_read_channel(CH1);
-    p.X -= 132; // målt midtpunkt
-    p.X *= 200;
-    p.X /= 256;
-    if (p.X < -10)
+    int x;
+    int y;
+    x  = ADC_read_channel(CH1);
+    y  = ADC_read_channel(CH2);
+    
+    x -= 132; // målt midtpunkt
+    x *= 200;
+    x /= 256;
+    
+    if (x < -10)
     {
-        p.X += 3;
+        x += 3;
     }
-    if (p.X > 10)
+    if (x > 10)
     {
-        p.X += 4;
+        x += 4;
     }
+    p.X = x;
 
-    p.Y  = ADC_read_channel(CH2);
-    p.Y -= 131; // målt midtpunkt
-    p.Y *= 200;
-    p.Y /= 256;
-    if (p.Y < -10)
+    y -= 131; // målt midtpunkt
+    y *= 200;
+    y /= 256;
+
+    if (y < -10)
     {
-        p.Y += 2;
+        y += 2;
     }
-    if (p.Y > 10)
+    if (y > 10)
     {
-        p.Y += 4;
+        y += 4;
     }
+    p.Y = y;
 
     return p;
 }
