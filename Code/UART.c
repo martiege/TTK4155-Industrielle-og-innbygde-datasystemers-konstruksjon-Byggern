@@ -10,8 +10,13 @@ void USART_Init(unsigned int ubrr)
     UBRR0L = (unsigned char)ubrr;
     
     /*Set frame format: 8data, 2stop bit, synchronous mode */
-    UCSR0C = (1<<USBS0) | (3<<UCSZ00);
-    
+    #ifdef __AVR_ATmega162__
+        UCSR0C = (1 << URSEL0) | (1<<USBS0) | (3<<UCSZ00);
+    #elif __AVR_ATmega2560__
+        UCSR0C = (1<<USBS0) | (3<<UCSZ00);
+    #endif
+
+
     /* transmission speed normal (not doubled) */
     UCSR0A = 0 << U2X0;
     

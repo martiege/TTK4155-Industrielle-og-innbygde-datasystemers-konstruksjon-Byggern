@@ -7,9 +7,11 @@
 #include "MCP.h"
 #include "CAN.h"
 
-//#ifdef __AVR_ATmega162__
-#include "user_input.h"
-//#endif
+#ifdef __AVR_ATmega162__
+    #include "user_input.h"
+    #include "ADC.h"
+    #include "SRAM_test.h"
+#endif
 
 int main()
 {
@@ -23,48 +25,67 @@ int main()
 
     SPI_MasterInit();
     CAN_init();
-    /*
+    
     #ifdef __AVR_ATmega2560__
         // receive
         CAN_message rec;
 
         while (1)
         {
+            printf("ATmega2560\n");
+            _delay_ms(1000);
+            
             _delay_ms(1000);
             CAN_receive(&rec);
 
-            printf("X: %d\tY: %d\n", rec.data[0], rec.data[1]);
+            printf("X: %d\tY: %d\n", (int8_t)rec.data[0], (int8_t)rec.data[1]);
+            
         }
-*/
-    //#elif __AVR_ATmega162__
+
+    #elif __AVR_ATmega162__
         // send
+        
+        //SFIOR |= (1 << XMM2);
         SFIOR |= (1 << XMM2);
 
-        CAN_message joystick_values;
-        Position p = user_input_joystick_position();
-        uint8_t* d = { p.X, p.Y };
+        SRAM_test();
 
+        Position p = user_input_joystick_position();
+        CAN_message joystick_values;
+        int8_t d[8] = { p.X, p.Y };
+        
+        
         while (1)
         {
+            printf("ATmega162HJHH\n\n");
+            //printf("CHANNEL 1: %d\n", ADC_read_channel(CH1));
+            _delay_ms(1000);
+            
             p = user_input_joystick_position();
+            printf("X: %d\tY: %d\n", p.X, p.Y);
 
             d[0] = p.X;
             d[1] = p.Y;
 
             joystick_values.id = 0;
-            joystick_values.length = 2;
-            joystick_values.data = d;
+            joystick_values.length = 8;
+            for (int i = 0; i < 8; ++i)
+            {
+                joystick_values.data[i] = (uint8_t)d[i];
+            }            
 
             printf("X: %d\tY: %d\n", joystick_values.data[0], joystick_values.data[1]);
 
 
             CAN_send(&joystick_values);
+            //MCP_request_to_send();
 
             _delay_ms(1000);
+            
         }
         
 
-    //#endif
+    #endif
     /*init end*/
     //uint8_t *d = { 2 };
     /*
