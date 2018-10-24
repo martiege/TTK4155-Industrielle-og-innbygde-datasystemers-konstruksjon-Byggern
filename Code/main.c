@@ -6,6 +6,7 @@
 #include "SPI.h"
 #include "MCP.h"
 #include "CAN.h"
+#include "input_com.h"
 
 #ifdef __AVR_ATmega162__
     #include "user_input.h"
@@ -25,20 +26,24 @@ int main()
 
     SPI_MasterInit();
     CAN_init();
+    input_com_init();
     
     #ifdef __AVR_ATmega2560__
         // receive
-        CAN_message rec;
+        // CAN_message rec;
+        USER_DATA us;
 
         while (1)
         {
             printf("ATmega2560\n");
             _delay_ms(1000);
-            
-            _delay_ms(1000);
-            CAN_receive(&rec);
 
-            printf("X: %d\tY: %d\n", (int8_t)rec.data[0], (int8_t)rec.data[1]);
+            us = input_com_recieve();
+            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            //_delay_ms(1000);
+            //CAN_receive(&rec);
+
+            //printf("X: %d\tY: %d\n", (int8_t)rec.data[0], (int8_t)rec.data[1]);
             
         }
 
@@ -50,20 +55,23 @@ int main()
 
         SRAM_test();
 
-        Position p = user_input_joystick_position();
-        CAN_message joystick_values;
-        int8_t d[8] = { p.X, p.Y };
-        
+        //Position p = user_input_joystick_position();
+        //CAN_message joystick_values;
+        //int8_t d[8] = { p.X, p.Y };
+        USER_DATA us;
         
         while (1)
         {
-            printf("ATmega162HJHH\n\n");
-            //printf("CHANNEL 1: %d\n", ADC_read_channel(CH1));
+            printf("ATmega162\n");
+            us = input_com_send();
+        
             _delay_ms(1000);
+            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
             
-            p = user_input_joystick_position();
-            printf("X: %d\tY: %d\n", p.X, p.Y);
-
+            //p = user_input_joystick_position();
+            //printf("X: %d\tY: %d\n", p.X, p.Y);
+            
+            /*
             d[0] = p.X;
             d[1] = p.Y;
 
@@ -81,7 +89,7 @@ int main()
             //MCP_request_to_send();
 
             _delay_ms(1000);
-            
+            */
         }
         
 
