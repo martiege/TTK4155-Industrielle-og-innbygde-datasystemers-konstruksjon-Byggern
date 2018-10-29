@@ -14,6 +14,7 @@
     #include "SRAM_test.h"
 #elif __AVR_ATmega2560__
     #include "timer.h"
+    #include "goal.h"
 #endif
 
 int main()
@@ -36,11 +37,13 @@ int main()
         USER_DATA us;
 
         timer_init();
+        goal_init();
         
         while (1)
         {
             printf("ATmega2560\n");
-            _delay_ms(20);
+            _delay_ms(500);
+            printf("GOAL: %d\n", goal_status());
 
             set_duty_cycle(50);
 
