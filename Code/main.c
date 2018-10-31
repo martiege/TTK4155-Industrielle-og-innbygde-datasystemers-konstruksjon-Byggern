@@ -44,11 +44,12 @@ int main()
 
         while (1)
         {
-            // printf("ATmega2560\n");
-            us = input_com_recieve();
+            printf("ATmega2560\n");
+            printf("Goal: %d\n", ADC_internal_status());
+            //us = input_com_recieve();
             
-            set_angle(us.pos_X);
-            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            //set_angle(us.pos_X);
+            //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
             //angle += 10;
             //if( angle < -90 ) angle = 90;
             //else if ( angle > 90 ) angle = -90;
@@ -60,7 +61,7 @@ int main()
 
             //set_duty_cycle(50);
 
-            us = input_com_recieve();
+            //us = input_com_recieve();
             //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
             //_delay_ms(1000);
             //CAN_receive(&rec);

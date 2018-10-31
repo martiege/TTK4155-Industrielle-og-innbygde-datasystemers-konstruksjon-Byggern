@@ -39,7 +39,7 @@
     
     /*CAN*/
     #define INTRREG EIMSK
-    #define INTRSEL INT0
+    #define INTRSEL INT2
 
     #define INTRSC  ISC01    
     #define INTRSET EICRB 

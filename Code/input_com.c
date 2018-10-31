@@ -96,6 +96,7 @@ USER_DATA input_com_send()
 
 USER_DATA input_com_recieve()
 {
+    //TODO: check ID
     CAN_receive(&input_message);
     get_message();
 

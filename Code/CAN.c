@@ -41,7 +41,7 @@ void CAN_init()
 void CAN_intr_init()
 {
     #ifdef __AVR_ATmega2560__
-        DDRD &= ~(1 << PD0);
+        DDRD &= ~(1 << PD2);
     #endif
 
     cli();
@@ -73,7 +73,7 @@ void CAN_intr_init()
   
 }
 
-ISR(INT0_vect)
+ISR(INT2_vect)
 {
     //printf("Intr!\n\n");
     if (MCP_read(MCP_CANINTF) & 1)
@@ -81,6 +81,9 @@ ISR(INT0_vect)
         received = 1;
     }
     MCP_bit_modify(MCP_CANINTF, 0x01, 0x00);
+
+    // TODO
+    // HANDLE EACH ID SEPERATELY
 }
 
 
