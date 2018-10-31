@@ -1,9 +1,9 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef PWM_H
+#define PWM_H
 
 /*16 bit timer*/
 
-void timer_init();
+void pwm_init();
 
 void set_duty_cycle(float percentage);
 

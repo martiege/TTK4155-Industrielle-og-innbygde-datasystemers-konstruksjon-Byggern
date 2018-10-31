@@ -108,7 +108,8 @@ void CAN_receive(CAN_message* msg)
 {
     //printf("rec func entered\n"); //works!
     //if !INT pin
-    if (received)
+
+    if (MCP_read(MCP_CANINTF) & 1) //(received)
     {
         //printf("Recieved!\n");
         // read id
