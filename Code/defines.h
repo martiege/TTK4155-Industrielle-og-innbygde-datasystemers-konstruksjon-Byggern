@@ -4,7 +4,7 @@
 #include <avr/io.h>
 
 
-/******** ATMEGA *********/
+/******** NODE 1 *********/
 #ifdef __AVR_ATmega162__
 
     /* generic */
@@ -24,8 +24,29 @@
     #define INTRSET MCUCR
     #define INTRVAL 1
 
+	/* TIMER */
+	/* TIMER 1 */
+	#define TIMER1_vector TIMER1_COMPA_vect
+	#define TIMER1_CTRLA TCCR1A
+	#define TIMER1_CTRLB TCCR1B
+	#define TIMER1_TOP OCR1A
+	#define TIMER1_REG TCNT1
+	
+	
+	/* TIMER 2 */
+	#define TIMER2_vector TIMER3_COMPA_vect
+	#define TIMER2_CTRLA TCCR3A
+	#define TIMER2_CTRLB TCCR3B
+	#define TIMER2_TOP OCR3A
+	#define TIMER2_REG TCNT3
+	
+	/* controller */
+	#define SCALING_FACTOR 128
+	#define MAX_INT INT16_MAX
+	#define MAX_LONG INT32_MAX
+	#define MAX_I_TERM (MAX_LONG / 2)
 
-/******** IO BOARD ********/
+/******** NODE 2 *********/
 #elif __AVR_ATmega2560__
 
     /* generic */
@@ -44,6 +65,23 @@
     #define INTRSC  ISC01    
     #define INTRSET EICRB 
     #define INTRVAL 1
+	
+	/* TIMER */
+	/* TIMER 1 */
+	#define TIMER1_vector TIMER1_COMPA_vect
+	#define TIMER1_CTRLA TCCR1A
+	#define TIMER1_CTRLB TCCR1B
+	#define TIMER1_TOP OCR1A
+	#define TIMER1_REG TCNT1
+	
+	
+	/* TIMER 2 */
+	#define TIMER2_vector TIMER4_COMPA_vect
+	#define TIMER2_CTRLA TCCR4A
+	#define TIMER2_CTRLB TCCR4B
+	#define TIMER2_TOP OCR4A
+	#define TIMER2_REG TCNT4
+	
 
 #endif
 
