@@ -16,12 +16,14 @@ void timer_init(uint8_t id, void (* function)() )
 	{
 		TIMER1_CTRLA = 0;
 		TIMER1_CTRLB = (1 << WGM12);
+		TIMER1_TIMSK |= (1 << TIMER1_OCIE);
 		timer1_function = function;
 	}
 	else if (id == 2)
 	{
 		TIMER2_CTRLA = 0;
 		TIMER2_CTRLB = (1 << WGM12);
+		TIMER2_TIMSK |= (1 << TIMER2_OCIE);
 		timer2_function = function;
 	}
 	else

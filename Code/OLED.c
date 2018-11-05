@@ -1,6 +1,7 @@
 #include "OLED.h"
 #include "memory_map.h"
 #include "fonts.h"
+#include "timer.h"
 
 CURSOR cur = {0, 0};
 

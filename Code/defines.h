@@ -31,6 +31,8 @@
 	#define TIMER1_CTRLB TCCR1B
 	#define TIMER1_TOP OCR1A
 	#define TIMER1_REG TCNT1
+	#define TIMER1_TIMSK TIMSK
+	#define TIMER1_OCIE OCIE1A
 	
 	
 	/* TIMER 2 */
@@ -39,6 +41,9 @@
 	#define TIMER2_CTRLB TCCR3B
 	#define TIMER2_TOP OCR3A
 	#define TIMER2_REG TCNT3
+	#define TIMER2_TIMSK ETIMSK
+	#define TIMER2_OCIE OCIE3A
+
 	
 	/* controller */
 	#define SCALING_FACTOR 128
@@ -73,6 +78,8 @@
 	#define TIMER1_CTRLB TCCR1B
 	#define TIMER1_TOP OCR1A
 	#define TIMER1_REG TCNT1
+	#define TIMER1_TIMSK TIMSK1
+	#define TIMER1_OCIE OCIE1A
 	
 	
 	/* TIMER 2 */
@@ -81,7 +88,9 @@
 	#define TIMER2_CTRLB TCCR4B
 	#define TIMER2_TOP OCR4A
 	#define TIMER2_REG TCNT4
-	
+	#define TIMER2_TIMSK TIMSK4
+	#define TIMER2_OCIE OCIE4A
+
 
 #endif
 
