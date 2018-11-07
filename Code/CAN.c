@@ -3,6 +3,11 @@
 #include "MCP2515.h"
 #include "defines.h"
 
+#ifdef __AVR_ATmega2560__
+    #include "pwm.h"
+    #include "motor.h"
+#endif
+
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
@@ -75,15 +80,29 @@ void CAN_intr_init()
 
 ISR(INT2_vect)
 {
-    //printf("Intr!\n\n");
+    //printf("INTR start\n");
     if (MCP_read(MCP_CANINTF) & 1)
     {
         received = 1;
     }
     MCP_bit_modify(MCP_CANINTF, 0x01, 0x00);
-
+    
     // TODO
     // HANDLE EACH ID SEPERATELY
+
+    CAN_message m;
+    
+    CAN_receive(&m);
+
+    if (m.id == INPUT_COM)
+    {
+        #ifdef __AVR_ATmega2560__
+            //pwm_set_angle((int8_t)m.data[1]);
+            //motor_set_speed((int8_t)m.data[0]);
+        #endif
+    }
+
+    //printf("INTR done\n");
 }
 
 
@@ -112,7 +131,7 @@ void CAN_receive(CAN_message* msg)
     //printf("rec func entered\n"); //works!
     //if !INT pin
 
-    if (MCP_read(MCP_CANINTF) & 1) //(received)
+    if ((MCP_read(MCP_CANINTF) & 1) || received) //(received)
     {
         //printf("Recieved!\n");
         // read id

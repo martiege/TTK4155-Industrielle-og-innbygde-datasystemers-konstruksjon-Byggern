@@ -4,7 +4,7 @@
 #include <avr/interrupt.h>
 
 
-void set_angle(int16_t angle)
+void pwm_set_angle(int8_t angle)
 {
     if (angle > 90)
     {
@@ -38,10 +38,11 @@ void pwm_init()
 
     /*Prescale, 8*/
     TCCR3B |= (1 << CS31);
+    //TIMSK3 |= (1 << OCIE3A);
 
     ICR3 = 39999;
 
     sei();
 
-    set_angle(0);
+    pwm_set_angle(0);
 }

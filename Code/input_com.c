@@ -60,6 +60,8 @@ void update_user_data()
     user_data.sli_left  = s.left;
     user_data.sli_right = s.right;
     user_data.but       = user_input_joystick_button();
+
+    //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", user_data.pos_X, user_data.pos_Y, user_data.sli_left, user_data.sli_right, user_data.but);
 }
 #endif
 

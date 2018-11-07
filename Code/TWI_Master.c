@@ -77,8 +77,7 @@ then initialize the next operation and return.
 void TWI_Start_Transceiver_With_Data( unsigned char *msg, unsigned char msgSize )
 {
   unsigned char temp;
-  
-  while ( TWI_Transceiver_Busy());             // Wait until TWI is ready for next transmission.
+  while ( TWI_Transceiver_Busy() );             // Wait until TWI is ready for next transmission.
   
   TWI_msgSize = msgSize;                        // Number of data to transmit.
   TWI_buf[0]  = msg[0];                         // Store slave address with R/W setting.
@@ -93,6 +92,7 @@ void TWI_Start_Transceiver_With_Data( unsigned char *msg, unsigned char msgSize 
          (1<<TWIE)|(1<<TWINT)|                  // Enable TWI Interupt and clear the flag.
          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|       // Initiate a START condition.
          (0<<TWWC);                             //
+  //printf("TWI sending\n");
 }
 
 /****************************************************************************

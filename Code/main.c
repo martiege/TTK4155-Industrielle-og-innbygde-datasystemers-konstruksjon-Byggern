@@ -17,9 +17,8 @@
     #include "pwm.h"
     #include "ADC_internal.h"
     #include "goal.h"
-    #include "DAC.h"
+    #include "motor.h"
     #include "TWI_Master.h"
-    //#include <avr/interrupt.h>
 #endif
 
 int main()
@@ -31,6 +30,9 @@ int main()
     printf("Starting...\n");
 
     SPI_MasterInit();
+    MCP_reset(); 
+    //printf("CANSTAT: %x\n", MCP_read(MCP_CANSTAT)); 
+
     CAN_init();
     input_com_init();
 
@@ -39,30 +41,44 @@ int main()
         pwm_init();
         ADC_internal_init();
         goal_init();
-        TWI_Master_Initialise();
-
-        int DAC_val = 0;
-
-        while (1)
-        {
-            //printf("ATmega2560\n");
-
-            if(DAC_val < 256 ) DAC_val+=10;
-            else DAC_val = 0;
-            printf("DAC: %d\n", DAC_val);
-            DAC_send_pos(DAC_val);
         
+        TWI_Master_Initialise();
+        motor_init();
+        USER_DATA us;
+        while (1)
+        {   
+            //printf("ATmega2560\n");
+            //us = input_com_recieve();
+            //pwm_set_angle(us.pos_X);
+            //motor_set_speed(us.pos_Y);
+            //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            //printf("Goal: %d\n", goal_get_goals());
+            //printf("Pos: %d\n", motor_encoder_read());
+            //DAC_send_speed(70);
+            motor_set_speed(70);
             _delay_ms(1000);   
+            motor_set_speed(-70);
+            //PORTH &= ~(1 << PH1);
+           _delay_ms(1000);
+            //DAC_send_speed(0);
+            //PORTH |= (1 << PH1);
+            //_delay_ms(500);  
         }
 
     #elif __AVR_ATmega162__
         SFIOR |= (1 << XMM2);
-        SRAM_test();
+        //SRAM_test();
+        USER_DATA us;
+
         
+
         while (1)
         {
             printf("ATmega162\n");
-            _delay_ms(100);            
+            printf("ADC: %d\n", memory_read_ADC(CH2));
+            //us = input_com_send();
+            //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            _delay_ms(500);            
         }
         
 

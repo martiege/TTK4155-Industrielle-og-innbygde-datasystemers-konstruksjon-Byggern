@@ -8,6 +8,6 @@
 
 void pwm_init();
 
-void set_angle(int16_t angle);
+void pwm_set_angle(int8_t angle);
 
 #endif

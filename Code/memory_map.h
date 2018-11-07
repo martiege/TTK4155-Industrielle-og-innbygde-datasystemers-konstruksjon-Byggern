@@ -1,7 +1,9 @@
 #ifndef MEMORY_MAP_H
 #define MEMORY_MAP_H
 
+#include "defines.h"
 #include <stdio.h>
+#include <util/delay.h>
 
 typedef enum ADDR 
 {
@@ -11,7 +13,7 @@ typedef enum ADDR
 	SRAM         = 0x1800
 } ADDR;
 
-/*
+
 typedef enum CHANNEL 
 {
 	CH1 = 0b0100, 
@@ -19,11 +21,11 @@ typedef enum CHANNEL
 	CH3 = 0b0110, 
 	CH4 = 0b0111
 } CHANNEL;
-*/
+
 
 volatile char* get_mem();
 
-// uint8_t memory_read_ADC(CHANNEL c)
+uint8_t memory_read_ADC(CHANNEL c);
 
 void memory_write_oled_command(uint8_t com);
 

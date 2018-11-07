@@ -17,6 +17,9 @@
     #include "pwm.h"
     #include "ADC_internal.h"
     #include "goal.h"
+    #include "DAC.h"
+    #include "TWI_Master.h"
+    //#include <avr/interrupt.h>
 #endif
 
 int main()
@@ -36,14 +39,20 @@ int main()
         pwm_init();
         ADC_internal_init();
         goal_init();
-        
-        int angle = 0;
+        TWI_Master_Initialise();
+
+        int DAC_val = 0;
 
         while (1)
         {
             //printf("ATmega2560\n");
-            printf("Goal: %d\n", goal_get_goals());
-            _delay_ms(200);   
+
+            if(DAC_val < 256 ) DAC_val+=10;
+            else DAC_val = 0;
+            printf("DAC: %d\n", DAC_val);
+            DAC_send_speed(70);
+        
+            _delay_ms(1000);   
         }
 
     #elif __AVR_ATmega162__

@@ -8,10 +8,12 @@ Position user_input_joystick_position()
     Position p;
     int x;
     int y;
-    x  = ADC_read_channel(CH1);
-    y  = ADC_read_channel(CH2);
-    
-    x -= 132; // målt midtpunkt
+    x  = (int)ADC_read_channel(CH1);
+    y  = (int)ADC_read_channel(CH2);
+
+    //printf("X: %d\tY: %d\n", x, y);
+
+    x -= 138; // målt midtpunkt
     x *= 200;
     x /= 256;
     
@@ -25,7 +27,7 @@ Position user_input_joystick_position()
     }
     p.X = x;
 
-    y -= 131; // målt midtpunkt
+    y -= 138; // målt midtpunkt
     y *= 200;
     y /= 256;
 
@@ -38,6 +40,8 @@ Position user_input_joystick_position()
         y += 4;
     }
     p.Y = y;
+
+    
 
     return p;
 }

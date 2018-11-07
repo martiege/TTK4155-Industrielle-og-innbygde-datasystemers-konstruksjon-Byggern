@@ -1,6 +1,7 @@
 #include "controller.h"
 #include "defines.h"
 #include "timer.h"
+#include "motor.h"
 
 
 
@@ -50,14 +51,14 @@ void controller_update()
 	int16_t error, p, d;
 	int32_t i, ret, temp;
 	
-	int16_t meas = 0; // measure function
+	int16_t meas = motor_encoder_read(); // measure function
 	
 	error = ctrl.r - meas;
 	
 	// proportional term
 	if (error > ctrl.maxE)
 	{
-		p = MAX_INT
+		p = MAX_INT;
 	}
 	else if (error < -ctrl.maxE)
 	{
@@ -100,5 +101,5 @@ void controller_update()
 		ret = -MAX_INT;
 	}
 	
-	return ((int16_t)ret);
+	motor_set_speed((int16_t)ret);
 }
