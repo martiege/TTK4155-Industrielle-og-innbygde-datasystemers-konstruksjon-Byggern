@@ -29,3 +29,12 @@ void memory_write_oled_data(uint8_t com)
 	memory[OLED_data] = com;
 }
 
+void memory_write_sram_data(uint8_t address, uint8_t data)
+{
+	memory[SRAM + address] = data;
+}
+
+uint8_t memory_read_sram_data(uint8_t address)
+{
+	return memory[SRAM + address];
+}

@@ -2,6 +2,7 @@
 #define OLED_H
 
 #include <stdio.h>
+#include <stdint.h>
 
 typedef struct CURSOR
 {

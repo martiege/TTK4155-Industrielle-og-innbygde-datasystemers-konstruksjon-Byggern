@@ -1,9 +1,12 @@
 #include "OLED.h"
-#include "memory_map.h"
+#include "OLED_SRAM.h"
+//#include "memory_map.h"
 #include "fonts.h"
 #include "timer.h"
 
 CURSOR cur = {0, 0};
+uint8_t use_new_OLED = 1;
+uint8_t font_size = 5;
 
 void OLED_init()
 {
@@ -30,67 +33,118 @@ void OLED_init()
     memory_write_oled_command(0xa6); // set normal display
     memory_write_oled_command(0xaf); // display on
 
-    OLED_reset();
+	if (use_new_OLED)
+	{
+		OLED_SRAM_init();
+	}
+	else
+	{
+		OLED_reset();
+	}
 }
 
 void OLED_reset()
 {
-    memory_write_oled_command(0xB0);
-    memory_write_oled_command(0x00);
-    memory_write_oled_command(0x10);
-    for (int i = 0; i < 8; ++i)
-    {
-        OLED_clear_line(i);
-    }
+	if (use_new_OLED)
+	{
+		OLED_SRAM_reset();
+	}
+	else
+	{
+		memory_write_oled_command(0xB0);
+		memory_write_oled_command(0x00);
+		memory_write_oled_command(0x10);
+		for (int i = 0; i < 8; ++i)
+		{
+			OLED_clear_line(i);
+		}
 
-    OLED_home();
+		OLED_home();
+	}
 }
 
 void OLED_fill()
 {
-    OLED_home();
+	if (use_new_OLED)
+	{
+		OLED_SRAM_fill();
+	}
+	else
+	{
+		OLED_home();
 
-    for (int i = 0; i < 8; ++i)
-    {   
-        memory_write_oled_command(0xB0 | i);
-        memory_write_oled_command(0x00);
-        memory_write_oled_command(0x10);
-        for (int j = 0; j < 128; ++j)
-        {
-            memory_write_oled_data(0xFF);
-        }
-    }
+		for (int i = 0; i < 8; ++i)
+		{   
+			memory_write_oled_command(0xB0 | i);
+			memory_write_oled_command(0x00);
+			memory_write_oled_command(0x10);
+			for (int j = 0; j < 128; ++j)
+			{
+				memory_write_oled_data(0xFF);
+			}
+		}
+		
+		OLED_home();
+	}
 }
 
 void OLED_home()
 {
-    memory_write_oled_command(0xB0);
-    memory_write_oled_command(0x00);
-    memory_write_oled_command(0x10);
+	if (use_new_OLED)
+	{
+		OLED_goto_line(0);
+		OLED_goto_column(0);
+	}
+	else
+	{
+		memory_write_oled_command(0xB0);
+		memory_write_oled_command(0x00);
+		memory_write_oled_command(0x10);
+	}
 }
 
 void OLED_goto_line(uint8_t line)
 {
-    memory_write_oled_command(0xB0 | line);
+	if (use_new_OLED)
+	{
+		cur.PAGE = line;
+	}
+	else
+	{
+		memory_write_oled_command(0xB0 | line);
+	}
 }
 
 void OLED_goto_column(uint8_t column)
 {
-    memory_write_oled_command(0x00 | ((column & 0x0F) >> 0));
-    memory_write_oled_command(0x10 | ((column & 0xF0) >> 4));
+	if (use_new_OLED)
+	{
+		cur.COL = column;
+	}
+	else
+	{
+		memory_write_oled_command(0x00 | ((column & 0x0F) >> 0));
+		memory_write_oled_command(0x10 | ((column & 0xF0) >> 4));
+	}
 }
 
 void OLED_clear_line(uint8_t line)
 {
-    memory_write_oled_command(0xB0 | line);
-    memory_write_oled_command(0x00);
-    memory_write_oled_command(0x10);
-    for (int j = 0; j < 128; ++j)
-    {
-        memory_write_oled_data(0x00);
-    }
+	if (use_new_OLED)
+	{
+		OLED_SRAM_clear_line(line);
+	}
+	else
+	{
+		memory_write_oled_command(0xB0 | line);
+		memory_write_oled_command(0x00);
+		memory_write_oled_command(0x10);
+		for (int j = 0; j < 128; ++j)
+		{
+			memory_write_oled_data(0x00);
+		}
+	}
 }
-
 
 
 void OLED_pos(uint8_t row, uint8_t column)
@@ -99,13 +153,91 @@ void OLED_pos(uint8_t row, uint8_t column)
     OLED_goto_column(column);
 }
 
+
+void OLED_set_font_size(uint8_t size)
+{
+	switch (size)
+	{
+		case 4:
+			font_size = 4;
+			break;
+		case 5:
+			font_size = 5;
+			break;
+		case 8: 
+			font_size = 8;
+			break;
+		default:
+			font_size = 8;
+			break;	
+	}
+	
+	printf("Font size: %d\n", font_size);
+}
+
+
 void OLED_put_char(char c)
 {
-    for (int i = 0; i < 5; ++i)
-    {
-        ++cur.COL;
-        memory_write_oled_data(pgm_read_byte(&font5[c - ' '][i])); //må lese fra progmem
-    }
+	switch (font_size)
+	{
+		case 4:
+			for (uint8_t i = 0; i < 4; ++i)
+			{
+				++cur.COL;
+				if (use_new_OLED)
+				{
+					OLED_SRAM_write(cur.PAGE, cur.COL, pgm_read_byte(&font4[c - ' '][i]));
+				}
+				else
+				{
+					memory_write_oled_data(pgm_read_byte(&font4[c - ' '][i])); //må lese fra progmem
+				}
+			}
+			break;
+		case 5:
+			for (uint8_t i = 0; i < 5; ++i)
+			{
+				++cur.COL;
+				if (use_new_OLED)
+				{
+					OLED_SRAM_write(cur.PAGE, cur.COL, pgm_read_byte(&font5[c - ' '][i]));
+				}
+				else
+				{
+					memory_write_oled_data(pgm_read_byte(&font5[c - ' '][i])); //må lese fra progmem
+				}
+			}
+			break;
+		case 8: 
+			for (uint8_t i = 0; i < 8; ++i)
+			{
+				++cur.COL;
+				if (use_new_OLED)
+				{
+					OLED_SRAM_write(cur.PAGE, cur.COL, pgm_read_byte(&font8[c - ' '][i]));
+				}
+				else
+				{
+					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i])); //må lese fra progmem
+				}
+			}
+			break;
+		default:
+			for (uint8_t i = 0; i < 8; ++i)
+			{
+				++cur.COL;
+				if (use_new_OLED)
+				{
+					OLED_SRAM_write(cur.PAGE, cur.COL, pgm_read_byte(&font8[c - ' '][i]));
+				}
+				else
+				{
+					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i])); //må lese fra progmem
+				}
+			}
+			break;
+	}
+    
 }
 
 void OLED_print(const char* string)
@@ -132,3 +264,4 @@ void OLED_print(const char* string)
         }
     }
 }
+

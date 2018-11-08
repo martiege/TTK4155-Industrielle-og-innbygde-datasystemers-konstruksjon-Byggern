@@ -10,12 +10,14 @@
     /* generic */
     #define F_CPU 4915200UL
 
+	
     /*SPI & MCP*/
     #define SPI_MOSI PB5
     #define SPI_MISO PB6
     #define SPI_SS PB4
     #define SPI_SCK PB7
 
+	
     /*CAN*/
     #define INTRREG GICR
     #define INTRSEL INT0
@@ -24,6 +26,7 @@
     #define INTRSET MCUCR
     #define INTRVAL 1
 
+	
 	/* TIMER */
 	/* TIMER 1 */
 	#define TIMER1_vector TIMER1_COMPA_vect
@@ -57,12 +60,14 @@
     /* generic */
     #define F_CPU 16000000UL
 
+	
     /*SPI*/
     #define SPI_MOSI PB2
     #define SPI_MISO PB3
     #define SPI_SS PB7
     #define SPI_SCK PB1
     
+	
     /*CAN*/
     #define INTRREG EIMSK
     #define INTRSEL INT2
@@ -70,6 +75,7 @@
     #define INTRSC  ISC01    
     #define INTRSET EICRB 
     #define INTRVAL 1
+	
 	
 	/* TIMER */
 	/* TIMER 1 */
@@ -90,6 +96,17 @@
 	#define TIMER2_REG TCNT4
 	#define TIMER2_TIMSK TIMSK4
 	#define TIMER2_OCIE OCIE4A
+	
+	
+	/* MOTOR */
+	#define MOTOR_DIR PH1
+	#define MOTOR_SEL PH3
+	#define MOTOR_EN  PH4
+	#define MOTOR_OE  PH5
+	#define MOTOR_RST PH6
+	
+	#define MOTOR_CONFIG  PORTH
+	#define MOTOR_ENCODER PINK
 
 
 #endif
