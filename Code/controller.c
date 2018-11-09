@@ -19,11 +19,16 @@ void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d)
 	ctrl.maxSumE = MAX_I_TERM / (ctrl.K_i + 1);
 	
 	timer_init(1, controller_update);
+
+	controller_set_sampling_time(50);
+    controller_start();
+
+	//motor_speed = 0;
 }
 
-void controller_set_ref(int16_t ref)
+void controller_set_reference(int16_t ref)
 {
-	ctrl.ref = r;
+	ctrl.r = ref;
 }
 
 void controller_reset_integrator()
@@ -46,12 +51,17 @@ void controller_stop()
 	timer_stop(1);
 }
 
+int16_t controller_get_reference()
+{
+	return ctrl.r;	
+}
+
 void controller_update()
 {
 	int16_t error, p, d;
 	int32_t i, ret, temp;
 	
-	int16_t meas = motor_encoder_read(); // measure function
+	int16_t meas = - motor_encoder_read(); // measure function
 	
 	error = ctrl.r - meas;
 	
@@ -100,6 +110,7 @@ void controller_update()
 	{
 		ret = -MAX_INT;
 	}
-	
+
+	motor_speed = ret;
 	motor_set_speed((int16_t)ret);
 }

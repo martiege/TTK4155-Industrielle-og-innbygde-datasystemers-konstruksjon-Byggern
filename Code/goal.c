@@ -30,7 +30,8 @@ uint8_t goal_get_goals()
 
 int goal_read()
 {   
-    return (ADC_internal_status() < 100);
+    //printf("Goal status: %d\n", ADC_internal_status());
+    return (ADC_internal_status() < 50);
 }
 
 

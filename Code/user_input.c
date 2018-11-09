@@ -13,7 +13,7 @@ Position user_input_joystick_position()
 
     //printf("X: %d\tY: %d\n", x, y);
 
-    x -= 138; // målt midtpunkt
+    x -= 136; // målt midtpunkt
     x *= 200;
     x /= 256;
     
@@ -27,7 +27,7 @@ Position user_input_joystick_position()
     }
     p.X = x;
 
-    y -= 138; // målt midtpunkt
+    y -= 135; // målt midtpunkt
     y *= 200;
     y /= 256;
 

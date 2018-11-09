@@ -8,7 +8,7 @@ void OLED_SRAM_init()
 	OLED_SRAM_reset();
 	
 	timer_init(1, OLED_SRAM_update);
-	timer_set_period(20, 1); // 20 ms -> 50 Hz update frequency
+	timer_set_period(100, 1); // 20 ms -> 50 Hz update frequency
 	timer_start(1);
 }
 
@@ -17,7 +17,7 @@ void OLED_SRAM_reset()
 {
 	for (uint8_t i = 0; i < 8; ++i)
 	{
-		for (uint8_t j = 0; i < 128; ++j)
+		for (uint8_t j = 0; j < 128; ++j)
 		{
 			OLED_SRAM_write(i, j, 0x00);
 		}
@@ -48,13 +48,13 @@ void OLED_SRAM_clear_line(uint8_t line)
 
 void OLED_SRAM_write(uint8_t page, uint8_t col, uint8_t data)
 {
-	memory_write_sram_data(page * 128 + col, data);
+	memory_write_sram_data( (uint16_t)page * 128UL + (uint16_t)col, data);
 }
 
 
 uint8_t OLED_SRAM_read(uint8_t page, uint8_t col)
 {
-	return memory_read_sram_data(page * 128 + col);
+	return memory_read_sram_data( (uint16_t)page * 128 + (uint16_t)col);
 }
 
 
@@ -74,7 +74,7 @@ void OLED_SRAM_pixel(uint8_t x, uint8_t y, uint8_t clear)
 }
 
 
-void OLED_SRAM_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y0, uint8_t clear)
+void OLED_SRAM_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t clear)
 {
 	float deltax   = x1 - x0;
 	float deltay   = y1 - y0;
@@ -97,7 +97,7 @@ void OLED_SRAM_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y0, uint8_t
 		sign = 1;
 	}
 	
-	float error = 0.0
+	float error = 0.0;
 	uint8_t y = y0;
 	for (uint8_t x = x0; x < x1; ++x)
 	{
@@ -167,12 +167,14 @@ void OLED_SRAM_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t clear
 
 void OLED_SRAM_update()
 {
+	//printf("OLED start\n");
 	for (uint8_t i = 0; i < 8; ++i)
 	{
 		memory_write_oled_command(0xB0 | i);
-		for (uint8_t j = 0; j < 8; ++j) 
+		for (uint8_t j = 0; j < 128; ++j) 
 		{
 			memory_write_oled_data( OLED_SRAM_read(i, j) );
 		}
 	}
+	//printf("OLED end\n");
 }

@@ -47,12 +47,6 @@
 	#define TIMER2_TIMSK ETIMSK
 	#define TIMER2_OCIE OCIE3A
 
-	
-	/* controller */
-	#define SCALING_FACTOR 128
-	#define MAX_INT INT16_MAX
-	#define MAX_LONG INT32_MAX
-	#define MAX_I_TERM (MAX_LONG / 2)
 
 /******** NODE 2 *********/
 #elif __AVR_ATmega2560__
@@ -107,6 +101,18 @@
 	
 	#define MOTOR_CONFIG  PORTH
 	#define MOTOR_ENCODER PINK
+
+		
+	/* controller */
+	#define SCALING_FACTOR 128 
+	#define MAX_INT INT16_MAX
+	#define MAX_LONG INT32_MAX
+	#define MAX_I_TERM (MAX_LONG / 2)
+
+
+	/* solenoid */
+	#define SOLENOID_PORT 
+	#define SOLENOID_PIN
 
 
 #endif

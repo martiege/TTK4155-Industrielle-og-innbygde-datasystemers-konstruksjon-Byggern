@@ -14,14 +14,15 @@ typedef struct CONTROLLER_DATA
 	int16_t K_d;
 	int16_t maxE;
 	int32_t maxSumE;
-}
+} CONTROLLER_DATA;
 
-static volatile CONTROLLER_DATA ctrl;
+static CONTROLLER_DATA ctrl;
+//static int16_t motor_speed;
 
 
 void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d);
 
-void controller_set_reference(uint8_t ref);
+void controller_set_reference(int16_t ref);
 
 void reset_integrator();
 
@@ -32,8 +33,10 @@ void controller_start();
 
 void controller_stop();
 
+int16_t controller_get_reference();
 
 void controller_update();
 
+//int16_t controller_get_motor_speed() { return motor_speed; };
 
 #endif

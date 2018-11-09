@@ -21,6 +21,10 @@ void motor_init()
     MOTOR_CONFIG |= (1 << MOTOR_EN);
 	
 	motor_reset();
+
+    motor_set_speed(0);
+    
+    motor_speed = 0;
 }
 
 
@@ -41,7 +45,7 @@ int16_t motor_encoder_read()
     // read LSB
     encoder |= MOTOR_ENCODER;
     // toggle !RST to reset encoder
-    motor_reset()
+    // motor_reset();
     // !OE high
     MOTOR_CONFIG |= (1 << MOTOR_OE);
     
@@ -50,29 +54,31 @@ int16_t motor_encoder_read()
 
 void motor_reset()
 {
-	MOTOR_CONFIG &= ~(1 << PH6);
+	MOTOR_CONFIG &= ~(1 << MOTOR_RST);
 	_delay_us(20);
-	MOTOR_CONFIG |= (1 << PH6);
+	MOTOR_CONFIG |= (1 << MOTOR_RST);
 }
 
-void motor_set_speed(int8_t speed)
+void motor_set_speed(int16_t speed)
 {
-    printf("Speed %d\n", speed);
+    //printf("Speed %d\n", speed);
     if(speed < 0)
     {
-        printf("Negative\n");
-        //motor_set_dir(0);
-        MOTOR_CONFIG |= (1 << PH1);
+        //printf("Negative\n");
+        motor_set_dir(0);
+        //MOTOR_CONFIG |= (1 << MOTOR_DIR);
         //printf("PINH %x\n", PINH&(1 << PH1));
-        DAC_send_speed((uint8_t)(-speed));
+        motor_speed = (uint8_t)((-speed) & 0xFF);
+        DAC_send_speed((uint8_t)((-speed) & 0xFF));        
     }
     else
     {   
-        printf("Positive\n");
-        //motor_set_dir(1);
-        MOTOR_CONFIG &= ~(1 << PH1);
+        //printf("Positive\n");
+        motor_set_dir(1);
+        //MOTOR_CONFIG &= ~(1 << MOTOR_DIR);
         //printf("PINH %x\n", PINH & (1 << PH1));
-        DAC_send_speed((uint8_t)speed);
+        motor_speed = (uint8_t)((speed) & 0xFF);
+        DAC_send_speed((uint8_t)(speed & 0xFF));
     } 
     
 }

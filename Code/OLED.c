@@ -1,6 +1,6 @@
 #include "OLED.h"
 #include "OLED_SRAM.h"
-//#include "memory_map.h"
+#include "memory_map.h"
 #include "fonts.h"
 #include "timer.h"
 
