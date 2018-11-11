@@ -111,8 +111,9 @@
 
 
 	/* solenoid */
-	#define SOLENOID_PORT 
-	#define SOLENOID_PIN
+	#define SOLENOID_DDR  DDRE
+	#define SOLENOID_PORT PORTE
+	#define SOLENOID_PIN  PE4
 
 
 #endif

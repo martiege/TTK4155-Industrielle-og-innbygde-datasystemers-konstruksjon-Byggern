@@ -1,8 +1,8 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-static volatile void (* timer1_function)(void);
-static volatile void (* timer2_function)(void);
+static void (* timer1_function)(void);
+static void (* timer2_function)(void);
 
 
 void timer_init(uint8_t id, void (* function)() );

@@ -1,11 +1,11 @@
 # List all source files to be compiled; separate with space
 #SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c
 #ADC.c user_input.c OLED.c memory_map.c menu.c 
-SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c pwm.c ADC_internal.c timer.c goal.c TWI_Master.c DAC.c motor.c controller.c
+SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c pwm.c ADC_internal.c timer.c goal.c TWI_Master.c DAC.c motor.c controller.c solenoid.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes
-PROGRAM_162 := yes
+PROGRAM_162 := ye
 
 # Feel free to ignore anything below this line
 PROGRAMMER := atmelice_isp
@@ -24,7 +24,7 @@ ifeq ($(PROGRAM_162), yes)
 endif
 
 CC := avr-gcc
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) #-Werror
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -Werror
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 

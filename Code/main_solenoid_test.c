@@ -22,7 +22,6 @@
     #include "motor.h"
     #include "TWI_Master.h"
     #include "solenoid.h"
-    #include "controller.h"
 #endif
 
 int main()
@@ -47,11 +46,15 @@ int main()
         
         TWI_Master_Initialise();
         motor_init();
-        controller_init(5, 0, 2);
-        //controller_init(1, 0, 0);
+        controller_init(3, 0, 0);
 
         USER_DATA us;
-    
+
+        _delay_ms(1000);  
+        //solenoid_shoot();
+        solenoid_activate();
+        _delay_ms(1000);
+        solenoid_deactivate();
 
         while (1)
         {   
@@ -63,12 +66,13 @@ int main()
             printf("Goal: %d\n", goal_get_goals());
             printf("Pos: %d\n", motor_encoder_read());
             printf("Ref: %d\n", controller_get_reference());
+            printf("Speed: %d\n", motor_speed);
             //DAC_send_speed(70);
             //motor_set_speed(70);
             _delay_ms(1000);   
             //motor_set_speed(-70);
             //PORTH &= ~(1 << PH1);
-            _delay_ms(1000);
+            //_delay_ms(1000);
             //DAC_send_speed(0);
             //PORTH |= (1 << PH1);
             //_delay_ms(500);  

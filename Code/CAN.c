@@ -7,6 +7,7 @@
     #include "pwm.h"
     #include "motor.h"
     #include "controller.h"
+    #include "solenoid.h"
 #endif
 
 #include <util/delay.h>
@@ -98,10 +99,25 @@ ISR(INT2_vect)
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__
-            pwm_set_angle((int8_t)m.data[1]);
-            controller_set_reference(0);
-            //controller_set_reference((int8_t)m.data[0]);
+            cli();
+            pwm_set_angle((int8_t)m.data[0]);
+            //pwm_set_angle((int16_t)m.data[3] - 128);
+            //controller_set_reference(0);
+            controller_set_reference(m.data[3]*40);
             //motor_set_speed((int8_t)m.data[0]);
+            if (m.data[4] && !(solenoid_get_shot()))
+            {
+                //printf("Start shot\n");
+                solenoid_shoot();
+                //_delay_ms(50);
+                //solenoid_clear_shot();
+                //printf("Stop shot\n");
+            }
+            else if (!m.data[4])
+            {
+                solenoid_clear_shot();
+            }
+            sei();
         #endif
     }
 

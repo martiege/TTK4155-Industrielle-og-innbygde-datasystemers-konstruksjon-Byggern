@@ -2,7 +2,7 @@
 #include "timer.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
+#include "UART.h"
 
 
 void timer_init(uint8_t id, void (* function)() )

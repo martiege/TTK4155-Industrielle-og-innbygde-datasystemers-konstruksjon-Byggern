@@ -2,7 +2,8 @@
 #include "defines.h"
 #include "timer.h"
 #include "motor.h"
-
+#include "UART.h"
+#include <avr/interrupt.h>
 
 
 void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d)
@@ -20,15 +21,15 @@ void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d)
 	
 	timer_init(1, controller_update);
 
-	controller_set_sampling_time(50);
+	controller_set_sampling_time(100);
     controller_start();
-
-	//motor_speed = 0;
+	controller_set_reference(0);
 }
 
 void controller_set_reference(int16_t ref)
 {
 	ctrl.r = ref;
+
 }
 
 void controller_reset_integrator()
@@ -58,11 +59,14 @@ int16_t controller_get_reference()
 
 void controller_update()
 {
+	cli();
+	//printf("Controller start\n");
 	int16_t error, p, d;
 	int32_t i, ret, temp;
 	
 	int16_t meas = - motor_encoder_read(); // measure function
-	
+	//printf("Encoder read\n");
+
 	error = ctrl.r - meas;
 	
 	// proportional term
@@ -113,4 +117,6 @@ void controller_update()
 
 	motor_speed = ret;
 	motor_set_speed((int16_t)ret);
+	sei();
+	//printf("Controller stop\n");
 }

@@ -17,7 +17,6 @@ typedef struct CONTROLLER_DATA
 } CONTROLLER_DATA;
 
 static CONTROLLER_DATA ctrl;
-//static int16_t motor_speed;
 
 
 void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d);
@@ -36,7 +35,5 @@ void controller_stop();
 int16_t controller_get_reference();
 
 void controller_update();
-
-//int16_t controller_get_motor_speed() { return motor_speed; };
 
 #endif

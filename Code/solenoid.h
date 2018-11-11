@@ -1,9 +1,14 @@
-#ifndef OLED_H
-#define OLED_H
+#ifndef SOLENOID_H
+#define SOLENOID_H
 
+#include <stdint.h>
 
-void soleniod_init();
+void solenoid_init();
 
 void solenoid_shoot();
+
+uint8_t solenoid_get_shot();
+
+void solenoid_clear_shot();
 
 #endif
