@@ -1,7 +1,7 @@
 #include "goal.h"
 #include "timer.h"
 #include "ADC_internal.h"
-
+#include "UART.h"
 
 //------------------------------
 static uint8_t goals;
@@ -17,9 +17,10 @@ void goal_interruptfunc();
 void goal_init()
 {
     goals = 0;
+    already_goal = 0;
 
     timer_init(2, goal_interruptfunc);
-    timer_set_period(1, 2);
+    timer_set_period(50, 2);
     timer_start(2);
 }
 
@@ -52,7 +53,7 @@ void goal_interruptfunc()
         if (already_goal)
         {
             already_goal = 0;
-            timer_set_period(1, 2);
+            timer_set_period(50, 2);
         }
     }
 }
