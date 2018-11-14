@@ -2,6 +2,7 @@
 #include "OLED.h"
 #include "user_input.h"
 #include <util/delay.h>
+#include "menu.h"
 
 /*!!NB, Menyformat!!: const char* m[8] = {"hei0", ...};*/
 /*forutsetter foreløpig at length<=8*/

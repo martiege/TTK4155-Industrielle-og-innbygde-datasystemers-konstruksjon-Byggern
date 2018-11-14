@@ -5,7 +5,7 @@ SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c pwm.c ADC_internal.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes
-PROGRAM_162 := ye
+PROGRAM_162 := yes
 
 # Feel free to ignore anything below this line
 PROGRAMMER := atmelice_isp
@@ -24,7 +24,7 @@ ifeq ($(PROGRAM_162), yes)
 endif
 
 CC := avr-gcc
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) #-Werror
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -Werror
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 

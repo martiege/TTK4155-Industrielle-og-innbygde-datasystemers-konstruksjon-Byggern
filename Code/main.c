@@ -100,9 +100,6 @@ int main()
         _delay_ms(500); 
         OLED_print("Line 2\n");
         _delay_ms(500); 
-
-        
-
         OLED_print("Line 3\n");
         _delay_ms(500); 
         OLED_print("Line 4\n");

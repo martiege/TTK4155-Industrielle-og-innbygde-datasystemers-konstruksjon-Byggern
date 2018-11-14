@@ -5,6 +5,7 @@
 #include "ble.h"
 #include "ble_gap.h"
 #include "ble_gatts.h"
+#include "ubit.h"
 
 //f3d33c42-bbc1-4478-8f9a-e040246f4706
 #define CUSTOM_UUID_BASE {{\
@@ -17,16 +18,14 @@
 
 extern uint8_t __data_start__;
 
+static uint8_t m_matrix_attr_value = 0;
+
 static struct 
 {
 	uint16_t conn_handle;
 	uint16_t service_handle;
 	ble_gatts_char_handles_t matrix_handles;
 } m_service_ubit;
-
-static uint8_t m_matrix_attr_value = 0;
-
-
 
 uint32_t bluetooth_init(){
 	uint32_t err_code = 0;
@@ -93,6 +92,11 @@ uint32_t bluetooth_gatts_start(){
 		&base_uuid,
 		&ubit_service_uuid.type
 	);
+	
+	if (err_code)
+	{
+		return err_code;
+	}
 
 	err_code = sd_ble_gatts_service_add(
 		BLE_GATTS_SRVC_TYPE_PRIMARY,
@@ -100,6 +104,12 @@ uint32_t bluetooth_gatts_start(){
 		&m_service_ubit.service_handle
 	);
 
+	if (err_code)
+	{
+		return err_code;
+	}
+
+//Matrix
 	ble_uuid_t matrix_uuid;
 	matrix_uuid.uuid = CUSTOM_UUID_CHAR_MATRIX;
 
@@ -108,6 +118,11 @@ uint32_t bluetooth_gatts_start(){
 		&base_uuid,
 		&matrix_uuid.type
 	);
+
+	if (err_code)
+	{
+		return err_code;
+	}
 
 	static uint8_t matrix_char_desc[] = 
 	{
@@ -119,6 +134,7 @@ uint32_t bluetooth_gatts_start(){
 	matrix_char_md.char_props.read  = 1;
 	matrix_char_md.char_props.write = 1;
 	matrix_char_md.p_char_user_desc = matrix_char_desc;
+	matrix_char_md.char_user_desc_max_size = 10;
 	matrix_char_md.char_user_desc_size = 10;
 
 	ble_gatts_attr_md_t matrix_attr_md;
@@ -145,13 +161,6 @@ uint32_t bluetooth_gatts_start(){
 		&m_service_ubit.matrix_handles
 	);
 
-
-	/*---*/
-//	if (err_code)
-//	{
-//		return err_code;
-//	}
-	//err_code = sd_ble_gatts_service_add()
 	return err_code;
 }
 
@@ -165,9 +174,11 @@ void bluetooth_serve_forever(){
 	while(1){
 		if(m_matrix_attr_value != 0){
 			// Matrix on
+			ubit_led_matrix_turn_on();
 		}
 		else{
 			// Matrix off
+			ubit_led_matrix_turn_off();
 		}
 
 		while(
