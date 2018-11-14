@@ -18,12 +18,14 @@ void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d)
 	
 	ctrl.maxE = MAX_INT / (ctrl.K_p + 1);
 	ctrl.maxSumE = MAX_I_TERM / (ctrl.K_i + 1);
-	
+
+	/*	
 	timer_init(1, controller_update);
 
 	controller_set_sampling_time(100);
     controller_start();
 	controller_set_reference(0);
+	*/
 }
 
 void controller_set_reference(int16_t ref)
@@ -59,7 +61,7 @@ int16_t controller_get_reference()
 
 void controller_update()
 {
-	cli();
+	//cli();
 	//printf("Controller start\n");
 	int16_t error, p, d;
 	int32_t i, ret, temp;
@@ -117,6 +119,6 @@ void controller_update()
 
 	motor_speed = ret;
 	motor_set_speed((int16_t)ret);
-	sei();
+	//sei();
 	//printf("Controller stop\n");
 }

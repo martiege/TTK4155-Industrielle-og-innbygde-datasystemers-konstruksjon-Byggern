@@ -82,6 +82,8 @@ void CAN_intr_init()
 
 ISR(INT2_vect)
 {
+    //printf("can start\n");
+    cli();
     //printf("INTR start\n");
     if (MCP_read(MCP_CANINTF) & 1)
     {
@@ -95,11 +97,12 @@ ISR(INT2_vect)
     CAN_message m;
     
     CAN_receive(&m);
+    //printf("can reciveed\n");
 
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__
-            cli();
+            
             pwm_set_angle((int8_t)m.data[0]);
             //pwm_set_angle((int16_t)m.data[3] - 128);
             //controller_set_reference(0);
@@ -117,19 +120,24 @@ ISR(INT2_vect)
             {
                 solenoid_clear_shot();
             }
-            sei();
+            
+            
         #endif
     }
 
+    //sei();
     //printf("INTR done\n");
+    //printf("can end\n");
 }
 
 
 void CAN_send(const CAN_message* msg)
 {
+    //printf("Enter send\n");
+    //printf("TXB0CTRL.TXERR %x\n TXB0CTRL.MERRF %x\n", MCP_read(MCP_TXB0CTRL) & (1 << 4) >> 4, MCP_read(MCP_CANINTF) & (1 << 7) >> 7);
+    while (MCP_read(MCP_TXB0CTRL) & (1 << 3)) { _delay_ms(1); }
 
-    while (MCP_read(MCP_TXB0CTRL) & (1 << 3)){ _delay_ms(1); }
-
+    //printf("done waiting\n");
     MCP_write(MCP_TXB0SIDH, msg->id >> 3);
     MCP_write(MCP_TXB0SIDL, msg->id << 5);
     MCP_write(MCP_TXB0DLC, msg->length & 0x0F);
@@ -138,10 +146,11 @@ void CAN_send(const CAN_message* msg)
     {
         MCP_write(MCP_TXB0D0 + i, (msg->data)[i]);
     }
+    //printf("done writing\n");
 
     /*Ready to transmit, highest priority*/
     MCP_bit_modify(MCP_TXB0CTRL, 0x0B, 0xFF);
-
+    //printf("Done\n");
 }
 
 

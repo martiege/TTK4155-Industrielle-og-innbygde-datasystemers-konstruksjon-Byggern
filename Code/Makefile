@@ -24,7 +24,7 @@ ifeq ($(PROGRAM_162), yes)
 endif
 
 CC := avr-gcc
-CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) -Werror
+CFLAGS := -O -std=c11 -mmcu=$(TARGET_CPU) #-Werror
 
 OBJECT_FILES = $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 

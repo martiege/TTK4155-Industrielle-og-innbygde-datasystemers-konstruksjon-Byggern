@@ -4,14 +4,36 @@
 #include "nrf_sdm.h"
 #include "ble.h"
 #include "ble_gap.h"
+#include "ble_gatts.h"
+
+//f3d33c42-bbc1-4478-8f9a-e040246f4706
+#define CUSTOM_UUID_BASE {{\
+	0x06, 0x47, 0x6f, 0x24, 0x40, 0xe0, 0x9a, 0x8f, \
+	0x78, 0x44, 0xc1, 0xbb, 0x42, 0x3c, 0xd3, 0xf3 \
+}}
+
+#define CUSTOM_UUID_SERVICE_UBIT 0xdead
+#define CUSTOM_UUID_CHAR_MATRIX 0xbabe
 
 extern uint8_t __data_start__;
+
+static struct 
+{
+	uint16_t conn_handle;
+	uint16_t service_handle;
+	ble_gatts_char_handles_t matrix_handles;
+} m_service_ubit;
+
+static uint8_t m_matrix_attr_value = 0;
+
+
 
 uint32_t bluetooth_init(){
 	uint32_t err_code = 0;
 
 	err_code = sd_softdevice_enable(NULL, NULL);
-	if(err_code){
+	if (err_code)
+	{
 		return err_code;
 	}
 
@@ -54,22 +76,89 @@ uint32_t bluetooth_gap_advertise_start(){
 	err_code = sd_ble_gap_adv_start(&adv_params);
 
 	// Remove these lines when doing the GAP exercise
-	//(void)adv_data;
-	//(void)adv_data_length;
+	(void)adv_data;
+	(void)adv_data_length;
 
 	return err_code;
 }
 
 uint32_t bluetooth_gatts_start(){
 	uint32_t err_code = 0;
+	ble_uuid128_t base_uuid = CUSTOM_UUID_BASE;
 
+	ble_uuid_t ubit_service_uuid;
+	ubit_service_uuid.uuid = CUSTOM_UUID_SERVICE_UBIT;
+
+	err_code  = sd_ble_uuid_vs_add(
+		&base_uuid,
+		&ubit_service_uuid.type
+	);
+
+	err_code = sd_ble_gatts_service_add(
+		BLE_GATTS_SRVC_TYPE_PRIMARY,
+		&ubit_service_uuid,
+		&m_service_ubit.service_handle
+	);
+
+	ble_uuid_t matrix_uuid;
+	matrix_uuid.uuid = CUSTOM_UUID_CHAR_MATRIX;
+
+	err_code = sd_ble_uuid_vs_add
+	(
+		&base_uuid,
+		&matrix_uuid.type
+	);
+
+	static uint8_t matrix_char_desc[] = 
+	{
+		'L', 'E', 'D', ' ', 'M', 'a', 't', 'r', 'i', 'x'
+	};
+
+	ble_gatts_char_md_t matrix_char_md;
+	memset(&matrix_char_md, 0, sizeof(matrix_char_md));
+	matrix_char_md.char_props.read  = 1;
+	matrix_char_md.char_props.write = 1;
+	matrix_char_md.p_char_user_desc = matrix_char_desc;
+	matrix_char_md.char_user_desc_size = 10;
+
+	ble_gatts_attr_md_t matrix_attr_md;
+	memset(&matrix_attr_md, 0, sizeof(matrix_attr_md));
+	matrix_attr_md.read_perm.lv = 1;
+	matrix_attr_md.read_perm.sm = 1;
+	matrix_attr_md.write_perm.lv = 1;
+	matrix_attr_md.write_perm.sm = 1;
+	matrix_attr_md.vloc = BLE_GATTS_VLOC_USER;
+
+	ble_gatts_attr_t matrix_attr;
+	memset(&matrix_attr, 0, sizeof(matrix_attr));
+	matrix_attr.p_uuid = &matrix_uuid;
+	matrix_attr.p_attr_md = &matrix_attr_md;
+	matrix_attr.init_len = 1;
+	matrix_attr.max_len = 1;
+	matrix_attr.p_value = &m_matrix_attr_value;
+
+	err_code = sd_ble_gatts_characteristic_add
+	(
+		m_service_ubit.service_handle,
+		&matrix_char_md,
+		&matrix_attr,
+		&m_service_ubit.matrix_handles
+	);
+
+
+	/*---*/
+//	if (err_code)
+//	{
+//		return err_code;
+//	}
+	//err_code = sd_ble_gatts_service_add()
 	return err_code;
 }
 
 void bluetooth_serve_forever(){
 	// Comment all this in when doing GATT serving
 
-	/*
+	
 	uint8_t ble_event_buffer[100] = {0};
 	uint16_t ble_event_buffer_size = 100;
 
@@ -121,5 +210,5 @@ void bluetooth_serve_forever(){
 
 
 	}
-	*/
+	
 }

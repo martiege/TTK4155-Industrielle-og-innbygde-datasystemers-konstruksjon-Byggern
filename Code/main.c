@@ -55,6 +55,7 @@ int main()
 
         while (1)
         {   
+            //printf("CANSTAT: %x\n", MCP_read(MCP_CANSTAT));
             printf("ATmega2560\n");
             //us = input_com_recieve();
             //pwm_set_angle(us.pos_X);
@@ -65,10 +66,10 @@ int main()
             printf("Ref: %d\n", controller_get_reference());
             //DAC_send_speed(70);
             //motor_set_speed(70);
-            _delay_ms(1000);   
+            _delay_ms(100);   
+            controller_update();
             //motor_set_speed(-70);
             //PORTH &= ~(1 << PH1);
-            _delay_ms(1000);
             //DAC_send_speed(0);
             //PORTH |= (1 << PH1);
             //_delay_ms(500);  
@@ -132,6 +133,7 @@ int main()
             
             printf("ATmega162\n");
             //printf("ADC: %d\n", memory_read_ADC(CH2));
+            printf("CANCTRL %x\n", MCP_read(MCP_CANCTRL));
             us = input_com_send();
             printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
             

@@ -88,9 +88,12 @@ USER_DATA input_com_send()
     //message.length = 5;
     
     update_user_data();
+    //printf("Updated\n");
     put_message();
+    //printf("Msg put\n");
 
     CAN_send(&input_message);
+    //printf("CAN sent\n");
 
     return user_data;
 }
