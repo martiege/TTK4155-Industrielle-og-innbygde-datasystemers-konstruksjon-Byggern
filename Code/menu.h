@@ -3,10 +3,10 @@
 
 
 
+void menu_print(const char **menu, int length, int cursorpos);
 
 int menu(const char **menu, int length);
 
-void menu_print(const char **menu, int length, int cursorpos);
 
 
 

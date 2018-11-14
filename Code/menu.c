@@ -4,6 +4,36 @@
 #include <util/delay.h>
 #include "menu.h"
 
+
+void menu_print(const char **menu, int length, int cursorpos)
+{
+    
+    OLED_home();
+    for(int i = 0; i < length ; i++)
+    {
+        OLED_print(menu[i]);
+        if(i == cursorpos)
+        {
+            OLED_pos(i, 110);
+            OLED_put_char('*');
+        }
+        else
+        {
+            OLED_pos(i, 110);
+            OLED_put_char(' ');
+        }
+        OLED_print(" \n");
+       
+    }
+    if(length < 8){
+        for(int i = length ; i < 8 ; i++)
+        {
+            OLED_print(" \n");
+        }
+    }
+}
+
+
 /*!!NB, Menyformat!!: const char* m[8] = {"hei0", ...};*/
 /*forutsetter foreløpig at length<=8*/
 int menu(const char **menu, int length)
@@ -39,30 +69,3 @@ int menu(const char **menu, int length)
     return pos;
 }
 
-void menu_print(const char **menu, int length, int cursorpos)
-{
-    
-    OLED_home();
-    for(int i = 0; i < length ; i++)
-    {
-        OLED_print(menu[i]);
-        if(i == cursorpos)
-        {
-            OLED_pos(i, 110);
-            OLED_put_char('*');
-        }
-        else
-        {
-            OLED_pos(i, 110);
-            OLED_put_char(' ');
-        }
-        OLED_print(" \n");
-       
-    }
-    if(length < 8){
-        for(int i = length ; i < 8 ; i++)
-        {
-            OLED_print(" \n");
-        }
-    }
-}
