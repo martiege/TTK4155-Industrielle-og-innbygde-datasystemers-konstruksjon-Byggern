@@ -103,10 +103,10 @@ ISR(INT2_vect)
     {
         #ifdef __AVR_ATmega2560__
             
-            pwm_set_angle((int8_t)m.data[0]);
-            //pwm_set_angle((int16_t)m.data[3] - 128);
-            //controller_set_reference(0);
-            controller_set_reference(m.data[3]*40);
+            pwm_set_angle((int8_t)m.data[0] - 10); //-10 is offset for the servo
+            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", (int8_t)m.data[0], (int8_t)m.data[1], m.data[2], m.data[3], m.data[4]);
+
+            controller_set_reference(m.data[3]*50);
             //motor_set_speed((int8_t)m.data[0]);
             if (m.data[4] && !(solenoid_get_shot()))
             {

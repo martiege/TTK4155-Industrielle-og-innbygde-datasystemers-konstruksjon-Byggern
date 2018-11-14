@@ -65,14 +65,14 @@ void motor_set_speed(int16_t speed)
     //printf("speed %d\n", speed);
     if(speed < -5)
     {
-        if(speed > -70) speed = -70;
+        if(speed > -50) speed = -50;
         //printf("Negative\n");
         motor_set_dir(0);
         DAC_send_speed((uint8_t)((-speed) & 0xFF));        
     }
     else if(speed > 5)
     {   
-        if(speed < 70) speed = 70;
+        if(speed < 50) speed = 50;
         //printf("Positive\n");
         motor_set_dir(1);
         DAC_send_speed((uint8_t)(speed & 0xFF));

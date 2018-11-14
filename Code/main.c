@@ -47,7 +47,7 @@ int main()
         
         TWI_Master_Initialise();
         motor_init();
-        controller_init(5, 0, 2);
+        controller_init(4, 0, 4);
         //controller_init(1, 0, 0);
 
         USER_DATA us;
@@ -56,14 +56,14 @@ int main()
         while (1)
         {   
             //printf("CANSTAT: %x\n", MCP_read(MCP_CANSTAT));
-            printf("ATmega2560\n");
+            //printf("ATmega2560\n");
             //us = input_com_recieve();
             //pwm_set_angle(us.pos_X);
             //motor_set_speed(us.pos_Y);
             //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
-            printf("Goal: %d\n", goal_get_goals());
-            printf("Pos: %d\n", motor_encoder_read());
-            printf("Ref: %d\n", controller_get_reference());
+            //printf("Goal: %d\n", goal_get_goals());
+            //printf("Pos: %d\n", motor_encoder_read());
+            //printf("Ref: %d\n", controller_get_reference());
             //DAC_send_speed(70);
             //motor_set_speed(70);
             _delay_ms(100);   

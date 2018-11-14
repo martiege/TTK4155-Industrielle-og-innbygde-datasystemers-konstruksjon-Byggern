@@ -68,7 +68,7 @@ void ubit_led_matrix_init(){
 	for(int i = 4; i <= 15; i++){
 		GPIO->DIRSET = (1 << i);
 		GPIO->OUTCLR = (1 << i);
-	}
+	} 
 }
 
 void ubit_led_matrix_turn_on(){
@@ -118,6 +118,19 @@ static void ubit_helper_put_char(char letter){
 	while(!UART->TXDRDY);
 	UART->TXDRDY = 0;
 	UART->STOPTX = 1;
+}
+
+char ubit_helper_get_char()
+{
+	if (!UART->RXDRDY)
+	{
+		return '\0';
+	}
+
+	char received;
+	UART->RXDRDY = 0;
+	received = UART->RXD;
+	return received;
 }
 
 static void ubit_helper_put_int(int number){
