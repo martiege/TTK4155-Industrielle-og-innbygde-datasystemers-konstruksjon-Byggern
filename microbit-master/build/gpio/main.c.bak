@@ -1,0 +1,42 @@
+#include <stdint.h>
+
+#define NRF_GPIO ((NRF_GPIO_Type*)0x50000000)
+
+typedef struct {
+	volatile uint32_t RESERVED0[321];
+	volatile uint32_t OUT;
+	volatile uint32_t OUTSET;
+	volatile uint32_t OUTCLR;
+	volatile uint32_t IN;
+	volatile uint32_t DIR;
+	volatile uint32_t DIRSET;
+	volatile uint32_t DIRCLR;
+	volatile uint32_t RESERVED[120];
+	volatile uint32_t PIN_CNF[32];
+} NRF_GPIO_Type;
+
+int main(void){
+	// Configure LED Matrix
+	for(int i = 4; i <= 15; i++){
+		NRF_GPIO->DIRSET = (1 << i);
+		NRF_GPIO->OUTCLR = (1 << i);
+	}
+
+	// Configure buttons
+	NRF_GPIO->PIN_CNF[17] = 0;
+	NRF_GPIO->PIN_CNF[26] = 0;
+
+	volatile int sleep = 0;
+	while(1){
+
+		if(!(NRF_GPIO->IN & (1 << 17))){
+			NRF_GPIO->OUTCLR = (1 << 13 | 1 << 14 | 1 << 15);
+		}
+		else if(!(NRF_GPIO->IN & (1 << 26))){
+			NRF_GPIO->OUTSET = (1 << 13 | 1 << 14 | 1 << 15);
+		}
+
+		sleep = 10000;
+		while(--sleep);
+	}
+}

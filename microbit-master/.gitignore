@@ -1,0 +1,15 @@
+*.hex
+*.elf
+*.aux
+*.log
+*.pdf
+*.synctex.gz
+*.out
+*.json
+*.dvi
+notes_from_lab.txt
+reference/
+text/_minted-microbit/
+text/_minted-lf/
+text/test_ground/
+build/magnetometer/

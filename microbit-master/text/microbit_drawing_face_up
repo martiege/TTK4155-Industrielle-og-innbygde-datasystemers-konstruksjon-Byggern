@@ -1,0 +1,101 @@
+\begin{tikzpicture}
+\colorlet{gold}{yellow!90!red};
+\colorlet{microbit_pcb}{blue!50!gray!10};
+\colorlet{chip}{black!70};
+\def\banana_hole_radius{0.25};
+\def\microbit_rounding{0.5cm};
+
+\tikzset{
+cpad/.pic = {
+\fill[gold] circle [radius=0.08];
+},
+opad/.pic = {
+\pic () at (0,0) {cpad};
+\pic () at (0,0.2) {cpad};
+\fill[gold] (-0.08,0) rectangle ++(0.16,0.2);
+}
+}
+
+% micro:bit pcb layer
+\fill[microbit_pcb,rounded corners=\microbit_rounding] (0,0) rectangle (6,5);
+
+% Cirular gold pads
+\pic () at (2.375,4.85) {cpad};
+\begin{scope}[yshift=-0.15cm]
+\pic () at (2.5,4.5) {cpad};
+\pic () at (2.5,4.75) {cpad};
+\pic () at (2.25,4.5) {cpad};
+\pic () at (2.25,4.75) {cpad};
+\end{scope}
+\pic () at (2.8,4) {cpad};
+\pic () at (3.4,4) {cpad};
+\pic () at (1.8,2.8) {cpad};
+\pic () at (2.3,2.65) {cpad};
+\pic () at (5.35,2.95) {cpad};
+\pic () at (5.65,2.95) {cpad};
+\pic () at (5.65,3.7) {cpad};
+\foreach \x in {0,1,...,4}{
+\pic () at (4.2 + 0.3 * \x, 2.5) {cpad};
+}
+\pic () at (5.6,2.3) {cpad};
+\pic () at (5.6,1.4) {cpad};
+\pic () at (5.3,1.4) {cpad};
+\pic () at (5.85,2.1) {opad};
+\pic () at (5.85,3) {opad};
+
+% Banana holes
+\foreach \x in {0.5,1.75,...,5.5}{
+\begin{scope}
+\clip[rounded corners=\microbit_rounding] (0,0) rectangle (6,5);
+\fill[gold] (\x - \banana_hole_radius, 0.8) rectangle (\x + \banana_hole_radius, 0);
+\fill[microbit_pcb] (\x, 0.8) circle [radius=\banana_hole_radius + 0.08];
+
+% Edge connector
+\foreach \scale/\shift in {1/0,-1/6cm}{
+\begin{scope}[xscale=\scale,xshift=-\shift]
+\fill[gold] (0.075,0) rectangle ++(0.125,0.65);
+\foreach \x in {0,1,2,3}{
+\fill[gold] (0.8 + 0.175 * \x, 0) rectangle ++(0.125,0.65);
+}
+\foreach \x in {0,1,2,3,4}{
+\fill[gold] (2.05 + 0.1375 * \x, 0) rectangle ++(0.1,0.65);
+}
+\end{scope}
+}
+\end{scope}
+\draw[gold,ultra thick,fill=white] (\x, 0.8) circle [radius=\banana_hole_radius];
+}
+
+% Processor
+\begin{scope}[xshift=0.7cm,yshift=3.15cm]
+\def\w{1}
+\fill[chip] (0,0) rectangle (\w,\w);
+\end{scope}
+
+% Interface
+\begin{scope}[xshift=4.5cm,yshift=3cm]
+\def\w{0.7}
+\fill[chip] (0,0) rectangle (\w,\w);
+\end{scope}
+
+% Magnetometer
+\begin{scope}[xshift=0.3cm,yshift=1.8cm]
+\def\w{0.25}
+\fill[chip] (0,0) rectangle (\w,\w);
+\end{scope}
+
+% Accelerometer
+\begin{scope}[xshift=0.3cm,yshift=1.3cm]
+\def\w{0.25}
+\fill[chip] (0,0) rectangle (\w,\w);
+\end{scope}
+
+% micro:bit border
+\draw[rounded corners=\microbit_rounding] (0,0) rectangle (6,5);
+
+% Coordinate system
+\draw[thick,dashed,black!50] (3,2.5) -- ++(0,0,3);
+\draw[thick,->] (3,2.5) -- ++(0,-3.5) node [right] {Y};
+\draw[thick,->] (3,2.5) -- ++(-4,0) node [below] {X};
+\draw[thick,->] (3,2.5) -- ++(0,0,-4) node[above left] {Z};
+\end{tikzpicture}

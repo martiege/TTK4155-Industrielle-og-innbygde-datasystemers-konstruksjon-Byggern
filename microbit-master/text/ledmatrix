@@ -1,0 +1,55 @@
+\begin{tikzpicture}
+\colorlet{PRI}{cyan!20}
+\colorlet{SEC}{green!20}
+\colorlet{TRT}{orange!20}
+
+% Physical LED matrix
+\foreach \x/\f in {0/PRI,1/SEC,2/PRI,3/SEC,4/PRI}{
+	\fill[\f] (\x,4) rectangle ++(1,1);
+}
+\foreach \x in {0,1,...,4}{
+	\fill[TRT] (\x,3) rectangle ++(1,1);
+}
+\foreach \x/\f in {0/SEC,1/PRI,2/SEC,3/TRT,4/SEC}{
+	\fill[\f] (\x,2) rectangle ++(1,1);
+}
+\foreach \x in {0,1,...,4}{
+	\fill[PRI] (\x,1) rectangle ++(1,1);
+}
+\foreach \x/\f in {0/TRT,1/SEC,2/TRT,3/SEC,4/TRT}{
+	\fill[\f] (\x,0) rectangle ++(1,1);
+}
+
+\foreach \x in {0,1,...,4}{
+\foreach \y in {0,1,...,4}{
+	\pgfmathtruncatemacro{\result}{\x + (4 - \y)*5}
+	\draw (\x,\y) rectangle ++(1,1) node [midway] {\result};
+}
+}
+
+\path (0,-1) rectangle ++(5,1) node [midway] {\textbf{a)} micro:bit LED matrise};
+
+% Hardware implemented LED matrix
+\begin{scope}[xshift=-2cm,yshift=-5cm]
+\foreach \x/\num in {0/0,1/2,2/4,3/19,4/18,5/17,6/16,7/15,8/11}{
+	\draw[fill=PRI] (\x, 2) rectangle ++(1,1) node [midway] {\num};
+}
+\foreach \x/\num/\f in {0/14/SEC,1/10/SEC,2/12/SEC,3/1/SEC,4/3/SEC,5/23/SEC,6/21/SEC,7//white,8//white}{
+	\draw[fill=\f] (\x, 1) rectangle ++(1,1) node [midway] {\num};
+}
+\foreach \x/\num in {0/22,1/24,2/20,3/5,4/6,5/7,6/8,7/9,8/13}{
+	\draw[fill=TRT] (\x, 0) rectangle ++(1,1) node [midway] {\num};
+}
+\foreach \x in {0,1,...,8}{
+	\pgfmathtruncatemacro{\pin}{\x + 4}
+	\path (\x,-1) rectangle ++(1,1) node [midway] {P\pin};
+}
+\foreach \y/\pin in {2/13,1/14,0/15}{
+	\path (9.3,\y) rectangle ++(1,1) node [midway] {P\pin};
+}
+
+\path (0,-2) rectangle ++(9,1) node [midway] {\textbf{b)} Implementasjon i hardware};
+
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,178 @@
+#include <stdint.h>
+#include <stdlib.h>
+
+#define GPIO ((NRF_GPIO_REG*)0x50000000)
+#define UART ((NRF_UART_REG*)0x40002000)
+
+#define BUF_SIZE 33
+
+typedef struct {
+	volatile uint32_t RESERVED0[321];
+	volatile uint32_t OUT;
+	volatile uint32_t OUTSET;
+	volatile uint32_t OUTCLR;
+	volatile uint32_t IN;
+	volatile uint32_t DIR;
+	volatile uint32_t DIRSET;
+	volatile uint32_t DIRCLR;
+	volatile uint32_t RESERVED1[120];
+	volatile uint32_t PIN_CNF[32];
+} NRF_GPIO_REG;
+
+typedef struct {
+	// Tasks
+	volatile uint32_t STARTRX;
+	volatile uint32_t STOPRX;
+	volatile uint32_t STARTTX;
+	volatile uint32_t STOPTX;
+	volatile uint32_t RESERVED0[3];
+	volatile uint32_t SUSPEND;
+	// Events
+	volatile uint32_t RESERVED1[56];
+	volatile uint32_t CTS;
+	volatile uint32_t NCTS;
+	volatile uint32_t RXDRDY;
+	volatile uint32_t RESERVED2[4];
+	volatile uint32_t TXDRDY;
+	volatile uint32_t RESERVED3;
+	volatile uint32_t ERROR;
+	volatile uint32_t RESERVED4[7];
+	volatile uint32_t RXTO;
+	// Registers
+	volatile uint32_t RESERVED5[110];
+	volatile uint32_t INTEN;
+	volatile uint32_t INTENSET;
+	volatile uint32_t INTENCLR;
+	volatile uint32_t RESERVED6[93];
+	volatile uint32_t ERRORSRC;
+	volatile uint32_t RESERVED7[31];
+	volatile uint32_t ENABLE;
+	volatile uint32_t RESERVED8;
+	volatile uint32_t PSELRTS;
+	volatile uint32_t PSELTXD;
+	volatile uint32_t PSELCTS;
+	volatile uint32_t PSELRXD;
+	volatile uint32_t RXD;
+	volatile uint32_t TXD;
+	volatile uint32_t RESERVED9;
+	volatile uint32_t BAUDRATE;
+	volatile uint32_t RESERVED10[17];
+	volatile uint32_t CONFIG;
+} NRF_UART_REG;
+
+void init_uart(){
+	GPIO->PIN_CNF[24] = 1; // Configure output
+	GPIO->PIN_CNF[25] = 0; // Configure input
+
+	UART->PSELRTS = 0xFFFFFFFF; // Disable RTS
+	UART->PSELCTS = 0xFFFFFFFF; // Disable CTS
+
+	UART->PSELTXD = 24;
+	UART->PSELRXD = 25;
+
+	UART->BAUDRATE = 0x00275000; // 9600 baud
+
+	UART->ENABLE = 4; // 4: Enable, 0: Disable
+}
+
+void uart_send(char ** str){
+	UART->STARTTX = 1;
+
+	char * letter_ptr = *str;
+
+	while(*letter_ptr != '\0'){
+		UART->TXD = *letter_ptr;
+		while(!UART->TXDRDY);
+		UART->TXDRDY = 0;
+		letter_ptr++;
+	}
+
+	UART->STOPTX = 1;
+}
+
+void uart_bitsend(char letter){
+	UART->STARTTX = 1;
+
+	for(int i = 0; i < 8; i++){
+		uint32_t digit = letter & (1 << 7);
+		letter = letter << 1;
+		if(digit){
+			UART->TXD = '1';
+			while(!UART->TXDRDY);
+			UART->TXDRDY = 0;
+		}
+		else{
+			UART->TXD = '0';
+			while(!UART->TXDRDY);
+			UART->TXDRDY = 0;
+		}
+	}
+	UART->TXD = '\n';
+	while(!UART->TXDRDY);
+	UART->TXDRDY = 0;
+	UART->TXD = '\r';
+	while(!UART->TXDRDY);
+	UART->TXDRDY = 0;
+
+	UART->STOPTX = 1;
+}
+
+char uart_read(){
+	if(!UART->RXDRDY)
+		return '\0';
+
+	char received;
+	UART->RXDRDY = 0;
+	received = UART->RXD;
+	return received;
+}
+
+int main(){
+	init_uart();
+	UART->STARTRX = 1;
+
+	char * str;
+	str = (char *)(malloc(BUF_SIZE * sizeof(char)));
+	for(int i = 0; i < BUF_SIZE; i++){
+		str[i] = '\0';
+	}
+
+	char letter;
+	int letter_pos = 0;
+	while(1){
+		letter = uart_read();
+		/* if(letter != '\0'){ */
+		/* 	uart_bitsend(letter); */
+		/* } */
+		switch(letter){
+			case '\0':
+				break;
+			case 0x0D: // Newline
+				str[letter_pos]     = '\n';
+				str[letter_pos + 1] = '\r';
+				str[letter_pos + 2] = '\0';
+				uart_send(&str);
+				letter_pos = 0;
+				break;
+			/* case 0x7F: // Backspace */
+			/* 	if(letter_pos > 0) */
+			/* 		letter_pos--; */
+			/* 	break; */
+			default:
+				str[letter_pos] = letter;
+				if(letter_pos < BUF_SIZE - 4){
+					letter_pos++;
+				}
+				UART->STARTTX = 1;
+				UART->TXD = letter;
+				while(!UART->TXDRDY);
+				UART->TXDRDY = 0;
+				UART->STOPTX = 1;
+				break;
+		}
+	}
+
+	free(str);
+
+	return 0;
+}
