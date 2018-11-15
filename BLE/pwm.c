@@ -29,7 +29,7 @@ void pwm_init(int prescaler, int period, int init_duty){
 	TIMER1->START = 1;
 }
 
-void pwm_set_frequency()
+void pwm_set_frequency(float frequency)
 {
 	
 }

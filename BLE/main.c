@@ -11,7 +11,7 @@ int main(){
 	ubit_uart_init();
 	ubit_led_matrix_init();
 
-	pwm_init(9, 31250, 15625);
+	pwm_init(9, 31250 / 2, 15625 / 2);
 
 	ubit_led_matrix_turn_off();
 	
