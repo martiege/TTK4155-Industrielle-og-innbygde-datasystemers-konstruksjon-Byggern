@@ -37,4 +37,17 @@ void speaker_loop()
     _delay_ms(1000);
 }
 
+void speaker_play_song(float song_melody, float song_tempo)
+{
+    for(int tone = 0; tone < (sizeof(song_melody)/sizeof(float)); tone++)
+    {
+        speaker_tone(song_melody[tone]);
+        _delay_ms(1000/song_tempo[tone]);
+        //evt: if(tone = 0), hold kjeft
+        //hvis  liten stopp mellom hver tone, kanskje mest for mario:
+        speaker_no_tone();
+        _delay_ms(1300/song_tempo[tone]);
+    }
+}
+
 //https://www.instructables.com/id/How-to-use-a-Buzzer-Arduino-Tutorial/
