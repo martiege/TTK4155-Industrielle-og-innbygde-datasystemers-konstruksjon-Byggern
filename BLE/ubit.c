@@ -112,7 +112,8 @@ void ubit_uart_init(){
 	UART->STARTRX = 1;
 }
 
-static void ubit_helper_put_char(char letter){
+void ubit_helper_put_char(char letter)
+{
 	UART->STARTTX = 1;
 	UART->TXD = letter;
 	while(!UART->TXDRDY);

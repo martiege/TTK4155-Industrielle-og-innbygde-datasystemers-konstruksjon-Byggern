@@ -23,6 +23,7 @@
     #include "TWI_Master.h"
     #include "solenoid.h"
     #include "controller.h"
+    #include "speaker.h"
 #endif
 
 int main()
@@ -48,10 +49,12 @@ int main()
         TWI_Master_Initialise();
         motor_init();
         controller_init(4, 0, 4);
+        speaker_init();
         //controller_init(1, 0, 0);
 
         USER_DATA us;
-    
+        //speaker_tone(1000);
+        //speaker_loop();
 
         while (1)
         {   

@@ -1,19 +1,39 @@
-//#include "speaker.h"
-
+#include "speaker.h"
+#include "defines.h"
 #include <util/delay.h>
+#include "pwm.h"
 
-const int buzzer = 9; //regarding arduino pin 
+static int frequency_on; //bool
 
-void setup()
+void speaker_init()
 {
-    pinMode(buzzer, OUTOUT); // Set buzzer - pin 9 as an output
+    pwm_stop_frequency();
+    frequency_on = 0;
 }
 
-void loop()
+
+void speaker_tone(float frequency)
 {
-    tone(buzzer, 1000); // Send 1KHz sound signal
+    if(!frequency_on)
+    {
+        pwm_start_frequency();
+        frequency_on = 1;
+    }
+    pwm_set_frequency(frequency);
+}
+
+void speaker_no_tone()
+{
+    pwm_stop_frequency();
+    frequency_on = 0;
+}
+ 
+
+void speaker_loop()
+{
+    speaker_tone(1000); // Send 1KHz sound signal
     _delay_ms(1000); // ...for 1 sec
-    noTone(buzzer); // Stop sound
+    speaker_no_tone(); // Stop sound
     _delay_ms(1000);
 }
 

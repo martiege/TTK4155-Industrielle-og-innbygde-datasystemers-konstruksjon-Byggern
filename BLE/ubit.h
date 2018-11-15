@@ -17,6 +17,10 @@ int ubit_button_press_b();
 
 void ubit_uart_init();
 
+void ubit_helper_put_char(char letter);
+
+char ubit_helper_get_char();
+
 void ubit_uart_print(char * p_format, ...);
 
 #endif
