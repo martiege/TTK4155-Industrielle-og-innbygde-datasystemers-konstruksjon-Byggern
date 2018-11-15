@@ -172,22 +172,32 @@ void bluetooth_serve_forever(){
 	uint16_t ble_event_buffer_size = 100;
 
 	while(1){
-		if(m_matrix_attr_value != 0){
-			// Matrix on
-			ubit_led_matrix_turn_on();
-		}
-		else{
+		/*
+		if (m_matrix_attr_value == 0)
+		{
 			// Matrix off
 			ubit_led_matrix_turn_off();
 		}
+		else
+		{
+			// Matrix on
+			ubit_led_matrix_turn_on();			
+		}
+		*/
+		//ubit_led_matrix_draw_num(0);
+		ubit_helper_put_char((char) m_matrix_attr_value);
+		
+		/*
+		char inp = ubit_helper_get_char();
+		if (inp != '\0')
+		{
+			
+		}
+		*/
 
-		while(
-			sd_ble_evt_get(
-				ble_event_buffer,
-				&ble_event_buffer_size
-			) != NRF_ERROR_NOT_FOUND
-			){
-
+		while (sd_ble_evt_get(ble_event_buffer, 
+			        &ble_event_buffer_size) != NRF_ERROR_NOT_FOUND)
+		{
 			ble_evt_t * p_ble_event = (ble_evt_t *)ble_event_buffer;
 			uint16_t event_id = p_ble_event->header.evt_id;
 
