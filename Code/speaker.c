@@ -11,7 +11,6 @@ void speaker_init()
     frequency_on = 0;
 }
 
-
 void speaker_tone(float frequency)
 {
     if(!frequency_on)
@@ -28,7 +27,7 @@ void speaker_no_tone()
     frequency_on = 0;
 }
  
-
+//test
 void speaker_loop()
 {
     speaker_tone(1000); // Send 1KHz sound signal
@@ -37,8 +36,23 @@ void speaker_loop()
     _delay_ms(1000);
 }
 
-void speaker_play_song(float song_melody, float song_tempo)
+void speaker_play_song(Song song)
 {
+    switch(song)
+    {
+        case MARIO:
+            for(int tone = 0; tone < (sizeof(MARIO_melody)/sizeof(float)); tone++)
+            {
+                speaker_tone(MARIO_melody[tone]);
+                _delay_ms(1000/MARIO_tempo[tone]);
+                speaker_no_tone();
+                _delay_ms(1300/MARIO_tempo[tone]);
+            }
+        break;
+    }
+
+    //GENERELL?:
+    /*
     for(int tone = 0; tone < (sizeof(song_melody)/sizeof(float)); tone++)
     {
         speaker_tone(song_melody[tone]);
@@ -47,7 +61,7 @@ void speaker_play_song(float song_melody, float song_tempo)
         //hvis  liten stopp mellom hver tone, kanskje mest for mario:
         speaker_no_tone();
         _delay_ms(1300/song_tempo[tone]);
-    }
+    }*/
 }
 
 //https://www.instructables.com/id/How-to-use-a-Buzzer-Arduino-Tutorial/
