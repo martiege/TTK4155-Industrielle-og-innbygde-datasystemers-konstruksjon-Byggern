@@ -7,7 +7,6 @@
 #include "ble_gatts.h"
 #include "ubit.h"
 
-//f3d33c42-bbc1-4478-8f9a-e040246f4706
 #define CUSTOM_UUID_BASE {{\
 	0x06, 0x47, 0x6f, 0x24, 0x40, 0xe0, 0x9a, 0x8f, \
 	0x78, 0x44, 0xc1, 0xbb, 0x42, 0x3c, 0xd3, 0xf3 \
@@ -51,7 +50,6 @@ uint32_t bluetooth_gap_advertise_start(){
 	uint32_t err_code = 0;
 
 	static uint8_t adv_data[] = {
-		// Add some stuff
 		4, BLE_GAP_AD_TYPE_COMPLETE_LOCAL_NAME,
 		'k', 'u', 'l', 
 		3, BLE_GAP_AD_TYPE_16BIT_SERVICE_UUID_COMPLETE, 
@@ -59,7 +57,6 @@ uint32_t bluetooth_gap_advertise_start(){
 	};
 	uint8_t adv_data_length = 9;
 
-	// Add more stuff
 	err_code = sd_ble_gap_adv_data_set(adv_data, adv_data_length, NULL, 0);
 	if (err_code)
 	{
@@ -74,7 +71,6 @@ uint32_t bluetooth_gap_advertise_start(){
 
 	err_code = sd_ble_gap_adv_start(&adv_params);
 
-	// Remove these lines when doing the GAP exercise
 	(void)adv_data;
 	(void)adv_data_length;
 
@@ -172,22 +168,24 @@ void bluetooth_serve_forever(){
 	uint16_t ble_event_buffer_size = 100;
 
 	while(1){
-		if(m_matrix_attr_value != 0){
-			// Matrix on
-			ubit_led_matrix_turn_on();
-		}
-		else{
+		/*
+		if (m_matrix_attr_value == 0)
+		{
 			// Matrix off
 			ubit_led_matrix_turn_off();
 		}
+		else
+		{
+			// Matrix on
+			ubit_led_matrix_turn_on();			
+		}
+		*/
+		ubit_helper_put_char((char) m_matrix_attr_value);
+	
 
-		while(
-			sd_ble_evt_get(
-				ble_event_buffer,
-				&ble_event_buffer_size
-			) != NRF_ERROR_NOT_FOUND
-			){
-
+		while (sd_ble_evt_get(ble_event_buffer, 
+			        &ble_event_buffer_size) != NRF_ERROR_NOT_FOUND)
+		{
 			ble_evt_t * p_ble_event = (ble_evt_t *)ble_event_buffer;
 			uint16_t event_id = p_ble_event->header.evt_id;
 

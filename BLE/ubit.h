@@ -3,6 +3,10 @@
 
 void ubit_led_matrix_init();
 
+void ubit_led_matrix_draw_num(int num);
+
+void ubit_led_matrix_light_only_at(int x, int y);
+
 void ubit_led_matrix_turn_on();
 
 void ubit_led_matrix_turn_off();
@@ -16,6 +20,10 @@ int ubit_button_press_b();
 
 
 void ubit_uart_init();
+
+void ubit_helper_put_char(char letter);
+
+char ubit_helper_get_char();
 
 void ubit_uart_print(char * p_format, ...);
 
