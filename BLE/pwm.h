@@ -10,6 +10,8 @@ void pwm_start_frequency();
 
 void pwm_stop_frequency();
 
+void pwm_pause_frequency();
+
 
 void pwm_set_ticks(int ticks);
 

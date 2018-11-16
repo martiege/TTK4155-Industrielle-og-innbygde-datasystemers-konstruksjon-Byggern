@@ -37,6 +37,7 @@ void pwm_init(int prescaler, int period){
 	TIMER1->START = 1;*/
 
 	//GPIO->PIN_CNF[20] = 1;
+	GPIO->PIN_CNF[18] = (1 << 2);
 }
 
 void static pwm_helper_set_period(uint32_t period)
@@ -62,8 +63,14 @@ void pwm_set_frequency(float frequency)
 
 void pwm_start_frequency()
 {
-	//TIMER1->STOP = 0;
+	TIMER1->STOP = 0;
 	TIMER1->START = 1;
+}
+
+void pwm_pause_frequency()
+{
+	TIMER1->STOP = 1;
+	TIMER1->START = 0;
 }
 
 void pwm_stop_frequency()
@@ -71,6 +78,9 @@ void pwm_stop_frequency()
 	TIMER1->CC[0] = 2;
 	TIMER1->CC[1] = 1;
 	TIMER1->CC[2] = 0;
+
+	//while(GPIO->IN & (1 << 18)){ ubit_uart_print("hehey");};
+
 	//pwm_helper_set_period(0);
 	util_delay_ms(500);
 	TIMER1->STOP = 1;

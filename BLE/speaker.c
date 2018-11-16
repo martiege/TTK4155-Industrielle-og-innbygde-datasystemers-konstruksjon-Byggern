@@ -1,7 +1,7 @@
 #include "speaker.h"
 #include "pwm.h"
 #include "util.h"
-
+#include "ubit.h"
 //#include "tone_defs.h"
 
 #define NOTE_B0  31
@@ -156,7 +156,7 @@ static int frequency_on; //bool
 
 void speaker_init()
 {
-    //pwm_stop_frequency();
+    //pwm_pause_frequency();
     frequency_on = 0;
 }
 
@@ -172,7 +172,8 @@ void speaker_tone(float frequency)
 
 void speaker_no_tone()
 {
-    pwm_stop_frequency();
+    //pwm_stop_frequency();
+    pwm_pause_frequency();
     frequency_on = 0;
 }
  
@@ -195,6 +196,7 @@ void speaker_play_song(Song song)
                 if (MARIO_song[tone])
                 {
                     speaker_tone(MARIO_song[tone]);
+                    ubit_uart_print("tone: %d\n\r", MARIO_song[tone]);
                 }
                 else
                 {
@@ -225,5 +227,46 @@ void speaker_play_song(Song song)
         util_delay_ms(1300/song_tempo[tone]);
     }*/
 }
+
+
+void speaker_test()
+{
+    speaker_tone(1760); //E7
+    util_delay_ms(500);
+    speaker_no_tone();
+	util_delay_ms(500);
+
+	speaker_tone(1976); //E7
+    util_delay_ms(500);
+    speaker_no_tone();
+	util_delay_ms(500);
+
+	speaker_tone(2093); //E7
+    util_delay_ms(500);
+    speaker_no_tone();
+	util_delay_ms(500);
+
+	speaker_tone(2349); //C7
+    util_delay_ms(500);
+    speaker_no_tone();
+    util_delay_ms(500);
+
+    speaker_tone(2637); //E7
+    util_delay_ms(500);
+    speaker_no_tone();
+	util_delay_ms(500);
+
+    speaker_tone(2794); //G7
+    util_delay_ms(500);
+    speaker_no_tone();
+	util_delay_ms(500);
+
+    speaker_no_tone();
+
+
+}
+
+
+
 
 //https://www.instructables.com/id/How-to-use-a-Buzzer-Arduino-Tutorial/

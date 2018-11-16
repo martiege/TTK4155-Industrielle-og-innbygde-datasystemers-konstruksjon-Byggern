@@ -16,4 +16,7 @@ void speaker_loop();
 
 void speaker_play_song(Song song);
 
+
+void speaker_test();
+
 #endif
