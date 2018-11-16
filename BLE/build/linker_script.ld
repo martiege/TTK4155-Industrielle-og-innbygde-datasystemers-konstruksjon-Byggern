@@ -23,8 +23,10 @@ MEMORY
 {
 	FLASH (rx) : ORIGIN = 0x0001B000, LENGTH = 0x2500
 	RAM (rwx) :  ORIGIN = 0x20002078, LENGTH = 0x1F88
-	/* FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x40000 */
-	/* RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x4000 */
+	/* FLASH (rx) : ORIGIN = 0x0001B000, LENGTH = 0x4000
+	RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x1F88 */
+	/* FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x40000 
+	RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x4000 */ 
 }
 
 OUTPUT_FORMAT ("elf32-littlearm", "elf32-bigarm", "elf32-littlearm")

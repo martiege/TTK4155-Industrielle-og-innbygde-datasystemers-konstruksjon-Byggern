@@ -1,0 +1,371 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x1b915
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          110268 (bytes into file)
+  Flags:                             0x5000200, Version5 EABI, soft-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         3
+  Size of section headers:           40 (bytes)
+  Number of section headers:         20
+  Section header string table index: 17
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        0001b000 00b000 001128 00  AX  0   0  4
+  [ 2] .ARM.exidx        ARM_EXIDX       0001c128 00c128 000008 00  AL  1   0  4
+  [ 3] .data             PROGBITS        20002078 012078 000450 00  WA  0   0  8
+  [ 4] .bss              NOBITS          200024c8 0124c8 000040 00  WA  0   0  4
+  [ 5] .heap             PROGBITS        20002508 0124c8 000800 00      0   0  8
+  [ 6] .stack_dummy      PROGBITS        20002508 012cc8 000800 00      0   0  8
+  [ 7] .ARM.attributes   ARM_ATTRIBUTES  00000000 0134c8 000028 00      0   0  1
+  [ 8] .comment          PROGBITS        00000000 0134f0 000070 01  MS  0   0  1
+  [ 9] .debug_line       PROGBITS        00000000 013560 000bc7 00      0   0  1
+  [10] .debug_info       PROGBITS        00000000 014127 002c0e 00      0   0  1
+  [11] .debug_abbrev     PROGBITS        00000000 016d35 000bfb 00      0   0  1
+  [12] .debug_aranges    PROGBITS        00000000 017930 0001a0 00      0   0  8
+  [13] .debug_frame      PROGBITS        00000000 017ad0 0001d0 00      0   0  4
+  [14] .debug_loc        PROGBITS        00000000 017ca0 000a29 00      0   0  1
+  [15] .debug_ranges     PROGBITS        00000000 0186c9 0000c8 00      0   0  1
+  [16] .debug_str        PROGBITS        00000000 018791 000a48 01  MS  0   0  1
+  [17] .shstrtab         STRTAB          00000000 01adf2 0000c9 00      0   0  1
+  [18] .symtab           SYMTAB          00000000 0191dc 0011c0 10     19 196  4
+  [19] .strtab           STRTAB          00000000 01a39c 000a56 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  EXIDX          0x00c128 0x0001c128 0x0001c128 0x00008 0x00008 R   0x4
+  LOAD           0x000000 0x00010000 0x00010000 0x0c130 0x0c130 R E 0x10000
+  LOAD           0x012078 0x20002078 0x0001c130 0x00450 0x00490 RW  0x10000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .ARM.exidx 
+   01     .text .ARM.exidx 
+   02     .data .bss 
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+
+Unwind table index '.ARM.exidx' at offset 0xc128 contains 1 entries:
+
+0x1b174 <_start>: 0x1 [cantunwind]
+
+
+Symbol table '.symtab' contains 284 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0001b000     0 SECTION LOCAL  DEFAULT    1 
+     2: 0001c128     0 SECTION LOCAL  DEFAULT    2 
+     3: 20002078     0 SECTION LOCAL  DEFAULT    3 
+     4: 200024c8     0 SECTION LOCAL  DEFAULT    4 
+     5: 20002508     0 SECTION LOCAL  DEFAULT    5 
+     6: 20002508     0 SECTION LOCAL  DEFAULT    6 
+     7: 00000000     0 SECTION LOCAL  DEFAULT    7 
+     8: 00000000     0 SECTION LOCAL  DEFAULT    8 
+     9: 00000000     0 SECTION LOCAL  DEFAULT    9 
+    10: 00000000     0 SECTION LOCAL  DEFAULT   10 
+    11: 00000000     0 SECTION LOCAL  DEFAULT   11 
+    12: 00000000     0 SECTION LOCAL  DEFAULT   12 
+    13: 00000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 00000000     0 SECTION LOCAL  DEFAULT   14 
+    15: 00000000     0 SECTION LOCAL  DEFAULT   15 
+    16: 00000000     0 SECTION LOCAL  DEFAULT   16 
+    17: 00000000     0 FILE    LOCAL  DEFAULT  ABS build/gcc_startup_nrf51.o
+    18: 20002508     0 NOTYPE  LOCAL  DEFAULT    6 $d
+    19: 00000800     0 NOTYPE  LOCAL  DEFAULT  ABS Stack_Size
+    20: 20002508     0 NOTYPE  LOCAL  DEFAULT    5 $d
+    21: 00000800     0 NOTYPE  LOCAL  DEFAULT  ABS Heap_Size
+    22: 0001b000     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    23: 40000524     0 NOTYPE  LOCAL  DEFAULT  ABS NRF_POWER_RAMON_ADDRESS
+    24: 40000554     0 NOTYPE  LOCAL  DEFAULT  ABS NRF_POWER_RAMONB_ADDRESS
+    25: 00000003     0 NOTYPE  LOCAL  DEFAULT  ABS NRF_POWER_RAMONx_RAMxON_O
+    26: 0001b914     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    27: 0001b940     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    28: 0001b954     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    29: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    30: 0001c124     0 OBJECT  LOCAL  DEFAULT    1 __EH_FRAME_BEGIN__
+    31: 200024c4     0 OBJECT  LOCAL  DEFAULT    3 __JCR_LIST__
+    32: 0001b0c0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    33: 0001b0c1     0 FUNC    LOCAL  DEFAULT    1 deregister_tm_clones
+    34: 0001b0d8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    35: 0001b0e4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    36: 0001b0e5     0 FUNC    LOCAL  DEFAULT    1 register_tm_clones
+    37: 0001b100     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    38: 0001b10c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    39: 0001b10d     0 FUNC    LOCAL  DEFAULT    1 __do_global_dtors_aux
+    40: 0001b12c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    41: 200024c8     0 NOTYPE  LOCAL  DEFAULT    4 completed.6266
+    42: 200024c0     0 NOTYPE  LOCAL  DEFAULT    3 $d
+    43: 200024c0     0 OBJECT  LOCAL  DEFAULT    3 __do_global_dtors_aux_fin
+    44: 0001b138     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    45: 0001b139     0 FUNC    LOCAL  DEFAULT    1 frame_dummy
+    46: 0001b160     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    47: 200024cc     0 NOTYPE  LOCAL  DEFAULT    4 object.6271
+    48: 200024bc     0 NOTYPE  LOCAL  DEFAULT    3 $d
+    49: 200024bc     0 OBJECT  LOCAL  DEFAULT    3 __frame_dummy_init_array_
+    50: 200024c8     0 NOTYPE  LOCAL  DEFAULT    4 $d
+    51: 00000000     0 FILE    LOCAL  DEFAULT  ABS /usr/lib/gcc/arm-none-eab
+    52: 0001b174     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    53: 0001b1c4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    54: 0001c128     0 NOTYPE  LOCAL  DEFAULT    2 $d
+    55: 0000000c     0 NOTYPE  LOCAL  DEFAULT   12 $d
+    56: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    57: 0001c0ac     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    58: 0001b1e0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    59: 0001b254     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    60: 00000000     0 FILE    LOCAL  DEFAULT  ABS ubit.c
+    61: 0001b260     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    62: 0001b2a4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    63: 0001b2a8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    64: 0001b2c0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    65: 0001b2d4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    66: 0001b2d8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    67: 0001b338     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    68: 0001b350     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    69: 0001b390     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    70: 0001b398     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    71: 0001b399   210 FUNC    LOCAL  DEFAULT    1 ubit_helper_put_int
+    72: 0001b46c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    73: 0001b46d    62 FUNC    LOCAL  DEFAULT    1 ubit_helper_get_requested
+    74: 0001b4ac     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    75: 0001b4ad    72 FUNC    LOCAL  DEFAULT    1 ubit_helper_get_required_
+    76: 0001b4f4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    77: 00000000     0 FILE    LOCAL  DEFAULT  ABS bluetooth.c
+    78: 0001b58c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    79: 0001b58d     6 FUNC    LOCAL  DEFAULT    1 sd_softdevice_enable
+    80: 0001b594     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    81: 0001b595     6 FUNC    LOCAL  DEFAULT    1 sd_ble_gap_adv_data_set
+    82: 0001b59c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    83: 0001b59d     6 FUNC    LOCAL  DEFAULT    1 sd_ble_gap_adv_start
+    84: 0001b5a4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    85: 0001b5a5     6 FUNC    LOCAL  DEFAULT    1 sd_ble_gatts_service_add
+    86: 0001b5ac     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    87: 0001b5ad     6 FUNC    LOCAL  DEFAULT    1 sd_ble_gatts_characterist
+    88: 0001b5b4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    89: 0001b5b5     6 FUNC    LOCAL  DEFAULT    1 sd_ble_gatts_sys_attr_set
+    90: 0001b5bc     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    91: 0001b5bd     6 FUNC    LOCAL  DEFAULT    1 sd_ble_enable
+    92: 0001b5c4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    93: 0001b5c5     6 FUNC    LOCAL  DEFAULT    1 sd_ble_evt_get
+    94: 0001b5cc     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    95: 0001b5cd     6 FUNC    LOCAL  DEFAULT    1 sd_ble_uuid_vs_add
+    96: 200024e4     1 OBJECT  LOCAL  DEFAULT    4 m_matrix_attr_value
+    97: 200024e4     0 NOTYPE  LOCAL  DEFAULT    4 $d
+    98: 200024e5     1 OBJECT  LOCAL  DEFAULT    4 m_matrix_attr_value_prev
+    99: 200024e5     0 NOTYPE  LOCAL  DEFAULT    4 $d
+   100: 200024e8     0 NOTYPE  LOCAL  DEFAULT    4 $d
+   101: 200024e8    12 OBJECT  LOCAL  DEFAULT    4 m_service_ubit
+   102: 0001b5d4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   103: 0001b62c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   104: 200024f4    20 OBJECT  LOCAL  DEFAULT    4 ble_enable_params.5423
+   105: 0001b634     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   106: 0001b698     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   107: 20002078     9 OBJECT  LOCAL  DEFAULT    3 adv_data.5428
+   108: 0001c10c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   109: 0001b69c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   110: 0001b81c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   111: 20002084    10 OBJECT  LOCAL  DEFAULT    3 matrix_char_desc.5437
+   112: 0001b83c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   113: 0001b908     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   114: 200024f4     0 NOTYPE  LOCAL  DEFAULT    4 $d
+   115: 20002078     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   116: 20002084     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   117: 00000000     0 FILE    LOCAL  DEFAULT  ABS system_nrf51.c
+   118: 0001b960     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   119: 0001b9d1   128 FUNC    LOCAL  DEFAULT    1 is_manual_peripheral_setu
+   120: 0001ba51    76 FUNC    LOCAL  DEFAULT    1 is_disabled_in_debug_need
+   121: 0001ba9d   104 FUNC    LOCAL  DEFAULT    1 is_peripheral_domain_setu
+   122: 0001b9b8     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   123: 0001b9d0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   124: 0001ba40     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   125: 0001ba50     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   126: 0001ba8c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   127: 0001ba9c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   128: 0001baf4     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   129: 00000000     0 FILE    LOCAL  DEFAULT  ABS _divsi3.o
+   130: 0001bb04     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   131: 0001bb04     0 NOTYPE  LOCAL  DEFAULT    1 .divsi3_skip_div0_test
+   132: 00000010     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   133: 0000002c     0 NOTYPE  LOCAL  DEFAULT   12 $d
+   134: 00000000     0 FILE    LOCAL  DEFAULT  ABS _dvmd_tls.o
+   135: 0001bce4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   136: 0000004c     0 NOTYPE  LOCAL  DEFAULT   12 $d
+   137: 00000000     0 FILE    LOCAL  DEFAULT  ABS atexit.c
+   138: 0001bce8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   139: 00000030     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   140: 00000000     0 FILE    LOCAL  DEFAULT  ABS exit.c
+   141: 0001bcf8     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   142: 0001bd14     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   143: 00000058     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   144: 00000000     0 FILE    LOCAL  DEFAULT  ABS fini.c
+   145: 0001bd18     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   146: 0001bd40     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   147: 00000080     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   148: 00000000     0 FILE    LOCAL  DEFAULT  ABS init.c
+   149: 0001bd4c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   150: 0001bd84     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   151: 000000ac     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   152: 00000000     0 FILE    LOCAL  DEFAULT  ABS memcpy.c
+   153: 0001bd94     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   154: 000000d8     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   155: 00000000     0 FILE    LOCAL  DEFAULT  ABS memset.c
+   156: 0001be10     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   157: 00000104     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   158: 00000000     0 FILE    LOCAL  DEFAULT  ABS __atexit.c
+   159: 0001be9c     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   160: 0001bf68     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   161: 00000130     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   162: 00000000     0 FILE    LOCAL  DEFAULT  ABS __call_atexit.c
+   163: 0001bf70     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   164: 0001bf71    24 FUNC    LOCAL  DEFAULT    1 register_fini
+   165: 0001bf80     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   166: 200024b8     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   167: 0001bf88     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   168: 0001c088     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   169: 0000016c     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   170: 00000000     0 FILE    LOCAL  DEFAULT  ABS _exit.c
+   171: 0001c090     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   172: 000001c0     0 NOTYPE  LOCAL  DEFAULT   13 $d
+   173: 00000000     0 FILE    LOCAL  DEFAULT  ABS /usr/lib/gcc/arm-none-eab
+   174: 0001c094     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   175: 0001c0a0     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   176: 00000000     0 FILE    LOCAL  DEFAULT  ABS /usr/lib/gcc/arm-none-eab
+   177: 0001c098     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   178: 0001c0a4     0 NOTYPE  LOCAL  DEFAULT    1 $t
+   179: 00000000     0 FILE    LOCAL  DEFAULT  ABS impure.c
+   180: 20002090     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   181: 20002090  1064 OBJECT  LOCAL  DEFAULT    3 impure_data
+   182: 0001c11c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   183: 0001c120     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   184: 00000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+   185: 0001c124     0 NOTYPE  LOCAL  DEFAULT    1 $d
+   186: 0001c124     0 OBJECT  LOCAL  DEFAULT    1 __FRAME_END__
+   187: 200024c4     0 NOTYPE  LOCAL  DEFAULT    3 $d
+   188: 200024c4     0 OBJECT  LOCAL  DEFAULT    3 __JCR_END__
+   189: 00000000     0 FILE    LOCAL  DEFAULT  ABS 
+   190: 200024c4     0 NOTYPE  LOCAL  DEFAULT    3 __fini_array_end
+   191: 200024c0     0 NOTYPE  LOCAL  DEFAULT    3 __fini_array_start
+   192: 200024c0     0 NOTYPE  LOCAL  DEFAULT    3 __init_array_end
+   193: 200024b8     0 NOTYPE  LOCAL  DEFAULT    3 __preinit_array_end
+   194: 200024b8     0 NOTYPE  LOCAL  DEFAULT    3 __init_array_start
+   195: 200024b8     0 NOTYPE  LOCAL  DEFAULT    3 __preinit_array_start
+   196: 20002508  2048 NOTYPE  GLOBAL DEFAULT    5 __HeapBase
+   197: 0001b95f     2 FUNC    WEAK   DEFAULT    1 TIMER2_IRQHandler
+   198: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SPI0_TWI0_IRQHandler
+   199: 0001b95f     2 FUNC    WEAK   DEFAULT    1 RTC0_IRQHandler
+   200: 20002078     0 NOTYPE  GLOBAL DEFAULT    3 __data_start__
+   201: 0001b957     2 FUNC    WEAK   DEFAULT    1 HardFault_Handler
+   202: 0001b95d     2 FUNC    WEAK   DEFAULT    1 SysTick_Handler
+   203: 0001b95f     2 FUNC    WEAK   DEFAULT    1 GPIOTE_IRQHandler
+   204: 0001b83d   216 FUNC    GLOBAL DEFAULT    1 bluetooth_serve_forever
+   205: 0001b95b     2 FUNC    WEAK   DEFAULT    1 PendSV_Handler
+   206: 0001b955     2 FUNC    WEAK   DEFAULT    1 NMI_Handler
+   207: 0001c130     0 NOTYPE  GLOBAL DEFAULT    2 __exidx_end
+   208: 0001b95f     2 FUNC    WEAK   DEFAULT    1 POWER_CLOCK_IRQHandler
+   209: 0001c130     0 NOTYPE  GLOBAL DEFAULT    2 __etext
+   210: 0001b95f     2 FUNC    WEAK   DEFAULT    1 RADIO_IRQHandler
+   211: 0001b95f     2 FUNC    WEAK   DEFAULT    1 LPCOMP_IRQHandler
+   212: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI4_IRQHandler
+   213: 0001b95f     2 FUNC    WEAK   DEFAULT    1 TEMP_IRQHandler
+   214: 0001b95f     2 FUNC    WEAK   DEFAULT    1 QDEC_IRQHandler
+   215: 0001b95f     2 FUNC    WEAK   DEFAULT    1 UART0_IRQHandler
+   216: 0001bd95   124 FUNC    GLOBAL DEFAULT    1 memcpy
+   217: 200024c8     0 OBJECT  GLOBAL HIDDEN     3 __TMC_END__
+   218: 00000000     0 NOTYPE  WEAK   DEFAULT  UND malloc
+   219: 20002d08     0 NOTYPE  GLOBAL DEFAULT    5 __HeapLimit
+   220: 200024c8     0 NOTYPE  GLOBAL DEFAULT    4 __bss_start__
+   221: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI5_IRQHandler
+   222: 0001c128     0 NOTYPE  GLOBAL DEFAULT    1 __exidx_start
+   223: 0001c120     4 OBJECT  GLOBAL DEFAULT    1 _global_impure_ptr
+   224: 0001bd4d    72 FUNC    GLOBAL DEFAULT    1 __libc_init_array
+   225: 0001b175     0 FUNC    GLOBAL DEFAULT    1 _mainCRTStartup
+   226: 0001c095     0 FUNC    GLOBAL DEFAULT    1 _init
+   227: 0001b4f5   152 FUNC    GLOBAL DEFAULT    1 ubit_uart_print
+   228: 0001bd19    52 FUNC    GLOBAL DEFAULT    1 __libc_fini_array
+   229: 0001b95f     2 FUNC    WEAK   DEFAULT    1 TIMER0_IRQHandler
+   230: 0001b915    64 FUNC    GLOBAL DEFAULT    1 Reset_Handler
+   231: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI0_IRQHandler
+   232: 0001b95f     2 FUNC    WEAK   DEFAULT    1 TIMER1_IRQHandler
+   233: 00000000     0 NOTYPE  WEAK   DEFAULT  UND __deregister_frame_info
+   234: 0001bb05     0 FUNC    GLOBAL HIDDEN     1 __aeabi_idiv
+   235: 200024c8     0 NOTYPE  GLOBAL DEFAULT    3 __data_end__
+   236: 0001b69d   416 FUNC    GLOBAL DEFAULT    1 bluetooth_gatts_start
+   237: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+   238: 0001b95f     2 FUNC    WEAK   DEFAULT    1 ECB_IRQHandler
+   239: 20002508     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end__
+   240: 0001bf89   264 FUNC    GLOBAL DEFAULT    1 __call_exitprocs
+   241: 0001b95f     2 FUNC    GLOBAL DEFAULT    1 Default_Handler
+   242: 0001b175     0 FUNC    GLOBAL DEFAULT    1 _start
+   243: 0001be9d   212 FUNC    GLOBAL DEFAULT    1 __register_exitproc
+   244: 0001b95f     2 FUNC    WEAK   DEFAULT    1 ADC_IRQHandler
+   245: 00000000     0 NOTYPE  WEAK   DEFAULT  UND software_init_hook
+   246: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI3_IRQHandler
+   247: 0001bce5     2 FUNC    WEAK   HIDDEN     1 __aeabi_ldiv0
+   248: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+   249: 0001be11   140 FUNC    GLOBAL DEFAULT    1 memset
+   250: 0001b000   192 NOTYPE  GLOBAL DEFAULT    1 __isr_vector
+   251: 0001b1e1   128 FUNC    GLOBAL DEFAULT    1 main
+   252: 0001b95f     2 FUNC    WEAK   DEFAULT    1 CCM_AAR_IRQHandler
+   253: 0001b95f     2 FUNC    WEAK   DEFAULT    1 WDT_IRQHandler
+   254: 0001b959     2 FUNC    WEAK   DEFAULT    1 SVC_Handler
+   255: 0001b261    72 FUNC    GLOBAL DEFAULT    1 ubit_led_matrix_init
+   256: 00000000     0 NOTYPE  WEAK   DEFAULT  UND hardware_init_hook
+   257: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI2_IRQHandler
+   258: 20002508     0 NOTYPE  GLOBAL DEFAULT    5 __end__
+   259: 00000000     0 NOTYPE  WEAK   DEFAULT  UND __libc_fini
+   260: 0001bb05   460 FUNC    GLOBAL HIDDEN     1 __divsi3
+   261: 0001b2d9   120 FUNC    GLOBAL DEFAULT    1 ubit_uart_init
+   262: 0001b2a9    22 FUNC    GLOBAL DEFAULT    1 ubit_led_matrix_turn_on
+   263: 0001b961   112 FUNC    GLOBAL DEFAULT    1 SystemInit
+   264: 0001b95f     2 FUNC    WEAK   DEFAULT    1 RNG_IRQHandler
+   265: 0001c0a1     0 FUNC    GLOBAL DEFAULT    1 _fini
+   266: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SPI1_TWI1_IRQHandler
+   267: 0001bce9    16 FUNC    GLOBAL DEFAULT    1 atexit
+   268: 20004000     0 NOTYPE  GLOBAL DEFAULT    4 __StackTop
+   269: 0001b635   104 FUNC    GLOBAL DEFAULT    1 bluetooth_gap_advertise_s
+   270: 0001b95f     2 FUNC    WEAK   DEFAULT    1 RTC1_IRQHandler
+   271: 20004000     0 NOTYPE  GLOBAL DEFAULT  ABS __stack
+   272: 0001b2c1    24 FUNC    GLOBAL DEFAULT    1 ubit_led_matrix_turn_off
+   273: 20003800  2048 NOTYPE  GLOBAL DEFAULT  ABS __StackLimit
+   274: 0001bcf9    32 FUNC    GLOBAL DEFAULT    1 exit
+   275: 0001bce5     2 FUNC    WEAK   HIDDEN     1 __aeabi_idiv0
+   276: 0001c091     2 FUNC    GLOBAL DEFAULT    1 _exit
+   277: 0001b5d5    96 FUNC    GLOBAL DEFAULT    1 bluetooth_init
+   278: 00000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+   279: 0001b95f     2 FUNC    WEAK   DEFAULT    1 SWI1_IRQHandler
+   280: 0001bcd1    18 FUNC    GLOBAL HIDDEN     1 __aeabi_idivmod
+   281: 0001b351    72 FUNC    GLOBAL DEFAULT    1 ubit_helper_put_char
+   282: 00000000     0 NOTYPE  WEAK   DEFAULT  UND __register_frame_info
+   283: 00000000     0 NOTYPE  WEAK   DEFAULT  UND free
+
+No version information found in this file.
+Attribute Section: aeabi
+File Attributes
+  Tag_CPU_name: "6S-M"
+  Tag_CPU_arch: v6S-M
+  Tag_CPU_arch_profile: Microcontroller
+  Tag_THUMB_ISA_use: Thumb-1
+  Tag_ABI_PCS_wchar_t: 4
+  Tag_ABI_FP_denormal: Needed
+  Tag_ABI_FP_exceptions: Needed
+  Tag_ABI_FP_number_model: IEEE 754
+  Tag_ABI_align_needed: 8-byte
+  Tag_ABI_enum_size: small

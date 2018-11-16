@@ -18,6 +18,7 @@
 extern uint8_t __data_start__;
 
 static uint8_t m_matrix_attr_value = 0;
+static uint8_t m_matrix_attr_value_prev = 0;
 
 static struct 
 {
@@ -161,26 +162,28 @@ uint32_t bluetooth_gatts_start(){
 }
 
 void bluetooth_serve_forever(){
-	// Comment all this in when doing GATT serving
-
-	
 	uint8_t ble_event_buffer[100] = {0};
 	uint16_t ble_event_buffer_size = 100;
 
+	int i = 1;
+
 	while(1){
-		/*
-		if (m_matrix_attr_value == 0)
+		if (m_matrix_attr_value != m_matrix_attr_value_prev)
 		{
-			// Matrix off
-			ubit_led_matrix_turn_off();
+			ubit_helper_put_char((char) 0xFE);
+			ubit_helper_put_char((char) m_matrix_attr_value);
+			m_matrix_attr_value_prev = m_matrix_attr_value;
+			if (i)
+			{
+				ubit_led_matrix_turn_on();
+				i = 0;
+			}
+			else
+			{
+				ubit_led_matrix_turn_off();
+				i = 1;
+			}
 		}
-		else
-		{
-			// Matrix on
-			ubit_led_matrix_turn_on();			
-		}
-		*/
-		ubit_helper_put_char((char) m_matrix_attr_value);
 	
 
 		while (sd_ble_evt_get(ble_event_buffer, 

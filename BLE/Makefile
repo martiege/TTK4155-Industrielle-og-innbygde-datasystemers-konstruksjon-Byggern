@@ -1,5 +1,5 @@
 # List all source files to be compiled; separate with space
-SOURCE_FILES := main.c ubit.c bluetooth.c pwm.c
+SOURCE_FILES := main.c ubit.c bluetooth.c pwm.c speaker.c util.c
 
 # Feel free to ignore anything below this line
 FAMILY := nrf51
@@ -23,7 +23,7 @@ OBJDUMP		:= $(GNU_PREFIX)-objdump
 CFLAGS += -mcpu=cortex-m0 -mthumb -mabi=aapcs -mfloat-abi=soft
 CFLAGS += -ffunction-sections -fdata-sections --short-enums
 CFLAGS += -fno-strict-aliasing -fno-builtin
-CFLAGS += -Wall -Werror -std=gnu99
+CFLAGS += -Wall -Werror -std=gnu99 -Os
 CFLAGS += -I$(SOFTDEVICE_API)
 
 LFLAGS := --specs=nosys.specs -Wl,--gc-sections -T $(LINKER_SCRIPT)

@@ -2,10 +2,9 @@
 #define SPEAKER_H
 
 #include <stdint.h>
-#include "tone_defs.h"
 
 /*All available songs*/
-typedef enum Song{ MARIO };
+typedef enum Song{ MARIO } Song;
 
 void speaker_init();
 

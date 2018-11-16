@@ -39,7 +39,7 @@ void USART_Transmit(unsigned char data)
 char USART_Receive()
 {
     /* Wait for the data to be recieved */
-    while ( !(UCSR0A & (1 << RXC0)) ) {}
+    if ( !(UCSR0A & (1 << RXC0)) ) { return 0; }
     
     /* Get and return recieved data from buffer */ 
     return UDR0;

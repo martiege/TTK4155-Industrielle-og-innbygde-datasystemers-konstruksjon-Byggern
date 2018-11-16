@@ -23,7 +23,6 @@
     #include "TWI_Master.h"
     #include "solenoid.h"
     #include "controller.h"
-    #include "speaker.h"
 #endif
 
 int main()
@@ -133,9 +132,14 @@ int main()
             
             printf("ATmega162\n");
             //printf("ADC: %d\n", memory_read_ADC(CH2));
-            printf("CANCTRL %x\n", MCP_read(MCP_CANCTRL));
-            us = input_com_send();
-            printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            //printf("CANCTRL %x\n", MCP_read(MCP_CANCTRL));
+            //us = input_com_send();
+            //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
+            char input = USART_Receive();
+            if (input)
+            {
+                printf("bluetooth: %x\n", input);
+            }
             
             _delay_ms(100);            
             
