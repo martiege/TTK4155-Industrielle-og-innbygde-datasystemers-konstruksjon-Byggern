@@ -5,7 +5,7 @@
 #include "menu.h"
 
 
-void menu_print(const char **menu, int length, int cursorpos)
+void menu_print(const char **menu, int start, int length, int cursorpos)
 {
     
     OLED_home();
@@ -36,7 +36,7 @@ void menu_print(const char **menu, int length, int cursorpos)
 
 /*!!NB, Menyformat!!: const char* m[8] = {"hei0", ...};*/
 /*forutsetter foreløpig at length<=8*/
-int menu(const char **menu, int length)
+int menu(const char **menu, int start, int length)
 {
     int pos = 0;
 
@@ -46,17 +46,17 @@ int menu(const char **menu, int length)
         Direction dir = user_input_joystick_direction();
         if(dir == UP)
         {
-            if (--pos < 0)
+            if (--pos < start)
             {
-                pos = 7;
+                pos = start + length - 1;
             } 
             _delay_ms(700);
         }
         else if (dir == DOWN)
         {
-            if (++pos > 7)
+            if (++pos > (start + length - 1))
             {
-                pos = 0;
+                pos = start;
             }
             _delay_ms(700);
         }

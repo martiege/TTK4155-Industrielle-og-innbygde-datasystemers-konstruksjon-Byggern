@@ -3,9 +3,9 @@
 
 
 
-void menu_print(const char **menu, int length, int cursorpos);
+void menu_print(const char **menu, int start, int length, int cursorpos);
 
-int menu(const char **menu, int length);
+int menu(const char **menu, int start, int length);
 
 
 
