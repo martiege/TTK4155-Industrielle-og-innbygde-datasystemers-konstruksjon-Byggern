@@ -29,7 +29,7 @@
 int main()
 {
     /*Init start*/
-    USART_Init(MYUBRR);
+    UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);
 
     printf("Starting...\n");
@@ -136,11 +136,11 @@ int main()
             //printf("CANCTRL %x\n", MCP_read(MCP_CANCTRL));
             //us = input_com_send();
             //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
-            char input = USART_Receive();
-            if (input)
+            //char input = USART_Receive();
+            /*if (input)
             {
                 printf("bluetooth: %x\n", input);
-            }
+            }*/
             
             _delay_ms(100);            
             
