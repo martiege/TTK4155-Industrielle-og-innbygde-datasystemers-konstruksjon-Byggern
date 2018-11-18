@@ -1,5 +1,5 @@
 #include "DAC.h"
-#include "../lib/TWI_Master.h"
+#include "TWI_Master.h"
 #include "../lib/defines.h"
 
 #include <util/delay.h>
