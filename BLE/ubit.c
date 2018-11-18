@@ -1,8 +1,6 @@
 #include "ubit.h"
 
 
-
-
 void ubit_led_matrix_init(){
 	for(int i = 4; i <= 15; i++){
 		GPIO->DIRSET = (1 << i);

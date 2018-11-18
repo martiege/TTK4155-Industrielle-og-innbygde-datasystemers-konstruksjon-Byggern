@@ -12,33 +12,17 @@ void pwm_init()
     DDRE   |= (1 << PE3);
     TCCR3A = (1 << COM3A1);
 
-    // Speaker
-    //DDRL   |= (1 << PL3) | (1 << PL4) | (1 << PL5);
-    //TCCR5A =  (1 << COM5A1) | (1 << COM5B1) | (1 << COM5C1);
-
     /* Mode 14 - Fast PWM */
     TCCR3A |= (1 << WGM31);
     TCCR3B |= (1 << WGM33) | (1 << WGM32);
 
-    /* Mode 14 - Fast PWM */
-    //TCCR5A |= (1 << WGM51);
-    //TCCR5B |= (1 << WGM53) | (1 << WGM52);
-
     /*Prescale, 8*/
     TCCR3B |= (1 << CS31);
-    //TIMSK3 |= (1 << OCIE3A);
-    //TCCR5B |= (1 << CS51);
 
     ICR3 = 39999;
-    //ICR5 = 39999;
-
-    //OCR5A = 20000;
-    //OCR5B = 20000;
-    //OCR5C = 20000;
     sei();
 
     pwm_set_angle(0);
-    //pwm_stop_frequency();
 }
 
 

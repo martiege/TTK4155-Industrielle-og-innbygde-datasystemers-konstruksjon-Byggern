@@ -1,16 +1,12 @@
 #include "node1.h"
-
+#include "OLED.h"
 #include "../lib/defines.h"
-
 #include "../lib/UART.h"
-
 #include "../lib/SPI.h"
 #include "../lib/MCP.h"
 #include "../lib/CAN.h"
-
 #include "../lib/input_com.h"
 
-#include "OLED.h"
 
 #include "menu.h"
 

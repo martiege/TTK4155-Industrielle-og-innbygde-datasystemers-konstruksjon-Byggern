@@ -1,8 +1,6 @@
 #include "ADC_internal.h"
 #include <avr/io.h>
 
-// R = 330 kOhm
-//bruk  AVCC, ikke AREF
 void ADC_internal_init()
 {
     ADCSRB = 0;
