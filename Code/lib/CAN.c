@@ -4,10 +4,10 @@
 #include "defines.h"
 
 #ifdef __AVR_ATmega2560__
-    #include "pwm.h"
-    #include "motor.h"
-    #include "controller.h"
-    #include "solenoid.h"
+    #include "../node2/pwm.h"
+    #include "../node2/motor.h"
+    #include "../node2/controller.h"
+    #include "../node2/solenoid.h"
 #endif
 
 #include <util/delay.h>

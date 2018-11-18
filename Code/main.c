@@ -1,28 +1,29 @@
-#include "defines.h"
+#include "lib/defines.h"
+#include "lib/UART.h"
+#include "lib/SPI.h"
+#include "lib/MCP.h"
+#include "lib/CAN.h"
+#include "lib/input_com.h"
+#include "lib/timer.h"
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "UART.h"
-#include <avr/pgmspace.h>
-#include "SPI.h"
-#include "MCP.h"
-#include "CAN.h"
-#include "input_com.h"
-#include "timer.h"
+
 
 #ifdef __AVR_ATmega162__
-    #include "user_input.h"
-    #include "ADC.h"
-    #include "SRAM_test.h"
-    #include "OLED.h"
-    #include "OLED_SRAM.h"
+    #include "node1/user_input.h"
+    #include "node1/ADC.h"
+    #include "node1/SRAM_test.h"
+    #include "node1/OLED.h"
+    #include "node1/OLED_SRAM.h"
 #elif __AVR_ATmega2560__
-    #include "pwm.h"
-    #include "ADC_internal.h"
-    #include "goal.h"
-    #include "motor.h"
-    #include "TWI_Master.h"
-    #include "solenoid.h"
-    #include "controller.h"
+    #include "node2/pwm.h"
+    #include "node2/ADC_internal.h"
+    #include "node2/goal.h"
+    #include "node2/motor.h"
+    #include "node2/TWI_Master.h"
+    #include "node2/solenoid.h"
+    #include "node2/controller.h"
 #endif
 
 int main()

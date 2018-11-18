@@ -1,7 +1,8 @@
 #include "goal.h"
-#include "timer.h"
+#include "../lib/timer.h"
+#include "../lib/UART.h"
 #include "ADC_internal.h"
-#include "UART.h"
+
 
 //------------------------------
 static uint8_t goals;

@@ -1,6 +1,6 @@
 #include "OLED_SRAM.h"
 #include "memory_map.h"
-#include "timer.h"
+#include "../lib/timer.h"
 
 
 void OLED_SRAM_init()

@@ -1,4 +1,4 @@
-#include "defines.h"
+#include "../lib/defines.h"
 #include "OLED.h"
 #include "user_input.h"
 #include <util/delay.h>

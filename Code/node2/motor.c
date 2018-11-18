@@ -1,9 +1,10 @@
-#include "defines.h"
+#include "../lib/defines.h"
+#include <util/delay.h>
+#include "../lib/UART.h"
 #include "motor.h"
 #include "DAC.h"
 
-#include <util/delay.h>
-#include "UART.h"
+
 
 void motor_init()
 {

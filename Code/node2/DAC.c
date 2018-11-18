@@ -1,6 +1,6 @@
 #include "DAC.h"
-#include "TWI_Master.h"
-#include "defines.h"
+#include "../lib/TWI_Master.h"
+#include "../lib/defines.h"
 
 #include <util/delay.h>
 #include <avr/interrupt.h>

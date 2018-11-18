@@ -1,8 +1,8 @@
 #include "controller.h"
-#include "defines.h"
-#include "timer.h"
+#include "../lib/defines.h"
+#include "../lib/timer.h"
+#include "../lib/UART.h"
 #include "motor.h"
-#include "UART.h"
 #include <avr/interrupt.h>
 
 

@@ -1,7 +1,7 @@
 #ifndef ADC_H
 #define ADC_H
 
-#include "defines.h"
+#include "../lib/defines.h"
 #include "memory_map.h"
 #include <stdlib.h>
 #include <stdio.h>

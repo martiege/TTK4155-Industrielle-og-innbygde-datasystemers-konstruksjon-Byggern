@@ -3,17 +3,6 @@
 
 #include "CAN.h"
 
-/*
-#ifdef __AVR_ATmega162__
-    typedef struct USER_DATA 
-    { 
-        Position pos;
-        Slider sli;
-        uint8_t but;
-    } USER_DATA;
-#endif
-*/
-
 
 typedef struct USER_DATA 
 { 

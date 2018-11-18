@@ -1,7 +1,7 @@
 #include "input_com.h"
 
 #ifdef __AVR_ATmega162__
-    #include "user_input.h"
+    #include "../node1/user_input.h"
 #endif
 
 /*Evt putte Position etc i egen fil for å gjenbruke her, senere*/

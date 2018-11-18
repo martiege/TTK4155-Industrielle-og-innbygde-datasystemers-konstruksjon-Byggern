@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "user_input.h": "c",
+        "pwm.h": "c",
+        "oled_sram.h": "c",
+        "oled.h": "c",
+        "timer.h": "c",
+        "memory_map.h": "c",
+        "defines.h": "c",
+        "uart.h": "c",
+        "twi_master.h": "c",
+        "can.h": "c",
+        "input_com.h": "c"
+    }
+}

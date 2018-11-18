@@ -2,7 +2,7 @@
 #include "OLED_SRAM.h"
 #include "memory_map.h"
 #include "fonts.h"
-#include "timer.h"
+#include "../lib/timer.h"
 
 CURSOR cur = {0, 0};
 uint8_t use_new_OLED = 1;

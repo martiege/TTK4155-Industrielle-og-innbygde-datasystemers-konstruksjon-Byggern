@@ -1,7 +1,7 @@
 #ifndef MEMORY_MAP_H
 #define MEMORY_MAP_H
 
-#include "defines.h"
+#include "../lib/defines.h"
 #include <stdio.h>
 #include <util/delay.h>
 

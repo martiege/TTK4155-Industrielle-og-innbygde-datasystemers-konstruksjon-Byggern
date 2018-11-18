@@ -20,7 +20,7 @@ TARGET_DEVICE := m2560
 ifeq ($(PROGRAM_162), yes)
 	TARGET_CPU := atmega162
 	TARGET_DEVICE := m162	
-	SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c ADC.c user_input.c OLED.c OLED_SRAM.c memory_map.c menu.c timer.c
+	SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c user_input.c OLED.c OLED_SRAM.c memory_map.c menu.c timer.c ADC.c
 endif
 
 CC := avr-gcc

@@ -1,4 +1,4 @@
-#include "defines.h"
+#include "../lib/defines.h"
 #include "pwm.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>

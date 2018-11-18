@@ -1,5 +1,5 @@
 #include "solenoid.h"
-#include "defines.h"
+#include "../lib/defines.h"
 #include <util/delay.h>
 
 static uint8_t solenoid_shot;
