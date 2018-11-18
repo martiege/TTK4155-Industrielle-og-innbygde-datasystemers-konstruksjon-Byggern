@@ -10,6 +10,13 @@
 
 #include "menu.h"
 
+void node1_contrast_menu();
+void node1_font_size_menu();
+void node1_settings_menu();
+void node1_game_settings_menu();
+
+
+/* //Standard menu
 const char *_menu[8] = 
 {
     "", 
@@ -20,55 +27,185 @@ const char *_menu[8] =
     "", 
     "", 
     ""
-};
+};*/
 
 const char *main_menu[8] = 
 {
+    //"TITLE",
     "Play game", 
-    "Settings", 
-    "", 
-    "", 
+    "System settings", 
+    "Game settings", 
     "", 
     "", 
     "", 
     ""
 };
+
+const int main_menu_start =  0;
+const int main_menu_length = 3;
+
+void node1_main_menu()
+{
+    switch(menu(main_menu, main_menu_start, main_menu_length))
+    {
+        case 0:
+            //play game
+            break;
+        case 1:
+            node1_settings_menu();
+            break;
+        case 2:
+            node1_game_settings_menu();
+            break;
+        default:
+            break;
+    }
+}
 
 const char *settings_menu[8] = 
 {
+    "SYSTEM SETTINGS",
     "Set contrast", 
     "Set font size", 
-    "", 
-    "", 
+    "Back", 
     "", 
     "", 
     "", 
     ""
 };
 
+const int settings_menu_start =  1;
+const int settings_menu_length = 3;
+
+void node1_settings_menu()
+{
+    switch(menu(settings_menu, settings_menu_start, settings_menu_length))
+    {
+        case 1:
+            node1_contrast_menu();
+            break;
+        case 2:
+            node1_font_size_menu();
+            break;
+        case 3:
+            // Back
+        default:
+            break;
+    }
+}
+
+
+const char *game_settings_menu[8] = 
+{
+    "GAME SETTINGS",
+    "Controllers", 
+    "Difficulty", 
+    "Back", 
+    "", 
+    "", 
+    "", 
+    ""
+};
+
+const int game_settings_menu_start =  1;
+const int game_settings_menu_length = 3;
+
+void node1_game_settings_menu()
+{
+    switch(menu(game_settings_menu, game_settings_menu_start, game_settings_menu_length))
+    {
+        case 1:
+            //stuff
+            //break;
+        case 2:
+            //stuff
+            //break;
+        case 3:
+            // Back
+        default:
+            break;
+    }
+}
+
 const char *contrast_menu[8] = 
 { 
-    "Contrast: 32,   12.5%%", 
-    "Contrast: 64,   25.0%%", 
-    "Contrast: 96,   37.5%%", 
-    "Contrast: 128,  50.0%%", 
-    "Contrast: 160,  62.5%%", 
-    "Contrast: 192,  75.0%%", 
-    "Contrast: 224,  87.5%%", 
-    "Contrast: 255, 100.0%%"
+    "CHOOSE CONTRAST",
+    "25.0 \%", 
+    "50.0 \%", 
+    "75.0 \%", 
+    "100.0 \%",
+    "Back",
+    "",
+    ""
 };
+
+const int contrast_menu_start =  1;
+const int contrast_menu_length = 5;
+
+void node1_contrast_menu()
+{
+    switch (menu(contrast_menu, contrast_menu_start, contrast_menu_length))
+        {
+            case 1:
+                // 25 %
+                OLED_set_contrast(64);
+                break;
+            case 2:
+                // 50 %
+                OLED_set_contrast(128);
+                break;
+            case 3:
+                // 75 %
+                OLED_set_contrast(192);
+                break;
+            case 4:
+                // 100 %
+                OLED_set_contrast(255);
+                break;
+            case 5:
+                //BACK
+            default:
+                break;
+        }
+}
+
 
 const char *font_size_menu[8] = 
 {
-    "Font size: 4", 
-    "Font size: 5", 
-    "Font size: 8", 
-    "Font size: ", 
-    "Font size: ", 
-    "Font size: ", 
-    "Font size: ", 
-    "Font size: "
+    "CHOOSE FONT SIZE",
+    "Size 4", 
+    "Size 5", 
+    "Size 8", 
+    "Back", 
+    "", 
+    "", 
+    ""
 };
+
+const int font_size_menu_start =  1;
+const int font_size_menu_length = 4;
+
+void node1_font_size_menu()
+{
+    switch (menu(font_size_menu, font_size_menu_start, font_size_menu_length))
+    {
+        case 1:
+            OLED_set_font_size(4);
+            break;
+        case 2:
+            OLED_set_font_size(5);
+            break;
+        case 3:
+            OLED_set_font_size(8);
+            
+            break;
+        case 4:
+            // Back
+        default:
+            break;
+    }
+}
+
 
 void node1_init()
 {
@@ -90,32 +227,8 @@ void node1_main()
 {
     while (1)
     {
-        switch (menu(contrast_menu, 0, 8))
-        {
-            case 0:
-                OLED_set_contrast();
-                break;
-            case 1:
-                OLED_set_contrast();
-                break;
-            case 2:
-                OLED_set_contrast();
-                break;
-            case 3:
-                OLED_set_contrast();
-                break;
-            case 4:
-                OLED_set_contrast();
-                break;
-            case 5:
-                OLED_set_contrast();
-                break;
-            case 6:
-                OLED_set_contrast();
-                break;
-            case 7:
-                OLED_set_contrast();
-                break;
-        }
+        //node1_settings_menu();
+        node1_main_menu();
+
     }
 }

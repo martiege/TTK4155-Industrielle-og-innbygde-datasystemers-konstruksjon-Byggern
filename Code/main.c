@@ -1,5 +1,7 @@
 #include "lib/defines.h"
 #include "lib/UART.h"
+
+/*
 #include "lib/SPI.h"
 #include "lib/MCP.h"
 #include "lib/CAN.h"
@@ -8,15 +10,20 @@
 #include <avr/pgmspace.h>
 #include <avr/io.h>
 #include <util/delay.h>
-
+*/
 
 #ifdef __AVR_ATmega162__
+    #include "node1/node1.h"
+/*
     #include "node1/user_input.h"
     #include "node1/ADC.h"
     #include "node1/SRAM_test.h"
     #include "node1/OLED.h"
     #include "node1/OLED_SRAM.h"
+*/
 #elif __AVR_ATmega2560__
+    #include "node2/node2.h"
+/*
     #include "node2/pwm.h"
     #include "node2/ADC_internal.h"
     #include "node2/goal.h"
@@ -24,11 +31,13 @@
     #include "node2/TWI_Master.h"
     #include "node2/solenoid.h"
     #include "node2/controller.h"
+*/
 #endif
 
 int main()
 {
     /*Init start*/
+    /*
     UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);
 
@@ -38,7 +47,7 @@ int main()
     MCP_reset();
     CAN_init();
     input_com_init();
-
+    */
     
     #ifdef __AVR_ATmega2560__
         pwm_init();
@@ -80,11 +89,15 @@ int main()
         }
 
     #elif __AVR_ATmega162__
+        node1_init();
+        node1_main();
+    /*
         SFIOR |= (1 << XMM2);
 
         SRAM_test();
 
         OLED_init();
+        */
 
 /*
         for (int page = 0; page < 8; ++page)
@@ -96,7 +109,7 @@ int main()
             printf("\n");
         }
 */
-        USER_DATA us;
+        //USER_DATA us;
         
         /*
         OLED_print("Line 1\n");
@@ -127,7 +140,7 @@ int main()
             printf("\n");
         }    
         */    
-
+       /*
         while (1)
         {
             
@@ -136,16 +149,16 @@ int main()
             //printf("CANCTRL %x\n", MCP_read(MCP_CANCTRL));
             //us = input_com_send();
             //printf("X: %d\tY: %d\tL: %d\tR: %d\tB: %d\n", us.pos_X, us.pos_Y, us.sli_left, us.sli_right, us.but);
-            //char input = USART_Receive();
-            /*if (input)
+            char input = USART_Receive();
+            if (input)
             {
                 printf("bluetooth: %x\n", input);
-            }*/
+            }
             
             _delay_ms(100);            
             
         }
-        
+        */
 
     #endif
     printf("Stopping...\n");

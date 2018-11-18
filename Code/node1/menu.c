@@ -8,7 +8,7 @@
 void menu_print(const char **menu, int start, int length, int cursorpos)
 {
     OLED_home();
-    for(int i = 0; i < length ; i++)
+    for(int i = 0; i < 8; i++)
     {
         OLED_print(menu[i]);
         if(i == cursorpos)
@@ -21,24 +21,17 @@ void menu_print(const char **menu, int start, int length, int cursorpos)
             OLED_pos(i, 110);
             OLED_put_char(' ');
         }
-        OLED_print(" \n");
-       
-    }
-    if(length < 8){
-        for(int i = length ; i < 8 ; i++)
-        {
-            OLED_print(" \n");
-        }
+        OLED_pos(i + 1, 0);
     }
 }
 
 
 int menu(const char **menu, int start, int length)
 {
-    int pos = 0;
+    int pos = start;
     while (!user_input_joystick_button())
     {
-        menu_print(menu, length, pos);
+        menu_print(menu, start, length, pos);
         Direction dir = user_input_joystick_direction();
         if(dir == UP)
         {
@@ -46,7 +39,7 @@ int menu(const char **menu, int start, int length)
             {
                 pos = start + length - 1;
             } 
-            _delay_ms(700);
+            _delay_ms(200);
         }
         else if (dir == DOWN)
         {
@@ -54,7 +47,7 @@ int menu(const char **menu, int start, int length)
             {
                 pos = start;
             }
-            _delay_ms(700);
+            _delay_ms(200);
         }
         else
         {
@@ -62,6 +55,8 @@ int menu(const char **menu, int start, int length)
         }
     }
 
+    _delay_ms(300);
+    OLED_reset();
     return pos;
 }
 

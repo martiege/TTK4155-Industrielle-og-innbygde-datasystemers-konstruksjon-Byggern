@@ -26,6 +26,10 @@ void OLED_clear_line(uint8_t line);
 
 void OLED_pos(uint8_t row, uint8_t column);
 
+void OLED_set_font_size(uint8_t size);
+
+void OLED_set_contrast(uint8_t contrast);
+
 void OLED_put_char(char c);
 
 void OLED_print(const char* string);

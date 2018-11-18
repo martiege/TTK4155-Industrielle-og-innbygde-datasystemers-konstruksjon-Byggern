@@ -48,19 +48,20 @@ Position user_input_joystick_position()
 Direction user_input_joystick_direction()
 {
     Position p = user_input_joystick_position();
-    if (p.X > 2 && p.X >= abs(p.Y))
+    //printf("X: %d, Y: %d", p.X, p.Y);
+    if (p.X > 10 && p.X >= abs(p.Y))
     {
         return RIGHT;
     }
-    else if (p.X < -2 && p.X <= -abs(p.Y)) 
+    else if (p.X < -10 && p.X <= -abs(p.Y)) 
     {
         return LEFT;
     }
-    else if (p.Y > 2 && p.Y > abs(p.X))
+    else if (p.Y > 10 && p.Y > abs(p.X))
     {
         return UP;
     }
-    else if (p.Y < -2 && p.Y < -abs(p.X)) 
+    else if (p.Y < -10 && p.Y < -abs(p.X)) 
     {
         return DOWN;
     }

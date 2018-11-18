@@ -171,8 +171,6 @@ void OLED_set_font_size(uint8_t size)
 			font_size = 8;
 			break;	
 	}
-	
-	printf("Font size: %d\n", font_size);
 }
 
 void OLED_set_contrast(uint8_t contrast)

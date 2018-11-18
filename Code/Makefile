@@ -1,5 +1,5 @@
 # List all source files to be compiled; separate with space
-SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c pwm.c ADC_internal.c timer.c goal.c TWI_Master.c DAC.c motor.c controller.c solenoid.c speaker.c
+SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c pwm.c ADC_internal.c timer.c goal.c TWI_Master.c DAC.c motor.c controller.c solenoid.c speaker.c node2.c
 
 # Set this flag to "yes" (no quotes) to use JTAG; otherwise ISP (SPI) is used
 PROGRAM_WITH_JTAG := yes
@@ -18,7 +18,7 @@ TARGET_DEVICE := m2560
 ifeq ($(PROGRAM_162), yes)
 	TARGET_CPU := atmega162
 	TARGET_DEVICE := m162	
-	SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c user_input.c OLED.c OLED_SRAM.c memory_map.c menu.c timer.c ADC.c
+	SOURCE_FILES := main.c UART.c SPI.c MCP.c CAN.c input_com.c user_input.c OLED.c OLED_SRAM.c memory_map.c menu.c timer.c ADC.c node1.c
 endif
 
 CC := avr-gcc
