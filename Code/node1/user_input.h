@@ -27,6 +27,8 @@ Slider user_input_slider_position();
 
 uint8_t user_input_joystick_button();
 
+uint8_t user_input_leftbutton();
+
 void user_input_joystick_print_direction(Direction d);
 
 #endif

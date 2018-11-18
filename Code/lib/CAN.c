@@ -10,6 +10,12 @@
     #include "../node2/solenoid.h"
 #endif
 
+#ifdef __AVR_ATmega162__
+    #include "../node1/node1.h"
+#endif
+
+#include "UART.h"
+
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
@@ -59,7 +65,7 @@ void CAN_intr_init()
     sei();
 
     received = 0;
-
+    
     //Receive interrupt
     MCP_bit_modify(MCP_CANINTE, 0x01, 0x00);
     MCP_bit_modify(MCP_CANINTE, 0x01, 0xFF);
@@ -67,6 +73,7 @@ void CAN_intr_init()
     //Reset interrupt
     MCP_bit_modify(MCP_CANINTF, 0x01, 0x00);
 
+   
     if (MCP_read(MCP_CANINTF) & 1)
     {
         received = 1;
@@ -88,25 +95,25 @@ ISR(INT2_vect)
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__
-            int ang;
+            int8_t ang;
             int pos;
             if (controller_setting == 0)
             {
-                ang = 1;
-                pos = 0;
+                ang = (int8_t)m.data[1] - 10;
+                pos = (int)((int8_t)m.data[0]) + 128;
             }
             else if (controller_setting == 1)
             {
-                ang = 4;
-                pos = 3;
+                ang = (int8_t)((int)m.data[2] - 10 - 120);
+                pos = m.data[3];
             }
             else if (controller_setting == 2)
             {
-                ang = 0;
-                pos = 3;
+                ang = (int8_t)m.data[0] - 10;
+                pos = m.data[3];
             }
-            pwm_set_angle((int8_t)m.data[ang] - 10); //-10 is offset for the servo
-            controller_set_reference(m.data[pos] * 50);
+            pwm_set_angle(ang); //-10 is offset for the servo
+            controller_set_reference(pos * 50);
             
             if (m.data[4] && !(solenoid_get_shot()))
             {
@@ -124,25 +131,14 @@ ISR(INT2_vect)
             controller_setting = m.data[0];
         #endif
     }
-    /*
-    if (m.id == GAME_DIFFICULTY)
+    
+    if (m.id == TRANSFERRED_GOALS)
     {
-        #ifdef __AVR_ATmega2560__
-            if (m.data[0] == 1)
-            {
-            }
-            else if (m.data[0] == 2)
-            {
-
-            }
-            else if (m.data[0] == 3)
-            {
-                controller_set_min_speed(90);
-            }
-        
+        #ifdef __AVR_ATmega162__
+            decrease_lives();
         #endif
     }
-    */
+    
 }
 
 

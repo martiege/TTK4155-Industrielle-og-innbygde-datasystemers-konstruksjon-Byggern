@@ -84,6 +84,11 @@ uint8_t user_input_joystick_button()
     return !(PINB & 1);
 }
 
+uint8_t user_input_leftbutton()
+{
+    return (PINB & (1 << 1)) >> 1;
+}
+
 void user_input_joystick_print_direction(Direction d)
 {
     switch (d)

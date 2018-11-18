@@ -1,6 +1,7 @@
 #include "SPI.h"
 #include <avr/io.h>
 #include "defines.h"
+#include "UART.h"
 
 void SPI_MasterInit()
 {
@@ -24,6 +25,7 @@ uint8_t SPI_MasterTransmit(char cData)
     SPDR = cData;
     /*Wait for transmission complete*/
     while (!(SPSR & (1 << SPIF)));
+    //printf("SPItrans!");
 
     return SPDR;
 }

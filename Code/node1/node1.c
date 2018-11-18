@@ -7,16 +7,23 @@
 #include "../lib/CAN.h"
 #include "../lib/input_com.h"
 
+#include <util/delay.h>
 
 #include "menu.h"
+#include "user_input.h" //ta vekk
+
 
 void node1_contrast_menu();
 void node1_font_size_menu();
 void node1_settings_menu();
 void node1_game_settings_menu();
 void node1_controller_settings_menu();
+void node1_ingame_menu();
 
-static int 
+static uint8_t number_of_lives = 100;
+
+void decrease_lives() { number_of_lives--; }
+
 
 /* //Standard menu
 const char *_menu[8] = 
@@ -54,6 +61,7 @@ void node1_main_menu()
         {
             case 0:
                 //play game
+                node1_ingame_menu();
                 break;
             case 1:
                 node1_settings_menu();
@@ -65,6 +73,46 @@ void node1_main_menu()
                 break;
         }
     }
+}
+
+
+void node1_ingame_menu()
+{
+    OLED_reset();
+    OLED_home();
+    OLED_print("Press left button to end \ngame");
+
+    int chose_to_end = 0;
+    
+    while (number_of_lives) //bytt ut 1 med number_of_lives
+    {
+        input_com_send();
+        _delay_ms(100);
+        if (user_input_leftbutton())
+        {
+            chose_to_end = 1;
+            break;
+        } 
+        OLED_pos(2, 0);
+        OLED_clear_line(2);
+        OLED_print("Number of lives: ");
+
+        //Hackery to print int
+        char *lives;
+        *--lives = 0;
+        uint8_t copy = number_of_lives;
+        if(!copy) *--lives = 0;
+        for(; copy ; copy/=10) *--lives = '0' + copy%10;
+        
+        OLED_print(lives);
+    }
+    if (!chose_to_end)
+    {
+        OLED_reset();
+        OLED_print("\n\n   GAME OVER :(");
+    }
+    OLED_reset();    
+    
 }
 
 const char *settings_menu[8] = 
@@ -198,19 +246,19 @@ const int difficulty_settings_menu_length = 4;
 
 void node1_difficulty_settings_menu()
 {
-    CAN_message m;
-    m.id = GAME_DIFFICULTY;
-    m.length = 1;
     while (1)
     {
         int _position = menu(difficulty_settings_menu, difficulty_settings_menu_start, difficulty_settings_menu_length);
         switch(_position)
         {
             case 1:
+                number_of_lives = 20;
+                return;
             case 2:
+                number_of_lives = 10;
+                return;
             case 3:
-                m.data[0] = _position;
-                CAN_send(&m);
+                number_of_lives = 5;
                 return;
             case 4:
                 return;
@@ -331,6 +379,5 @@ void node1_main()
     {
         //node1_settings_menu();
         node1_main_menu();
-
     }
 }

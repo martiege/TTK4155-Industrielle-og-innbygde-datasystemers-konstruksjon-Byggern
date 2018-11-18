@@ -38,12 +38,13 @@
 
 int main()
 {
+    
     /*Init start*/
     /*
     UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);
 
-    printf("Starting...\n");
+    
 
     SPI_MasterInit();
     MCP_reset();
@@ -53,6 +54,8 @@ int main()
     
     #ifdef __AVR_ATmega2560__
         node2_init();
+
+        printf("Starting...\n");
         /*
         pwm_init();
         ADC_internal_init();

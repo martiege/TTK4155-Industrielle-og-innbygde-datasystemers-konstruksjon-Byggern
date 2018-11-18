@@ -20,9 +20,11 @@ void node2_init()
     UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);
 
+    printf("Initializing...\n");
+
     SPI_MasterInit();
     MCP_reset();
-    CAN_init();
+    CAN_init();    
 
     input_com_init();
 
@@ -33,4 +35,6 @@ void node2_init()
     TWI_Master_Initialise();
     motor_init();
     controller_init(4, 0, 4);
+
+    printf("Initialized!\n");
 }

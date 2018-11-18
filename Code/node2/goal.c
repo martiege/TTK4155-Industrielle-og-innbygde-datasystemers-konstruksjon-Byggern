@@ -40,6 +40,11 @@ void goal_interruptfunc()
     {
         if (!(already_goal))
         {
+            CAN_message msg;
+            msg.id = TRANSFERRED_GOALS;
+            msg.length = 1;
+            msg.data[0] = 1;
+
             goals++;
             timer_set_period(500, 2); 
             already_goal = 1;
