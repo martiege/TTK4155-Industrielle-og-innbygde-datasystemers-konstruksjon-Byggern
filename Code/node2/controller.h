@@ -14,6 +14,7 @@ typedef struct CONTROLLER_DATA
 	int16_t K_d;
 	int16_t maxE;
 	int32_t maxSumE;
+	int16_t speed;
 } CONTROLLER_DATA;
 
 static CONTROLLER_DATA ctrl;
@@ -22,6 +23,8 @@ static CONTROLLER_DATA ctrl;
 void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d);
 
 void controller_set_reference(int16_t ref);
+
+void controller_set_min_speed(int16_t spd);
 
 void reset_integrator();
 

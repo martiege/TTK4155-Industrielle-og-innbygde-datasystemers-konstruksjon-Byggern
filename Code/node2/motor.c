@@ -23,7 +23,7 @@ void motor_init()
 	
 	motor_reset();
 
-    motor_set_speed(0);
+    motor_set_speed(0, 50);
     
     motor_speed = 0;
 }
@@ -60,17 +60,17 @@ void motor_reset()
 	MOTOR_CONFIG |= (1 << MOTOR_RST);
 }
 
-void motor_set_speed(int16_t speed)
+void motor_set_speed(int16_t speed, int16_t min)
 {
     if(speed < -5) //buffer
     {
-        if(speed > -50) speed = -50; //fix stick effect
+        if(speed > -min) speed = -min; //fix stick effect
         motor_set_dir(0);
         DAC_send_speed((uint8_t)((-speed) & 0xFF));        
     }
     else if(speed > 5) //buffer
     {   
-        if(speed < 50) speed = 50; //fix stick effect
+        if(speed < min) speed = min; //fix stick effect
         motor_set_dir(1);
         DAC_send_speed((uint8_t)(speed & 0xFF));
     } 

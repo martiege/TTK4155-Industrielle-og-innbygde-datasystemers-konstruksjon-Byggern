@@ -23,6 +23,8 @@
 #define MCP_RXB0DLC     0x65
 #define MCP_RXB0D0  	0x66
 
+static int controller_setting = 2;
+
 void CAN_init()
 {
     MCP_reset(); 
@@ -86,9 +88,25 @@ ISR(INT2_vect)
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__
-            
-            pwm_set_angle((int8_t)m.data[0] - 10); //-10 is offset for the servo
-            controller_set_reference(m.data[3]*50);
+            int ang;
+            int pos;
+            if (controller_setting == 0)
+            {
+                ang = 1;
+                pos = 0;
+            }
+            else if (controller_setting == 1)
+            {
+                ang = 4;
+                pos = 3;
+            }
+            else if (controller_setting == 2)
+            {
+                ang = 0;
+                pos = 3;
+            }
+            pwm_set_angle((int8_t)m.data[ang] - 10); //-10 is offset for the servo
+            controller_set_reference(m.data[pos] * 50);
             
             if (m.data[4] && !(solenoid_get_shot()))
             {
@@ -100,6 +118,31 @@ ISR(INT2_vect)
             } 
         #endif
     }
+    if (m.id == CONTROLLER_SETTINGS)
+    {
+        #ifdef __AVR_ATmega2560__
+            controller_setting = m.data[0];
+        #endif
+    }
+    /*
+    if (m.id == GAME_DIFFICULTY)
+    {
+        #ifdef __AVR_ATmega2560__
+            if (m.data[0] == 1)
+            {
+            }
+            else if (m.data[0] == 2)
+            {
+
+            }
+            else if (m.data[0] == 3)
+            {
+                controller_set_min_speed(90);
+            }
+        
+        #endif
+    }
+    */
 }
 
 

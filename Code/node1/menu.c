@@ -33,6 +33,7 @@ int menu(const char **menu, int start, int length)
     {
         menu_print(menu, start, length, pos);
         Direction dir = user_input_joystick_direction();
+        //user_input_joystick_print_direction(dir);
         if(dir == UP)
         {
             if (--pos < start)
@@ -57,6 +58,13 @@ int menu(const char **menu, int start, int length)
 
     _delay_ms(300);
     OLED_reset();
+    OLED_pos(pos, 0);
+    OLED_print(menu[pos]);
+    OLED_pos(pos, 110);
+    OLED_put_char('v');
+    _delay_ms(500);
+    OLED_reset();
+
     return pos;
 }
 

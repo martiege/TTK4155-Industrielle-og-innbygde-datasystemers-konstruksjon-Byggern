@@ -23,6 +23,8 @@
 */
 #elif __AVR_ATmega2560__
     #include "node2/node2.h"
+    #include "node2/controller.h"
+    #include <util/delay.h>
 /*
     #include "node2/pwm.h"
     #include "node2/ADC_internal.h"
@@ -50,6 +52,8 @@ int main()
     */
     
     #ifdef __AVR_ATmega2560__
+        node2_init();
+        /*
         pwm_init();
         ADC_internal_init();
         goal_init();
@@ -59,9 +63,11 @@ int main()
         motor_init();
         controller_init(4, 0, 4);
         speaker_init();
+        */
+
         //controller_init(1, 0, 0);
 
-        USER_DATA us;
+        //USER_DATA us;
         //speaker_tone(1000);
         //speaker_loop();
 

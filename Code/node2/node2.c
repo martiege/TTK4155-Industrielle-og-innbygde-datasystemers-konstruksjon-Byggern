@@ -15,7 +15,7 @@
 #include "controller.h"
 
 
-void node1_init()
+void node2_init()
 {
     UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);

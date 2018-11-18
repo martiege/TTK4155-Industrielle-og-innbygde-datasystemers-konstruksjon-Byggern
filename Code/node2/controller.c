@@ -18,11 +18,17 @@ void controller_init(int16_t ctrl_K_p, int16_t ctrl_K_i, int16_t ctrl_K_d)
 	
 	ctrl.maxE = MAX_INT / (ctrl.K_p + 1);
 	ctrl.maxSumE = MAX_I_TERM / (ctrl.K_i + 1);
+	ctrl.speed = 50;
 }
 
 void controller_set_reference(int16_t ref)
 {
 	ctrl.r = ref;
+}
+
+void controller_set_min_speed(int16_t spd)
+{
+	ctrl.speed = spd;
 }
 
 void controller_reset_integrator()
@@ -106,5 +112,5 @@ void controller_update()
 	}
 
 	motor_speed = ret;
-	motor_set_speed((int16_t)ret);
+	motor_set_speed((int16_t)ret, ctrl.speed);
 }

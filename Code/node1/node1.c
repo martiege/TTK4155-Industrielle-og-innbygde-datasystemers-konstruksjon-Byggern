@@ -14,7 +14,9 @@ void node1_contrast_menu();
 void node1_font_size_menu();
 void node1_settings_menu();
 void node1_game_settings_menu();
+void node1_controller_settings_menu();
 
+static int 
 
 /* //Standard menu
 const char *_menu[8] = 
@@ -46,19 +48,22 @@ const int main_menu_length = 3;
 
 void node1_main_menu()
 {
-    switch(menu(main_menu, main_menu_start, main_menu_length))
+    while (1)
     {
-        case 0:
-            //play game
-            break;
-        case 1:
-            node1_settings_menu();
-            break;
-        case 2:
-            node1_game_settings_menu();
-            break;
-        default:
-            break;
+        switch(menu(main_menu, main_menu_start, main_menu_length))
+        {
+            case 0:
+                //play game
+                break;
+            case 1:
+                node1_settings_menu();
+                break;
+            case 2:
+                node1_game_settings_menu();
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -79,18 +84,22 @@ const int settings_menu_length = 3;
 
 void node1_settings_menu()
 {
-    switch(menu(settings_menu, settings_menu_start, settings_menu_length))
+    while(1)
     {
-        case 1:
-            node1_contrast_menu();
-            break;
-        case 2:
-            node1_font_size_menu();
-            break;
-        case 3:
-            // Back
-        default:
-            break;
+        switch(menu(settings_menu, settings_menu_start, settings_menu_length))
+        {
+            case 1:
+                node1_contrast_menu();
+                break;
+            case 2:
+                node1_font_size_menu();
+                break;
+            case 3:
+                // Back
+                return;
+            default:
+                break;
+        }
     }
 }
 
@@ -112,20 +121,106 @@ const int game_settings_menu_length = 3;
 
 void node1_game_settings_menu()
 {
-    switch(menu(game_settings_menu, game_settings_menu_start, game_settings_menu_length))
+    while (1)
     {
-        case 1:
-            //stuff
-            //break;
-        case 2:
-            //stuff
-            //break;
-        case 3:
-            // Back
-        default:
-            break;
+        switch(menu(game_settings_menu, game_settings_menu_start, game_settings_menu_length))
+        {
+            case 1:
+                node1_controller_settings_menu();
+                break;
+            case 2:
+                //stuff
+                break;
+            case 3:
+                // Back
+                return;
+            default:
+                break;
+        }
     }
 }
+
+const char *controller_settings_menu[8] = 
+{
+    "CONTROLLERS", 
+    "Joystick", 
+    "Sliders", 
+    "R slider + joy", 
+    "Back", 
+    "", 
+    "", 
+    ""
+};
+
+const int controller_settings_menu_start =  1;
+const int controller_settings_menu_length = 4;
+
+void node1_controller_settings_menu()
+{
+    CAN_message m;
+    m.id = CONTROLLER_SETTINGS;
+    m.length = 1;
+    while (1)
+    {
+        int _position = menu(controller_settings_menu, controller_settings_menu_start, controller_settings_menu_length);
+        switch(_position)
+        {
+            case 1:
+            case 2:
+            case 3:
+                m.data[0] = _position - 1;
+                CAN_send(&m);
+                return;
+            case 4:
+                return;
+                // Back
+            default:
+                break;
+        }
+    }
+}
+
+
+const char *difficulty_settings_menu[8] = 
+{
+    "DIFFICULTY", 
+    "Level 1", 
+    "Level 2", 
+    "Level 3", 
+    "Back", 
+    "", 
+    "", 
+    ""
+};
+
+const int difficulty_settings_menu_start =  1;
+const int difficulty_settings_menu_length = 4;
+
+void node1_difficulty_settings_menu()
+{
+    CAN_message m;
+    m.id = GAME_DIFFICULTY;
+    m.length = 1;
+    while (1)
+    {
+        int _position = menu(difficulty_settings_menu, difficulty_settings_menu_start, difficulty_settings_menu_length);
+        switch(_position)
+        {
+            case 1:
+            case 2:
+            case 3:
+                m.data[0] = _position;
+                CAN_send(&m);
+                return;
+            case 4:
+                return;
+                // Back
+            default:
+                break;
+        }
+    }
+}
+
 
 const char *contrast_menu[8] = 
 { 
@@ -144,29 +239,33 @@ const int contrast_menu_length = 5;
 
 void node1_contrast_menu()
 {
-    switch (menu(contrast_menu, contrast_menu_start, contrast_menu_length))
+    while (1)
+    {
+        switch (menu(contrast_menu, contrast_menu_start, contrast_menu_length))
         {
             case 1:
                 // 25 %
                 OLED_set_contrast(64);
-                break;
+                return;
             case 2:
                 // 50 %
                 OLED_set_contrast(128);
-                break;
+                return;
             case 3:
                 // 75 %
                 OLED_set_contrast(192);
-                break;
+                return;
             case 4:
                 // 100 %
                 OLED_set_contrast(255);
-                break;
+                return;
             case 5:
+                return;
                 //BACK
             default:
                 break;
         }
+    }
 }
 
 
@@ -187,22 +286,25 @@ const int font_size_menu_length = 4;
 
 void node1_font_size_menu()
 {
-    switch (menu(font_size_menu, font_size_menu_start, font_size_menu_length))
+    while (1)
     {
-        case 1:
-            OLED_set_font_size(4);
-            break;
-        case 2:
-            OLED_set_font_size(5);
-            break;
-        case 3:
-            OLED_set_font_size(8);
-            
-            break;
-        case 4:
-            // Back
-        default:
-            break;
+        switch (menu(font_size_menu, font_size_menu_start, font_size_menu_length))
+        {
+            case 1:
+                OLED_set_font_size(4);
+                return;
+            case 2:
+                OLED_set_font_size(5);
+                return;
+            case 3:
+                OLED_set_font_size(8);
+                return;
+            case 4:
+                return;
+                // Back
+            default:
+                break;
+        }
     }
 }
 
