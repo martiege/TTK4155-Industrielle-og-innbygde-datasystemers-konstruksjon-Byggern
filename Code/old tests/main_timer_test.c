@@ -32,7 +32,7 @@ void func2()
 int main()
 {
     /*Init start*/
-    USART_Init(MYUBRR);
+    UART_Init(MYUBRR);
 
     MCUCR |= (1 << SRE);
     //SFIOR |= (1 << XMM2);

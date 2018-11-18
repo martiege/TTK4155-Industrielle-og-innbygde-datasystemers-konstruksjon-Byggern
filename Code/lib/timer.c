@@ -12,10 +12,7 @@ static void (* timer2_function)(void);
 void timer_init(uint8_t id, void (* function)() )
 {
 	cli();
-    //interrupt
-    //OCF1A
 
-    // function pointer
 	if (id == 1)
 	{
 		TIMER1_CTRLA = 0;

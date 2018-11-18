@@ -25,7 +25,7 @@
 int main()
 {
     /*Init start*/
-    USART_Init(MYUBRR);
+    UART_Init(MYUBRR);
     MCUCR |= (1 << SRE);
 
     printf("Starting...\n");

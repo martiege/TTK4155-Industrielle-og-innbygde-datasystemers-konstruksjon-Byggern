@@ -27,6 +27,4 @@ void CAN_send(const CAN_message* msg);
 
 void CAN_receive(CAN_message* msg);
 
-
-
 #endif

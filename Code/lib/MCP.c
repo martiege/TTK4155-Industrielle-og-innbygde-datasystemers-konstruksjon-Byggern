@@ -24,7 +24,7 @@ uint8_t MCP_read(uint8_t adr)
     SPI_MasterTransmit(MCP_READ);
     SPI_MasterTransmit(adr);
 
-    //lytt på SO
+    //Listen on SO
     uint8_t data = SPI_MasterTransmit(0);
 
     MCP_cs(1);
@@ -45,11 +45,12 @@ void MCP_write(uint8_t adr, uint8_t data)
 }
 
 
-void MCP_request_to_send(/*uint8_t n*/)
+void MCP_request_to_send()
 {
     MCP_cs(0);
 
-    SPI_MasterTransmit(MCP_RTS_TX0); // bruker bare buffer 0
+    //Only using buffer 0
+    SPI_MasterTransmit(MCP_RTS_TX0); 
 
     MCP_cs(1);
 }

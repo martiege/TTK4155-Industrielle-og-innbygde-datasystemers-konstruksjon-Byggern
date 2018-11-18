@@ -10,32 +10,32 @@
 
 int main()
 {
-    USART_Init(MYUBRR);
+    UART_Init(MYUBRR);
     
     //char* q = "a";
     
     while(1){
       _delay_ms(1000);
-      USART_Transmit('\n');
-      USART_Transmit('\r');
+      UART_Transmit('\n');
+      UART_Transmit('\r');
       
       if (PORTA == 0xFF)
       {
           PORTA = 0;
-          USART_Transmit('A');
+          UART_Transmit('A');
           printf(", HEY STUDASS ;)");
       }
       else
       {
           PORTA = 0xFF;
-          USART_Transmit('B');   
+          UART_Transmit('B');   
           //char* port_A = PORTA;
           printf("%x%s",PORTA, "s4ever?");
       }
       
-      //char hey = USART_Receive();
+      //char hey = UART_Receive();
       //_delay_ms(1000);
-      //USART_Transmit(hey);
+      //UART_Transmit(hey);
         
     }
 

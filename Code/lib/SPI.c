@@ -27,9 +27,3 @@ uint8_t SPI_MasterTransmit(char cData)
 
     return SPDR;
 }
-
-
-
-
-
-/*SPI Interrupt Enable bit (SPIE) in the SPCR Register*/

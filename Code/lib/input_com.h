@@ -14,8 +14,6 @@ typedef struct USER_DATA
 } USER_DATA;
 
 static USER_DATA user_data;
-
-
 static CAN_message input_message;
 
 
@@ -25,8 +23,7 @@ void input_com_init();
 USER_DATA input_com_send();
 #endif
 
-USER_DATA input_com_recieve(/*CAN_message &msg*/);
-
+USER_DATA input_com_recieve();
 
 
 #endif

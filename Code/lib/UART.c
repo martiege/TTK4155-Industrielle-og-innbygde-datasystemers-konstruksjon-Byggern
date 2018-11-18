@@ -1,10 +1,8 @@
-//#include <avr/io.h>
 #include "UART.h"
 #include "defines.h"
 
-void USART_Init(unsigned int ubrr)
+void UART_Init(unsigned int ubrr)
 {
-    
     /*Set baud rate*/
     UBRR0H = (unsigned char)(ubrr>>8);
     UBRR0L = (unsigned char)ubrr;
@@ -26,7 +24,7 @@ void USART_Init(unsigned int ubrr)
     fdevopen(put_char, get_char);
 }
 
-void USART_Transmit(unsigned char data)
+void UART_Transmit(unsigned char data)
 {
     /* Wait for empty transmit buffer */ 
     while ( !( UCSR0A & (1 << UDRE0)) ) {}
@@ -36,7 +34,7 @@ void USART_Transmit(unsigned char data)
 
 }
 
-char USART_Receive()
+char UART_Receive()
 {
     /* Wait for the data to be recieved */
     if ( !(UCSR0A & (1 << RXC0)) ) { return 0; }
@@ -48,15 +46,15 @@ char USART_Receive()
 
 int put_char(char data, FILE* file){
     if(data=='\n'){
-        USART_Transmit('\r');
+        UART_Transmit('\r');
     }
-    USART_Transmit(data);
+    UART_Transmit(data);
     return 0;
 
 
 }
 
 int get_char(FILE* file){
-    return USART_Receive();
+    return UART_Receive();
 
 }
