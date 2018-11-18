@@ -190,7 +190,7 @@ void OLED_put_char(char c)
 				}
 				else
 				{
-					memory_write_oled_data(pgm_read_byte(&font4[c - ' '][i])); //må lese fra progmem
+					memory_write_oled_data(pgm_read_byte(&font4[c - ' '][i]));
 				}
 			}
 			break;
@@ -204,7 +204,7 @@ void OLED_put_char(char c)
 				}
 				else
 				{
-					memory_write_oled_data(pgm_read_byte(&font5[c - ' '][i])); //må lese fra progmem
+					memory_write_oled_data(pgm_read_byte(&font5[c - ' '][i]));
 				}
 			}
 			break;
@@ -218,7 +218,7 @@ void OLED_put_char(char c)
 				}
 				else
 				{
-					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i])); //må lese fra progmem
+					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i]));
 				}
 			}
 			break;
@@ -232,7 +232,7 @@ void OLED_put_char(char c)
 				}
 				else
 				{
-					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i])); //må lese fra progmem
+					memory_write_oled_data(pgm_read_byte(&font8[c - ' '][i]));
 				}
 			}
 			break;

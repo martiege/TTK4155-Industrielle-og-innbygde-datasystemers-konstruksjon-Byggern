@@ -7,19 +7,17 @@ static uint8_t solenoid_shot;
 
 void solenoid_deactivate()
 {
-    //SOLENOID_PORT &= ~(1 << SOLENOID_PIN);
     SOLENOID_PORT |= (1 << SOLENOID_PIN);
 }
 
 void solenoid_activate()
 {
-    //SOLENOID_PORT |= (1 << SOLENOID_PIN);
     SOLENOID_PORT &= ~(1 << SOLENOID_PIN);
 }
 
 void solenoid_init()
 {
-    // set pin  as output
+    // Set pin  as output
     SOLENOID_DDR |= (1 << SOLENOID_PIN);
 
     solenoid_shot = 0;

@@ -8,7 +8,7 @@ void OLED_SRAM_init()
 	OLED_SRAM_reset();
 	
 	timer_init(1, OLED_SRAM_update);
-	timer_set_period(100, 1); // 20 ms -> 50 Hz update frequency
+	timer_set_period(100, 1); 
 	timer_start(1);
 }
 
@@ -167,7 +167,6 @@ void OLED_SRAM_draw_circle(uint8_t x0, uint8_t y0, uint8_t radius, uint8_t clear
 
 void OLED_SRAM_update()
 {
-	//printf("OLED start\n");
 	for (uint8_t i = 0; i < 8; ++i)
 	{
 		memory_write_oled_command(0xB0 | i);
@@ -176,5 +175,4 @@ void OLED_SRAM_update()
 			memory_write_oled_data( OLED_SRAM_read(i, j) );
 		}
 	}
-	//printf("OLED end\n");
 }

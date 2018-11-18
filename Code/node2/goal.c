@@ -3,13 +3,10 @@
 #include "../lib/UART.h"
 #include "ADC_internal.h"
 
-
 //------------------------------
+
 static uint8_t goals;
 static int already_goal; //bool
-
-
-
 
 //------------------------------
 void goal_interruptfunc();
@@ -32,7 +29,6 @@ uint8_t goal_get_goals()
 
 int goal_read()
 {   
-    //printf("Goal status: %d\n", ADC_internal_status());
     return (ADC_internal_status() < 50);
 }
 

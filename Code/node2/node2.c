@@ -1,13 +1,9 @@
 #include "node2.h"
-
 #include "../lib/defines.h"
-
 #include "../lib/UART.h"
-
 #include "../lib/SPI.h"
 #include "../lib/MCP.h"
 #include "../lib/CAN.h"
-
 #include "../lib/input_com.h"
 
 #include "pwm.h"

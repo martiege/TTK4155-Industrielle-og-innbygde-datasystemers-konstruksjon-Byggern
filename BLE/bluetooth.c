@@ -106,7 +106,7 @@ uint32_t bluetooth_gatts_start(){
 		return err_code;
 	}
 
-//Matrix
+	//Matrix
 	ble_uuid_t matrix_uuid;
 	matrix_uuid.uuid = CUSTOM_UUID_CHAR_MATRIX;
 

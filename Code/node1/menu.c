@@ -7,7 +7,6 @@
 
 void menu_print(const char **menu, int length, int cursorpos)
 {
-    
     OLED_home();
     for(int i = 0; i < length ; i++)
     {
@@ -33,14 +32,10 @@ void menu_print(const char **menu, int length, int cursorpos)
     }
 }
 
-
-/*!!NB, Menyformat!!: const char* m[8] = {"hei0", ...};*/
-/*forutsetter foreløpig at length<=8*/
 int menu(const char **menu, int length)
 {
     int pos = 0;
-
-    while ( !user_input_joystick_button())
+    while (!user_input_joystick_button())
     {
         menu_print(menu, length, pos);
         Direction dir = user_input_joystick_direction();

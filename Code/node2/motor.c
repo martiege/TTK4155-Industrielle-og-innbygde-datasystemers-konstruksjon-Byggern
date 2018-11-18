@@ -5,7 +5,6 @@
 #include "DAC.h"
 
 
-
 void motor_init()
 {
     /*ADC8-15 (MJ2) as inputs*/
@@ -63,18 +62,15 @@ void motor_reset()
 
 void motor_set_speed(int16_t speed)
 {
-    //printf("speed %d\n", speed);
-    if(speed < -5)
+    if(speed < -5) //buffer
     {
-        if(speed > -50) speed = -50;
-        //printf("Negative\n");
+        if(speed > -50) speed = -50; //fix stick effect
         motor_set_dir(0);
         DAC_send_speed((uint8_t)((-speed) & 0xFF));        
     }
-    else if(speed > 5)
+    else if(speed > 5) //buffer
     {   
-        if(speed < 50) speed = 50;
-        //printf("Positive\n");
+        if(speed < 50) speed = 50; //fix stick effect
         motor_set_dir(1);
         DAC_send_speed((uint8_t)(speed & 0xFF));
     } 
@@ -89,11 +85,9 @@ void motor_set_dir(uint8_t dir)
     if (dir)
     {
 		MOTOR_CONFIG |= (1 << PH1);
-        //PINH |= (1 << PH1);
     }
     else
     {
 		MOTOR_CONFIG &= ~(1 << PH1);
-        //PINH &= ~(1 << PH1);
     }
 }
