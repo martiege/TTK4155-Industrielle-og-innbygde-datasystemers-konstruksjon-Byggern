@@ -3,6 +3,18 @@
 
 #include "CAN.h"
 
+/**
+Input Communication module
+
+Implements communication of 
+user input values from
+node 1 to node 2. 
+
+Uses the variables 
+USER_DATA user_data and 
+CAN_message input_message
+
+**/
 
 typedef struct USER_DATA 
 { 
