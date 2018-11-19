@@ -1,20 +1,14 @@
 #include "MCP.h"
 #include "SPI.h"
-#include <avr/io.h>
-#include <stdint.h>
-#include "defines.h"
+#include "ubit.h"
+#include "MCP2515.h"
+//#include <avr/io.h>
+//#include "defines.h"
 
 
 void MCP_cs(uint8_t i)
 {
-    if (i)
-    {
-        PORTB |= (1 << SPI_SS); 
-    }
-    else
-    {
-        PORTB &= ~(1 << SPI_SS); 
-    }
+    SPI_cs(i)
 }
 
 uint8_t MCP_read(uint8_t adr)

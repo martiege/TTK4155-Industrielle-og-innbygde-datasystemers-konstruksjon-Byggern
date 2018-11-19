@@ -97,14 +97,7 @@ void node1_ingame_menu()
         OLED_clear_line(2);
         OLED_print("Number of lives: ");
 
-        //Hackery to print int
-        char *lives;
-        *--lives = 0;
-        uint8_t copy = number_of_lives;
-        if(!copy) *--lives = 0;
-        for(; copy ; copy/=10) *--lives = '0' + copy%10;
-        
-        OLED_print(lives);
+        OLED_put_int(number_of_lives);
     }
     if (!chose_to_end)
     {

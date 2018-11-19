@@ -32,6 +32,8 @@ void OLED_set_contrast(uint8_t contrast);
 
 void OLED_put_char(char c);
 
+void OLED_put_int(int number);
+
 void OLED_print(const char* string);
 
 

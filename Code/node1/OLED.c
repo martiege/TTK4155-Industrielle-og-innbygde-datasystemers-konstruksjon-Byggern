@@ -243,6 +243,52 @@ void OLED_put_char(char c)
     
 }
 
+void OLED_put_int(int number)
+{
+	if (number == 0)
+	{
+		OLED_put_char('0');
+		return;
+	}
+
+	int digits = 0;
+	int reverse = 0;
+	int has_negative_sign = 0;
+
+	if (number < 0)
+	{
+		has_negative_sign = 1;
+		number = -number;
+	}
+
+	while (number != 0)
+	{
+		reverse *= 10;
+		reverse += (number % 10);
+		number /= 10;
+		digits++;
+	}
+
+	if (has_negative_sign)
+	{
+		OLED_put_char('-');
+	}
+
+	while (reverse != 0)
+	{
+		char digit_char = (char)((reverse % 10) + '0');
+		OLED_put_char(digit_char);
+		reverse /= 10;
+		digits--;
+	}
+
+	while (digits != 0)
+	{
+		OLED_put_char('0');
+		digits--;
+	}
+}
+
 void OLED_print(const char* string)
 {
     if (string != NULL)

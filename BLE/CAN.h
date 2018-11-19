@@ -11,7 +11,14 @@ typedef struct CAN_message
 
 } CAN_message;
 
-typedef enum CAN_ID { INPUT_COM, CONTROLLER_SETTINGS, REQUEST_GOALS, TRANSFERRED_GOALS } CAN_ID;
+typedef enum CAN_ID 
+{ 
+	INPUT_COM, 
+	CONTROLLER_SETTINGS, 
+	REQUEST_GOALS, 
+	TRANSFERRED_GOALS, 
+	BLUETOOTH_MSG 
+} CAN_ID;
 
 static uint8_t received;
 

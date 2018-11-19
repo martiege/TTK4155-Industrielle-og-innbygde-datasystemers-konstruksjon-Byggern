@@ -1,9 +1,7 @@
 #ifndef MCP_H
 #define MCP_H
 
-#include <stdio.h>
 #include <stdint.h>
-#include "MCP2515.h"
 
 /* MCP2515 manipulation */ 
 

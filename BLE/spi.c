@@ -56,6 +56,19 @@ void SPI_init()
 }
 
 
+void SPI_cs(uint8_t i)
+{
+    if (i)
+    {
+		GPIO->OUTSET = (1 << SPI_SS_PIN);
+    }
+    else
+    {
+        GPIO->OUTCLR = (1 << SPI_SS_PIN);
+    }
+}
+
+
 uint8_t SPI_MasterTransmit(char cData)
 {
 	SPI->TXD = cData;

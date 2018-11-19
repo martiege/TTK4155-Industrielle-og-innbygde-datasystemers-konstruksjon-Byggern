@@ -8,16 +8,21 @@
     #include "../node2/motor.h"
     #include "../node2/controller.h"
     #include "../node2/solenoid.h"
+	
+	#include "UART.h"
+
+	#include <util/delay.h>
+	#include <avr/interrupt.h>
 #endif
 
 #ifdef __AVR_ATmega162__
     #include "../node1/node1.h"
+	
+	#include "UART.h"
+
+	#include <util/delay.h>
+	#include <avr/interrupt.h>
 #endif
-
-#include "UART.h"
-
-#include <util/delay.h>
-#include <avr/interrupt.h>
 
 #define MCP_TXB0SIDH	0x31
 #define MCP_TXB0SIDL	0x32
@@ -43,8 +48,14 @@ void CAN_init()
         MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_CONFIG);
     }
 
-    CAN_intr_init();    
-
+	#ifdef __AVR_ATmega2560__
+		CAN_intr_init();    
+	#endif
+	
+	#ifdef __AVR_ATmega162__
+		CAN_intr_init();
+	#endif
+		
     // loopback mode
     // MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK);
     // normal mode
@@ -138,6 +149,11 @@ ISR(INT2_vect)
             decrease_lives();
         #endif
     }
+	
+	if (m.id == BLUETOOTH_MSG)
+	{
+		
+	}
     
 }
 

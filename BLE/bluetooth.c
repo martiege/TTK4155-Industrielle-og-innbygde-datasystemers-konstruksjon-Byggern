@@ -6,6 +6,7 @@
 #include "ble_gap.h"
 #include "ble_gatts.h"
 #include "ubit.h"
+#include "CAN.h"
 
 #define CUSTOM_UUID_BASE {{\
 	0x06, 0x47, 0x6f, 0x24, 0x40, 0xe0, 0x9a, 0x8f, \
@@ -167,12 +168,20 @@ void bluetooth_serve_forever(){
 
 	int i = 1;
 
+	CAN_message m;
+	
 	while(1){
 		if (m_matrix_attr_value != m_matrix_attr_value_prev)
 		{
-			ubit_helper_put_char((char) 0xFE);
-			ubit_helper_put_char((char) m_matrix_attr_value);
+			//ubit_helper_put_char((char) 0xFE);
+			//ubit_helper_put_char((char) m_matrix_attr_value);
 			m_matrix_attr_value_prev = m_matrix_attr_value;
+			m.id = BLUETOOTH_MSG;
+			m.length = 1;
+			m.data[0] = m_matrix_attr_value;
+			
+			CAN_send(&m);
+			
 			if (i)
 			{
 				ubit_led_matrix_turn_on();
@@ -184,7 +193,8 @@ void bluetooth_serve_forever(){
 				i = 1;
 			}
 		}
-	
+		
+		CAN_receive(&m);
 
 		while (sd_ble_evt_get(ble_event_buffer, 
 			        &ble_event_buffer_size) != NRF_ERROR_NOT_FOUND)
