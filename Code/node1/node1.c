@@ -25,6 +25,7 @@ static uint8_t number_of_lives = 100;
 void decrease_lives() { number_of_lives--; }
 
 
+
 /* //Standard menu
 const char *_menu[8] = 
 {
