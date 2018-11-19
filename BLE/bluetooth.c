@@ -28,7 +28,8 @@ static struct
 	ble_gatts_char_handles_t matrix_handles;
 } m_service_ubit;
 
-uint32_t bluetooth_init(){
+uint32_t bluetooth_init()
+{
 	uint32_t err_code = 0;
 
 	err_code = sd_softdevice_enable(NULL, NULL);
@@ -48,10 +49,12 @@ uint32_t bluetooth_init(){
 	return err_code;
 }
 
-uint32_t bluetooth_gap_advertise_start(){
+uint32_t bluetooth_gap_advertise_start()
+{
 	uint32_t err_code = 0;
 
-	static uint8_t adv_data[] = {
+	static uint8_t adv_data[] = 
+	{
 		4, BLE_GAP_AD_TYPE_COMPLETE_LOCAL_NAME,
 		'k', 'u', 'l', 
 		3, BLE_GAP_AD_TYPE_16BIT_SERVICE_UUID_COMPLETE, 
@@ -79,14 +82,16 @@ uint32_t bluetooth_gap_advertise_start(){
 	return err_code;
 }
 
-uint32_t bluetooth_gatts_start(){
+uint32_t bluetooth_gatts_start()
+{
 	uint32_t err_code = 0;
 	ble_uuid128_t base_uuid = CUSTOM_UUID_BASE;
 
 	ble_uuid_t ubit_service_uuid;
 	ubit_service_uuid.uuid = CUSTOM_UUID_SERVICE_UBIT;
 
-	err_code  = sd_ble_uuid_vs_add(
+	err_code = sd_ble_uuid_vs_add
+	(
 		&base_uuid,
 		&ubit_service_uuid.type
 	);
@@ -111,8 +116,7 @@ uint32_t bluetooth_gatts_start(){
 	ble_uuid_t matrix_uuid;
 	matrix_uuid.uuid = CUSTOM_UUID_CHAR_MATRIX;
 
-	err_code = sd_ble_uuid_vs_add
-	(
+	err_code = sd_ble_uuid_vs_add(
 		&base_uuid,
 		&matrix_uuid.type
 	);
@@ -151,8 +155,7 @@ uint32_t bluetooth_gatts_start(){
 	matrix_attr.max_len = 1;
 	matrix_attr.p_value = &m_matrix_attr_value;
 
-	err_code = sd_ble_gatts_characteristic_add
-	(
+	err_code = sd_ble_gatts_characteristic_add(
 		m_service_ubit.service_handle,
 		&matrix_char_md,
 		&matrix_attr,
@@ -162,7 +165,8 @@ uint32_t bluetooth_gatts_start(){
 	return err_code;
 }
 
-void bluetooth_serve_forever(){
+void bluetooth_serve_forever()
+{
 	uint8_t ble_event_buffer[100] = {0};
 	uint16_t ble_event_buffer_size = 100;
 
@@ -172,7 +176,8 @@ void bluetooth_serve_forever(){
 
 	ubit_uart_print("Blue\n\r");
 	
-	while(1){
+	while(1)
+	{
 		if (m_matrix_attr_value != m_matrix_attr_value_prev)
 		{
 			ubit_uart_print("New value!\n\r");
@@ -207,7 +212,8 @@ void bluetooth_serve_forever(){
 			ble_evt_t * p_ble_event = (ble_evt_t *)ble_event_buffer;
 			uint16_t event_id = p_ble_event->header.evt_id;
 
-			switch(event_id){
+			switch (event_id)
+			{
 				case BLE_GAP_EVT_CONNECTED:
 					m_service_ubit.conn_handle =
 						p_ble_event->evt.gap_evt.conn_handle;

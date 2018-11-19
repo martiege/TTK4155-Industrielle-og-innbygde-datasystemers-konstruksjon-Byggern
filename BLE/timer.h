@@ -1,6 +1,15 @@
 #ifndef TIMER_H
 #define TIMER_H
+
 #include <stdint.h>
+
+/***************************************
+Microbit (nRF51) Timer Module
+
+Created by Kolbjørn Austreng, using with 
+permission.
+
+***************************************/
 
 #define TIMER0 ((NRF_TIMER_REG*)0x40008000)
 #define TIMER1 ((NRF_TIMER_REG*)0x40009000)

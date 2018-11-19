@@ -1,6 +1,16 @@
 #ifndef PPI_H
 #define PPI_H
+
 #include <stdint.h>
+
+/***************************************
+Microbit (nRF51) Programmable Peripheral 
+Interconnect (PPI)
+
+Created by Kolbjørn Austreng, using with 
+permission.
+
+***************************************/
 
 #define PPI ((NRF_PPI_REG*)0x4001F000)
 

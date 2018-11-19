@@ -2,32 +2,6 @@
 #include "MCP.h"
 #include "MCP2515.h"
 
-
-#ifdef __AVR_ATmega2560__
-    #include "../node2/pwm.h"
-    #include "../node2/motor.h"
-    #include "../node2/controller.h"
-    #include "../node2/solenoid.h"
-	
-	#include "UART.h"
-
-    #include "defines.h"
-
-	#include <util/delay.h>
-	#include <avr/interrupt.h>
-#endif
-
-#ifdef __AVR_ATmega162__
-    #include "../node1/node1.h"
-	
-	#include "UART.h"
-
-    #include "defines.h"
-
-	#include <util/delay.h>
-	#include <avr/interrupt.h>
-#endif
-
 #define MCP_TXB0SIDH	0x31
 #define MCP_TXB0SIDL	0x32
 #define MCP_TXB0DLC     0x35
@@ -47,14 +21,6 @@ void CAN_init()
     {
         MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_CONFIG);
     }
-
-	#ifdef __AVR_ATmega2560__
-		CAN_intr_init();    
-	#endif
-	
-	#ifdef __AVR_ATmega162__
-		CAN_intr_init();
-	#endif
 		
     // loopback mode
     // MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK);
@@ -62,102 +28,6 @@ void CAN_init()
     MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_NORMAL);
 
 }
-
-/*
-void CAN_intr_init()
-{
-    #ifdef __AVR_ATmega2560__
-        DDRD &= ~(1 << PD2);
-    #endif
-
-    cli();
-    INTRREG  |= (1 << INTRSEL);
-    INTRSET  |= (1 << INTRSC);
-    sei();
-
-    received = 0;
-    
-    //Receive interrupt
-    MCP_bit_modify(MCP_CANINTE, 0x01, 0x00);
-    MCP_bit_modify(MCP_CANINTE, 0x01, 0xFF);
-
-    //Reset interrupt
-    MCP_bit_modify(MCP_CANINTF, 0x01, 0x00);
-
-   
-    if (MCP_read(MCP_CANINTF) & 1)
-    {
-        received = 1;
-    }
-}
-
-
-ISR(INT2_vect)
-{
-    cli();
-    if (MCP_read(MCP_CANINTF) & 1)
-    {
-        received = 1;
-    }
-    MCP_bit_modify(MCP_CANINTF, 0x01, 0x00);
-
-    CAN_message m;
-    CAN_receive(&m);
-
-    if (m.id == INPUT_COM)
-    {
-        #ifdef __AVR_ATmega2560__
-            int8_t ang;
-            int pos;
-            if (controller_setting == 0)
-            {
-                ang = (int8_t)m.data[1] - 10;
-                pos = (int)((int8_t)m.data[0]) + 128;
-            }
-            else if (controller_setting == 1)
-            {
-                ang = (int8_t)((int)m.data[2] - 10 - 120);
-                pos = m.data[3];
-            }
-            else if (controller_setting == 2)
-            {
-                ang = (int8_t)m.data[0] - 10;
-                pos = m.data[3];
-            }
-            pwm_set_angle(ang); //-10 is offset for the servo
-            controller_set_reference(pos * 50);
-            
-            if (m.data[4] && !(solenoid_get_shot()))
-            {
-                solenoid_shoot();
-            }
-            else if (!m.data[4])
-            {
-                solenoid_clear_shot();
-            } 
-        #endif
-    }
-    if (m.id == CONTROLLER_SETTINGS)
-    {
-        #ifdef __AVR_ATmega2560__
-            controller_setting = m.data[0];
-        #endif
-    }
-    
-    if (m.id == TRANSFERRED_GOALS)
-    {
-        #ifdef __AVR_ATmega162__
-            decrease_lives();
-        #endif
-    }
-	
-	if (m.id == BLUETOOTH_MSG)
-	{
-		
-	}
-    
-}
-*/
 
 void CAN_send(const CAN_message* msg)
 {
@@ -172,14 +42,14 @@ void CAN_send(const CAN_message* msg)
         MCP_write(MCP_TXB0D0 + i, (msg->data)[i]);
     }
 
-    //Ready to transmit, highest priority
+    // ready to transmit, highest priority
     MCP_bit_modify(MCP_TXB0CTRL, 0x0B, 0xFF);
 }
 
 
 void CAN_receive(CAN_message* msg)
 {
-    //If received
+    // if received
     if ((MCP_read(MCP_CANINTF) & 1)) 
     {
         //Read id

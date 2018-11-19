@@ -3,6 +3,16 @@
 
 #include <avr/io.h>
 
+/******************************
+Defines module
+
+Defines all the general 
+constants used in node 1 and 2. 
+
+Gives ability to 
+use reuse alot of the modules. 
+
+******************************/
 
 /******** NODE 1 *********/
 #ifdef __AVR_ATmega162__

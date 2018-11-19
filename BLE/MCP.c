@@ -2,8 +2,6 @@
 #include "SPI.h"
 #include "ubit.h"
 #include "MCP2515.h"
-//#include <avr/io.h>
-//#include "defines.h"
 
 
 void MCP_cs(uint8_t i)

@@ -3,6 +3,34 @@
 
 #include <stdint.h>
 
+/*************************************
+Controll Area Network (CAN) module
+
+Implements the struct CAN messages 
+and enum CAN ID. Same as the code 
+in Node 1 and 2. 
+
+The functions implemented are:
+
+	CAN_init()
+	
+		Initializes the CAN module
+		and sets it in normal 
+		mode. 
+		
+	CAN_send(const CAN_message* msg)
+	
+		Sends the CAN message msg
+		over the CAN bus. 
+		
+	CAN_receive(CAN_message* msg)
+	
+		Reads the current message 
+		in the MCP, if there is 
+		one. 
+
+*************************************/
+
 typedef struct CAN_message
 {
     uint8_t id;
@@ -23,12 +51,7 @@ typedef enum CAN_ID
 
 void CAN_init();
 
-
-void CAN_intr_init();
-
-
 void CAN_send(const CAN_message* msg);
-
 
 void CAN_receive(CAN_message* msg);
 

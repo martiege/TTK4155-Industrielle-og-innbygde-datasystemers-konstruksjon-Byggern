@@ -4,6 +4,22 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+/***************************************
+Microbit (nRF51) General Purpose Module
+
+Created by Kolbjørn Austreng, using with 
+permission.
+
+Implements the modules 
+	
+	General Purpose Input 
+	/ Output (GPIO)
+	
+	Universal Asynchronous Receiver 
+	/ Transmitter (UART)
+
+***************************************/
+
 #define GPIO ((NRF_GPIO_REGS*)0x50000000)
 #define UART ((NRF_UART_REGS*)0x40002000)
 

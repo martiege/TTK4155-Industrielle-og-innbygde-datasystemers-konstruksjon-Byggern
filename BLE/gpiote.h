@@ -2,6 +2,14 @@
 #define GPIOTE_H
 #include <stdint.h>
 
+/***************************************
+Microbit (nRF51) GPIOTE Module
+
+Created by Kolbjørn Austreng, using with 
+permission.
+
+***************************************/
+
 #define GPIOTE ((NRF_GPIOTE_REG*)0x40006000)
 
 typedef struct {
