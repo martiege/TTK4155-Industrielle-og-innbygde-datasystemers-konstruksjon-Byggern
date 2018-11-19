@@ -1,6 +1,7 @@
 #include "goal.h"
 #include "../lib/timer.h"
 #include "../lib/UART.h"
+#include "../lib/CAN.h"
 #include "ADC_internal.h"
 
 //------------------------------

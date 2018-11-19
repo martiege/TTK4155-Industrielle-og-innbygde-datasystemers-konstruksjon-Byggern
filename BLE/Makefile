@@ -1,5 +1,5 @@
 # List all source files to be compiled; separate with space
-SOURCE_FILES := main.c ubit.c bluetooth.c pwm.c speaker.c util.c
+SOURCE_FILES := main.c ubit.c bluetooth.c pwm.c speaker.c util.c SPI.c MCP.c CAN.c
 
 # Feel free to ignore anything below this line
 FAMILY := nrf51

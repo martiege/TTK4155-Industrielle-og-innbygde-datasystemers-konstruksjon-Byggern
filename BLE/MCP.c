@@ -8,7 +8,7 @@
 
 void MCP_cs(uint8_t i)
 {
-    SPI_cs(i)
+    SPI_cs(i);
 }
 
 uint8_t MCP_read(uint8_t adr)

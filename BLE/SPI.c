@@ -1,6 +1,6 @@
 #include "SPI.h"
 #include "ubit.h"
-#include <stdint.h>
+#include "util.h"
 
 #define SPI ((NRF_SPI_REG*)0x40003000)
 
@@ -49,7 +49,7 @@ void SPI_init()
 	SPI->PSELMISO = SPI_MISO_PIN;
 	
 	// as with node 1 and 2, set frequency
-	// to f_cpu / 16, 1 MHz
+	// to f_cpu / 16, 1 MHzSPI->READY = 0;
 	SPI->FREQUENCY = 0x10000000;
 	
 	SPI->ENABLE = 1;
@@ -73,8 +73,13 @@ uint8_t SPI_MasterTransmit(char cData)
 {
 	SPI->TXD = cData;
 	
+	util_delay_ms(10);
+	/*
 	while (!(SPI->READY));
 	
+	SPI->READY = 0;
+	*/
+
 	return SPI->RXD;
 }
 

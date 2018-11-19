@@ -369,9 +369,31 @@ void node1_init()
 
 void node1_main()
 {
+    /*
+    CAN_message m;
+	m.id = BLUETOOTH_MSG;
+	m.length = 1;
+	m.data[0] = 15;
+	while (1)
+	{ 
+        printf("node1\n");
+		printf("ID: %d\n\n", m.id);
+		CAN_send(&m);
+		_delay_ms(200);
+	}
+    
+    CAN_message m;
+    m.id = 0;
+	m.length = 1;
+	m.data[0] = 15;
+    */
     while (1)
     {
+        printf("node1\n");
+        //CAN_receive(&m);
+        //printf("ID: %d\n\n", m.id);
+        _delay_ms(100);
         //node1_settings_menu();
-        node1_main_menu();
+        //node1_main_menu();
     }
 }

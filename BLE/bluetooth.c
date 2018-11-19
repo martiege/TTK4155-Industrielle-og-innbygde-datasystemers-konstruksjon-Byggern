@@ -169,10 +169,13 @@ void bluetooth_serve_forever(){
 	int i = 1;
 
 	CAN_message m;
+
+	ubit_uart_print("Blue\n\r");
 	
 	while(1){
 		if (m_matrix_attr_value != m_matrix_attr_value_prev)
 		{
+			ubit_uart_print("New value!\n\r");
 			//ubit_helper_put_char((char) 0xFE);
 			//ubit_helper_put_char((char) m_matrix_attr_value);
 			m_matrix_attr_value_prev = m_matrix_attr_value;
@@ -193,8 +196,10 @@ void bluetooth_serve_forever(){
 				i = 1;
 			}
 		}
-		
+
+		//ubit_uart_print("recieve\n\r");
 		CAN_receive(&m);
+		//ubit_uart_print("recievedone\n\r");
 
 		while (sd_ble_evt_get(ble_event_buffer, 
 			        &ble_event_buffer_size) != NRF_ERROR_NOT_FOUND)

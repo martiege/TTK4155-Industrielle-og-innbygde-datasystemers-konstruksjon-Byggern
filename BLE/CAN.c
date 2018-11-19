@@ -1,7 +1,7 @@
 #include "CAN.h"
 #include "MCP.h"
 #include "MCP2515.h"
-#include "defines.h"
+
 
 #ifdef __AVR_ATmega2560__
     #include "../node2/pwm.h"
@@ -11,6 +11,8 @@
 	
 	#include "UART.h"
 
+    #include "defines.h"
+
 	#include <util/delay.h>
 	#include <avr/interrupt.h>
 #endif
@@ -19,6 +21,8 @@
     #include "../node1/node1.h"
 	
 	#include "UART.h"
+
+    #include "defines.h"
 
 	#include <util/delay.h>
 	#include <avr/interrupt.h>
@@ -34,16 +38,12 @@
 #define MCP_RXB0DLC     0x65
 #define MCP_RXB0D0  	0x66
 
-static int controller_setting = 2;
-
 void CAN_init()
 {
-    MCP_reset(); 
-
-    received = 0;
+    MCP_reset();
 
     uint8_t mode = MCP_read(MCP_CANSTAT);
-    if (mode & MODE_MASK != MODE_CONFIG)
+    if ((mode & MODE_MASK) != MODE_CONFIG)
     {
         MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_CONFIG);
     }
@@ -161,7 +161,7 @@ ISR(INT2_vect)
 
 void CAN_send(const CAN_message* msg)
 {
-    while (MCP_read(MCP_TXB0CTRL) & (1 << 3)) { _delay_ms(1); }
+    while (MCP_read(MCP_TXB0CTRL) & (1 << 3));
 
     MCP_write(MCP_TXB0SIDH, msg->id >> 3);
     MCP_write(MCP_TXB0SIDL, msg->id << 5);
@@ -180,7 +180,7 @@ void CAN_send(const CAN_message* msg)
 void CAN_receive(CAN_message* msg)
 {
     //If received
-    if ((MCP_read(MCP_CANINTF) & 1) || received) 
+    if ((MCP_read(MCP_CANINTF) & 1)) 
     {
         //Read id
         msg->id  = MCP_read(MCP_RXB0SIDH) << 3;
@@ -197,8 +197,5 @@ void CAN_receive(CAN_message* msg)
 
         //Clear CANINTF.RX0IF after read
         MCP_bit_modify(MCP_CANINTF, 0x01, 0);
-
-        //Clear flags
-        received = 0;
     }  
 }

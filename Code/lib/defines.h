@@ -24,7 +24,7 @@
 
     #define INTRSC  ISC11
     #define INTRSET MCUCR
-    #define INTRVAL 1
+    #define INTR_VECT INT0_vect
 
 	
 	/* TIMER */
@@ -68,7 +68,7 @@
 
     #define INTRSC  ISC01    
     #define INTRSET EICRB 
-    #define INTRVAL 1
+    #define INTR_VECT INT2_vect
 	
 	
 	/* TIMER */

@@ -20,8 +20,6 @@ typedef enum CAN_ID
 	BLUETOOTH_MSG 
 } CAN_ID;
 
-static uint8_t received;
-
 
 void CAN_init();
 

@@ -30,6 +30,7 @@
 #define MCP_RXB0D0  	0x66
 
 static int controller_setting = 2;
+static int using_bluetooth = 0;
 
 void CAN_init()
 {
@@ -80,7 +81,7 @@ void CAN_intr_init()
     }
 }
 
-ISR(INT2_vect)
+ISR(INTR_VECT)
 {
     cli();
     if (MCP_read(MCP_CANINTF) & 1)
@@ -91,6 +92,8 @@ ISR(INT2_vect)
 
     CAN_message m;
     CAN_receive(&m);
+
+    printf("ID: %d\n", m.id);
 
     if (m.id == INPUT_COM)
     {
@@ -141,7 +144,7 @@ ISR(INT2_vect)
     
 	if (m.id == BLUETOOTH_MSG)
 	{
-		
+		printf("Bluetooth! %d", m.data[0]);
 	}
 }
 
