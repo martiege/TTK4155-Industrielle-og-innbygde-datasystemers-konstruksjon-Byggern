@@ -63,7 +63,7 @@ void CAN_init()
 
 }
 
-
+/*
 void CAN_intr_init()
 {
     #ifdef __AVR_ATmega2560__
@@ -90,6 +90,7 @@ void CAN_intr_init()
         received = 1;
     }
 }
+
 
 ISR(INT2_vect)
 {
@@ -156,7 +157,7 @@ ISR(INT2_vect)
 	}
     
 }
-
+*/
 
 void CAN_send(const CAN_message* msg)
 {
