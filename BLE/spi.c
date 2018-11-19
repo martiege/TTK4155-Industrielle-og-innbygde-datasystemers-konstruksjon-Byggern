@@ -49,8 +49,19 @@ void SPI_init()
 	SPI->PSELMISO = SPI_MISO_PIN;
 	
 	// as with node 1 and 2, set frequency
-	// to f_cpu / 16
+	// to f_cpu / 16, 1 MHz
 	SPI->FREQUENCY = 0x10000000;
 	
 	SPI->ENABLE = 1;
 }
+
+
+uint8_t SPI_MasterTransmit(char cData)
+{
+	SPI->TXD = cData;
+	
+	while (!(SPI->READY));
+	
+	return SPI->RXD;
+}
+
