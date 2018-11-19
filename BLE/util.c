@@ -3,6 +3,9 @@
 
 void util_delay_ms(int ms)
 {
-    int i = 2000*ms;
+	// based on emperic data, multiply 
+	// ms by 2000 to delay for ms
+	// milliseconds
+    int i = 2000 * ms;
 	while (i--) { asm(""); }; 
 }

@@ -6,8 +6,10 @@
 
 #define GPIO ((NRF_GPIO_REGS*)0x50000000)
 #define UART ((NRF_UART_REGS*)0x40002000)
+
 #define BUTTON_A_PIN 17
 #define BUTTON_B_PIN 26
+
 #define UART_TXD_PIN 24
 #define UART_RXD_PIN 25
 

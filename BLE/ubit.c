@@ -2,7 +2,8 @@
 
 
 void ubit_led_matrix_init(){
-	for(int i = 4; i <= 15; i++){
+	for (int i = 4; i <= 15; i++)
+	{
 		GPIO->DIRSET = (1 << i);
 		GPIO->OUTCLR = (1 << i);
 	} 
@@ -147,8 +148,10 @@ void ubit_uart_print(char * p_format, ...){
 	int required_width;
 	char * p_letter;
 
-	for(p_letter = p_format; *p_letter != '\0'; p_letter++){
-		if(*p_letter != '%'){
+	for (p_letter = p_format; *p_letter != '\0'; p_letter++)
+	{
+		if (*p_letter != '%')
+		{
 			ubit_helper_put_char(*p_letter);
 			continue;
 		}
@@ -159,11 +162,13 @@ void ubit_uart_print(char * p_format, ...){
 		requested_width = ubit_helper_get_requested_width(p_letter);
 		required_width = ubit_helper_get_required_width(number);
 
-		while(*p_letter != 'd'){
+		while (*p_letter != 'd')
+		{
 			p_letter++;
 		}
 
-		while(required_width < requested_width){
+		while (required_width < requested_width)
+		{
 			ubit_helper_put_char(' ');
 			required_width++;
 		}
