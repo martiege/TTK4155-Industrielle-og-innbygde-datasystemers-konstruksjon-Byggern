@@ -10,9 +10,15 @@ corresponding to a 0-255 bit signal,
 to set the motor speed using 
 the TWI.h module. 
 
+The functions implemented are:
+
+	DAC_send_speed(uint8_t val)
+	
+		Sets the current DAC signal
+		to the voltage value by the
+		formula 5 * val / 256. 
 
 ***********************************/
-/*Provides 0-5V analog signal to the motor through I2C bus*/
 
 void DAC_send_speed(uint8_t val);
 

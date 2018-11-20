@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-/*
+/**********************************
 Analog to Digital Converter (ADC)
 internal for Node 2.
 
@@ -12,7 +12,20 @@ internal ADC on Node 2 to
 read the status of the 
 IR sensor. 
 
-*/
+The functions implemented are:
+
+	ADC_internal_init()
+	
+		Initializes the internal 
+		ADC of Node 2. 
+		
+	ADC_internal_status()
+	
+		Reads and returns the 
+		current value on the ADC 
+		pin. 
+
+**********************************/
 
 void ADC_internal_init();
 

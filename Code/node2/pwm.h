@@ -4,7 +4,31 @@
 #include <stdint.h>
 
 
-/*16 bit timer*/
+/************************************
+Pulse Width Modulation (PWM) module
+
+Implements a PWM module to send 
+signals to the servo motor to 
+set the angle. Only signals with
+width <= 2 and width >= 1 are
+allowed, which steer the angle
+between +/- 90 degrees. 
+
+The functions implemented are:
+
+	pwm_init()
+	
+		Initializes the timer, 
+		and sets the angle to 0. 
+		
+	pwm_set_angle(int8_t angle)
+	
+		Sets the width of the PWM
+		signal to the value 
+		corresponding to the value
+		angle. 
+
+************************************/
 
 void pwm_init();
 
