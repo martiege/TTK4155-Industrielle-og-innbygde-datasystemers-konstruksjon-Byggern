@@ -4,41 +4,8 @@
     #include "../node1/user_input.h"
 #endif
 
-
-void put_message()
-{
-    input_message.data[0]     = (uint8_t)user_data.pos_X;
-    input_message.data[1]     = (uint8_t)user_data.pos_Y;
-    input_message.data[2]     = user_data.sli_left;
-    input_message.data[3]     = user_data.sli_right;
-    input_message.data[4]     = user_data.but;
-
-}
-
-void get_message()
-{
-    user_data.pos_X     = (int8_t)input_message.data[0];
-    user_data.pos_Y     = (int8_t)input_message.data[1];
-    user_data.sli_left  = input_message.data[2];
-    user_data.sli_right = input_message.data[3];
-    user_data.but       = input_message.data[4];
-}
-
-
-
-#ifdef __AVR_ATmega162__
-void update_user_data()
-{
-    Position p = user_input_joystick_position();
-    Slider s = user_input_slider_position();
-
-    user_data.pos_X     = p.X;
-    user_data.pos_Y     = p.Y;
-    user_data.sli_left  = s.left;
-    user_data.sli_right = s.right;
-    user_data.but       = user_input_joystick_button();
-}
-#endif
+static void input_com_helper_put_message();
+static void input_com_helper_get_message();
 
 void input_com_init()
 {
@@ -56,22 +23,61 @@ void input_com_init()
     user_data.but       = 0;
 }
 
+USER_DATA input_com_recieve()
+{
+    CAN_receive(&input_message);
+    input_com_helper_get_message();
+
+    return user_data;
+}
+
 #ifdef __AVR_ATmega162__
+static void input_com_helper_update_user_data();
+
 USER_DATA input_com_send()
 {
-    update_user_data();
-    put_message();
+    input_com_helper_update_user_data();
+    input_com_helper_put_message();
     CAN_send(&input_message);
 
     return user_data;
 }
 #endif
 
-USER_DATA input_com_recieve()
+static void input_com_helper_put_message()
 {
-    CAN_receive(&input_message);
-    get_message();
+    input_message.data[0]     = (uint8_t)user_data.pos_X;
+    input_message.data[1]     = (uint8_t)user_data.pos_Y;
+    input_message.data[2]     = user_data.sli_left;
+    input_message.data[3]     = user_data.sli_right;
+    input_message.data[4]     = user_data.but;
 
-    return user_data;
 }
+
+static void input_com_helper_get_message()
+{
+    user_data.pos_X     = (int8_t)input_message.data[0];
+    user_data.pos_Y     = (int8_t)input_message.data[1];
+    user_data.sli_left  = input_message.data[2];
+    user_data.sli_right = input_message.data[3];
+    user_data.but       = input_message.data[4];
+}
+
+
+
+#ifdef __AVR_ATmega162__
+static void input_com_helper_update_user_data()
+{
+    Position p = user_input_joystick_position();
+    Slider s = user_input_slider_position();
+
+    user_data.pos_X     = p.X;
+    user_data.pos_Y     = p.Y;
+    user_data.sli_left  = s.left;
+    user_data.sli_right = s.right;
+    user_data.but       = user_input_joystick_button();
+}
+#endif
+
+
 
