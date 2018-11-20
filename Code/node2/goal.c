@@ -29,8 +29,8 @@ uint8_t goal_get_goals()
 }
 
 int goal_read()
-{       
-    return (ADC_internal_status() < 800);
+{
+    return (ADC_internal_status() < 50);
 }
 
 
@@ -39,7 +39,6 @@ void goal_interruptfunc()
 {
     if (goal_read())
     {   
-        printf("already_goal: %d\n", already_goal);
         if (!(already_goal))
         {
             already_goal = 1;            

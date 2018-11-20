@@ -1,7 +1,8 @@
 #include "user_input.h"
 #include "ADC.h"
 #include <avr/io.h>
-
+#include <stdlib.h>
+#include "../lib/UART.h"
 
 Position user_input_joystick_position()
 {    
@@ -48,7 +49,6 @@ Position user_input_joystick_position()
 Direction user_input_joystick_direction()
 {
     Position p = user_input_joystick_position();
-    //printf("X: %d, Y: %d\n", p.X, p.Y);
     if (p.X > 10 && p.X >= abs(p.Y))
     {
         return RIGHT;

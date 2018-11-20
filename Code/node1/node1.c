@@ -40,6 +40,7 @@ void node1_main()
     {
         printf("node1\n");
         _delay_ms(100);
+        menu_welcome();
         menu_main();
     }
 }
