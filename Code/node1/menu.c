@@ -4,12 +4,12 @@
 #include <util/delay.h>
 #include "menu.h"
 
-void node1_contrast_menu();
-void node1_font_size_menu();
-void node1_settings_menu();
-void node1_game_settings_menu();
-void node1_controller_settings_menu();
-void node1_ingame_menu();
+void menu_contrast_menu();
+void menu_font_size_menu();
+void menu_settings_menu();
+void menu_game_settings_menu();
+void menu_controller_settings_menu();
+void menu_ingame_menu();
 
 void menu_print(const char **menu, int start, int length, int cursorpos)
 {
@@ -102,7 +102,7 @@ const char *main_menu[8] =
 const int main_menu_start =  0;
 const int main_menu_length = 3;
 
-void node1_main()
+void menu_main()
 {
     while (1)
     {
@@ -110,13 +110,13 @@ void node1_main()
         {
             case 0:
                 //play game
-                node1_ingame_menu();
+                menu_ingame_menu();
                 break;
             case 1:
-                node1_settings_menu();
+                menu_settings_menu();
                 break;
             case 2:
-                node1_game_settings_menu();
+                menu_game_settings_menu();
                 break;
             default:
                 break;
@@ -125,7 +125,7 @@ void node1_main()
 }
 
 
-void node1_ingame_menu()
+void menu_ingame_menu()
 {
     OLED_reset();
     OLED_home();
@@ -172,17 +172,17 @@ const char *settings_menu[8] =
 const int settings_menu_start =  1;
 const int settings_menu_length = 3;
 
-void node1_settings_menu()
+void menu_settings_menu()
 {
     while(1)
     {
         switch(menu_select(settings_menu, settings_menu_start, settings_menu_length))
         {
             case 1:
-                node1_contrast_menu();
+                menu_contrast_menu();
                 break;
             case 2:
-                node1_font_size_menu();
+                menu_font_size_menu();
                 break;
             case 3:
                 // Back
@@ -209,17 +209,17 @@ const char *game_settings_menu[8] =
 const int game_settings_menu_start =  1;
 const int game_settings_menu_length = 3;
 
-void node1_game_settings_menu()
+void menu_game_settings_menu()
 {
     while (1)
     {
         switch(menu_select(game_settings_menu, game_settings_menu_start, game_settings_menu_length))
         {
             case 1:
-                node1_controller_settings_menu();
+                menu_controller_settings_menu();
                 break;
             case 2:
-                node1_difficulty_settings_menu();
+                menu_difficulty_settings_menu();
                 break;
             case 3:
                 // Back
@@ -245,7 +245,7 @@ const char *controller_settings_menu[8] =
 const int controller_settings_menu_start =  1;
 const int controller_settings_menu_length = 4;
 
-void node1_controller_settings_menu()
+void menu_controller_settings_menu()
 {
     CAN_message m;
     m.id = CONTROLLER_SETTINGS;
@@ -286,7 +286,7 @@ const char *difficulty_settings_menu[8] =
 const int difficulty_settings_menu_start =  1;
 const int difficulty_settings_menu_length = 4;
 
-void node1_difficulty_settings_menu()
+void menu_difficulty_settings_menu()
 {
     while (1)
     {
@@ -327,7 +327,7 @@ const char *contrast_menu[8] =
 const int contrast_menu_start =  1;
 const int contrast_menu_length = 5;
 
-void node1_contrast_menu()
+void menu_contrast_menu()
 {
     while (1)
     {
@@ -374,7 +374,7 @@ const char *font_size_menu[8] =
 const int font_size_menu_start =  1;
 const int font_size_menu_length = 4;
 
-void node1_font_size_menu()
+void menu_font_size_menu()
 {
     while (1)
     {

@@ -12,14 +12,6 @@
 #include "menu.h"
 #include "user_input.h" //ta vekk
 
-
-void node1_contrast_menu();
-void node1_font_size_menu();
-void node1_settings_menu();
-void node1_game_settings_menu();
-void node1_controller_settings_menu();
-void node1_ingame_menu();
-
 static uint8_t number_of_lives = 100;
 
 void decrease_lives() { number_of_lives--; }
