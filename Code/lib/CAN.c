@@ -30,7 +30,7 @@
 #define MCP_RXB0DLC     0x65
 #define MCP_RXB0D0  	0x66
 
-static int controller_setting = 2;
+static int controller_setting = 1;
 static int using_bluetooth = 1;
 static int not_initialized = 1;
 

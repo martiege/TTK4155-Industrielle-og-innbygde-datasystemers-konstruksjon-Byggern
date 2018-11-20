@@ -61,6 +61,7 @@ void node1_main()
         //printf("ID: %d\n\n", m.id);
         _delay_ms(100);
         //node1_settings_menu();
+        menu_welcome();
         menu_main();
     }
 }
