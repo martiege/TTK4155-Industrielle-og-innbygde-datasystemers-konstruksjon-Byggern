@@ -3,6 +3,16 @@
 
 #include <stdint.h>
 
+/*
+User Input module
+
+Converts the ADC values to 
+usable formats, and implements
+the structs Position and 
+Slider to hold the values.
+
+*/
+
 typedef struct Position 
 {
     int8_t X;

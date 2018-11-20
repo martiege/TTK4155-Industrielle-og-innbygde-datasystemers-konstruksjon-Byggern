@@ -4,6 +4,14 @@
 #include <stdio.h>
 #include <stdint.h>
 
+/*
+OLED module
+
+Implements useful functions 
+for the OLED. 
+
+*/
+
 typedef struct CURSOR
 {
     int PAGE;

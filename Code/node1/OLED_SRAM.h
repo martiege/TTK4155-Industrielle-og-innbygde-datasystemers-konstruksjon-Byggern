@@ -3,6 +3,13 @@
 
 #include <stdint.h>
 
+/****************************
+OLED SRAM module
+
+Implements useful functions 
+for using the OLED with SRAM. 
+
+****************************/
 
 void OLED_SRAM_init();
 
