@@ -64,12 +64,6 @@ int menu_select(const char **menu, int start, int length)
         {
             _delay_ms(100);
         }
-        /*return to main menu*/
-        if (user_input_leftbutton())
-        {
-            OLED_reset();
-            menu_main();
-        } 
     }
 
     _delay_ms(300);
@@ -82,17 +76,6 @@ int menu_select(const char **menu, int start, int length)
     OLED_reset();
 
     return pos;
-}
-
-void menu_welcome()
-{
-    OLED_reset();
-    OLED_pos(3, 40);
-    OLED_set_font_size(8);
-    OLED_print("WELCOME");
-    _delay_ms(1500);
-    OLED_set_font_size(5);
-    OLED_reset();
 }
 
 /* //Standard menu
