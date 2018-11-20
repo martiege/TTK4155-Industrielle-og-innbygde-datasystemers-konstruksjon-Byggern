@@ -9,9 +9,6 @@ void ADC_internal_init()
 
     // Enable
     ADCSRA = (1 << ADEN);
-
-    // prescaler
-    //ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
 uint16_t ADC_internal_status()
