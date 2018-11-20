@@ -108,6 +108,13 @@ const int main_menu_length = 3;
 
 void menu_main()
 {
+    OLED_reset();
+    OLED_home();
+    OLED_set_font_size(8);
+    OLED_print("\n\n\n     Welcome");
+    _delay_ms(1500);
+    OLED_set_font_size(5);
+    OLED_reset();
     while (1)
     {
         switch(menu_select(main_menu, main_menu_start, main_menu_length))

@@ -95,8 +95,6 @@ ISR(INTR_VECT)
     CAN_message m;
     CAN_receive(&m);
 
-    //printf("ID: %d\n", m.id);
-
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__

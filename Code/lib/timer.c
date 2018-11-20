@@ -52,7 +52,7 @@ void timer_set_period(uint16_t ms, uint8_t id)
 	}
 	else 
 	{
-		printf("INVALID ID TIMER SET PERIODE\n");
+		printf("INVALID ID TIMER SET PERIOD\n");
 		return;
 	}
 }
