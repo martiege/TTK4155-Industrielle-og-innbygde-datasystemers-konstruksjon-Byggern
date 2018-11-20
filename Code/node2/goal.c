@@ -3,7 +3,7 @@
 #include "../lib/UART.h"
 #include "../lib/CAN.h"
 #include "ADC_internal.h"
-
+#include <avr/interrupt.h>
 //------------------------------
 
 static uint8_t goals;
@@ -19,7 +19,7 @@ void goal_init()
     already_goal = 0;
 
     timer_init(2, goal_interruptfunc);
-    timer_set_period(50, 2);
+    timer_set_period(200, 2);
     timer_start(2);
 }
 
@@ -29,9 +29,7 @@ uint8_t goal_get_goals()
 }
 
 int goal_read()
-{   
-    //printf("read: %d\n", ADC_internal_status());
-    
+{       
     return (ADC_internal_status() < 800);
 }
 
@@ -41,19 +39,17 @@ void goal_interruptfunc()
 {
     if (goal_read())
     {   
-        //printf("goal!\n");
+        printf("already_goal: %d\n", already_goal);
         if (!(already_goal))
         {
-            printf("nnngoal!\n");
+            already_goal = 1;            
             CAN_message msg;
             msg.id = TRANSFERRED_GOALS;
             msg.length = 1;
             msg.data[0] = 1;
             CAN_send(&msg);
-
             goals++;
-            timer_set_period(500, 2); 
-            already_goal = 1;
+            timer_set_period(700, 2); 
         }
     } 
     else //!goal
@@ -61,7 +57,7 @@ void goal_interruptfunc()
         if (already_goal)
         {
             already_goal = 0;
-            timer_set_period(50, 2);
+            timer_set_period(200, 2);
         }
     }
 }
