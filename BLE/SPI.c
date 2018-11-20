@@ -74,11 +74,6 @@ uint8_t SPI_MasterTransmit(char cData)
 	SPI->TXD = cData;
 	
 	util_delay_ms(10);
-	/*
-	while (!(SPI->READY));
-	
-	SPI->READY = 0;
-	*/
 
 	return SPI->RXD;
 }

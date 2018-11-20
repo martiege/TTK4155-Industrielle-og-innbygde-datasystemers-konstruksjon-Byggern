@@ -9,7 +9,6 @@ void ubit_led_matrix_init(){
 	} 
 }
 
-
 void ubit_led_matrix_turn_on(){
 	GPIO->OUTSET = (1 << 13 | 1 << 14 | 1 << 15);
 }
