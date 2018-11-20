@@ -3,6 +3,15 @@
 
 #include <stdint.h>
 
+/*
+PID controller for position
+
+Implements a discrete controller
+for controlling the game position. 
+
+As specified in AVR221.
+
+*/
 
 typedef struct CONTROLLER_DATA
 {
