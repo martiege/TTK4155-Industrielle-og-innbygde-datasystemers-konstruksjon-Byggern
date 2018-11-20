@@ -10,7 +10,7 @@
 #include <util/delay.h>
 
 #include "menu.h"
-#include "user_input.h" //ta vekk
+#include "user_input.h"
 
 static uint8_t number_of_lives = 20;
 
@@ -40,7 +40,6 @@ void node1_main()
     {
         printf("node1\n");
         _delay_ms(100);
-        menu_welcome();
         menu_main();
     }
 }

@@ -1,7 +1,6 @@
 #include "user_input.h"
 #include "ADC.h"
 #include <avr/io.h>
-#include <stdlib.h>
 
 
 Position user_input_joystick_position()

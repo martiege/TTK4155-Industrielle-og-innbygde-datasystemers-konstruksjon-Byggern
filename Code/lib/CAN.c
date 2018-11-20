@@ -30,7 +30,7 @@
 #define MCP_RXB0DLC     0x65
 #define MCP_RXB0D0  	0x66
 
-static int controller_setting = 1;
+static int controller_setting = 2;
 static int using_bluetooth = 1;
 static int not_initialized = 1;
 
@@ -94,6 +94,8 @@ ISR(INTR_VECT)
 
     CAN_message m;
     CAN_receive(&m);
+
+    //printf("ID: %d\n", m.id);
 
     if (m.id == INPUT_COM)
     {

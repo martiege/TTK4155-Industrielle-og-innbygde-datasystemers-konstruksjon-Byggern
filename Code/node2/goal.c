@@ -19,7 +19,7 @@ void goal_init()
     already_goal = 0;
 
     timer_init(2, goal_interruptfunc);
-    timer_set_period(100, 2);
+    timer_set_period(200, 2);
     timer_start(2);
 }
 
@@ -49,7 +49,7 @@ void goal_interruptfunc()
             msg.data[0] = 1;
             CAN_send(&msg);
             goals++;
-            timer_set_period(1000, 2); 
+            timer_set_period(700, 2); 
         }
     } 
     else //!goal
@@ -57,7 +57,7 @@ void goal_interruptfunc()
         if (already_goal)
         {
             already_goal = 0;
-            timer_set_period(100, 2);
+            timer_set_period(200, 2);
         }
     }
 }
