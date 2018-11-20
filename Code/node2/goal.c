@@ -30,9 +30,9 @@ uint8_t goal_get_goals()
 
 int goal_read()
 {   
-    printf("read: %d\n", ADC_internal_status());
+    //printf("read: %d\n", ADC_internal_status());
     
-    return (ADC_internal_status() < 50);
+    return (ADC_internal_status() < 800);
 }
 
 
@@ -40,15 +40,16 @@ int goal_read()
 void goal_interruptfunc()
 {
     if (goal_read())
-    {
+    {   
+        //printf("goal!\n");
         if (!(already_goal))
         {
-            printf("goal!\n");
+            printf("nnngoal!\n");
             CAN_message msg;
             msg.id = TRANSFERRED_GOALS;
             msg.length = 1;
             msg.data[0] = 1;
-            
+            CAN_send(&msg);
 
             goals++;
             timer_set_period(500, 2); 

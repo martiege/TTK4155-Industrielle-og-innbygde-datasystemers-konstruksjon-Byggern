@@ -154,7 +154,9 @@ ISR(INTR_VECT)
     if (m.id == TRANSFERRED_GOALS)
     {
         #ifdef __AVR_ATmega162__
+            printf("receive\n");
             decrease_lives();
+            
         #endif
     }
     

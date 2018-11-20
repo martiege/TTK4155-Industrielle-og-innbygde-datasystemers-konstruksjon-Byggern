@@ -12,7 +12,7 @@
 #include "menu.h"
 #include "user_input.h" //ta vekk
 
-static uint8_t number_of_lives = 100;
+static uint8_t number_of_lives = 20;
 
 void decrease_lives() { number_of_lives--; }
 uint8_t get_number_of_lives() { return number_of_lives; }

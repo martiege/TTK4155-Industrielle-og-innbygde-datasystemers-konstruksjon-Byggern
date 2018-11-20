@@ -156,8 +156,10 @@ void menu_ingame_menu()
     {
         OLED_reset();
         OLED_print("\n\n   GAME OVER :(");
+        _delay_ms(3000);
     }
-    OLED_reset();    
+    OLED_reset();
+    set_number_of_lives(20); //reset lives
     
 }
 
@@ -279,9 +281,9 @@ void menu_controller_settings_menu()
 const char *difficulty_settings_menu[8] = 
 {
     "DIFFICULTY", 
-    "Level 1", 
-    "Level 2", 
-    "Level 3", 
+    "Easy", 
+    "Harder", 
+    "Superduper hard", 
     "Back", 
     "", 
     "", 
