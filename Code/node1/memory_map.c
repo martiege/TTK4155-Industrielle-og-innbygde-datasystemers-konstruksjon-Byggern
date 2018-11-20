@@ -4,11 +4,6 @@
 static volatile char* memory = (char *) 0x0000;
 
 
-volatile char* get_mem()
-{
-	return memory; 
-}
-
 uint8_t memory_read_ADC(CHANNEL c)
 {
 	memory[ADC] = c;
