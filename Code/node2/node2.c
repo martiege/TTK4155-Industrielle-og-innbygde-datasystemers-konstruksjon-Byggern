@@ -30,7 +30,6 @@ void node2_init()
 
     pwm_init();
     ADC_internal_init();
-    goal_init();
     solenoid_init();
     TWI_Master_Initialise();
     motor_init();

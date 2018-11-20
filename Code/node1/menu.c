@@ -3,12 +3,16 @@
 #include "user_input.h"
 #include <util/delay.h>
 #include "menu.h"
+#include "node1.h"
+#include "../lib/CAN.h"
+#include "../lib/input_com.h"
 
 void menu_contrast_menu();
 void menu_font_size_menu();
 void menu_settings_menu();
 void menu_game_settings_menu();
 void menu_controller_settings_menu();
+void menu_difficulty_settings_menu();
 void menu_ingame_menu();
 
 void menu_print(const char **menu, int start, int length, int cursorpos)
@@ -133,7 +137,7 @@ void menu_ingame_menu()
 
     int chose_to_end = 0;
     
-    while (number_of_lives) //bytt ut 1 med number_of_lives
+    while (get_number_of_lives()) //bytt ut 1 med number_of_lives
     {
         input_com_send();
         _delay_ms(100);
@@ -146,7 +150,7 @@ void menu_ingame_menu()
         OLED_clear_line(2);
         OLED_print("Number of lives: ");
 
-        OLED_put_int(number_of_lives);
+        OLED_put_int(get_number_of_lives());
     }
     if (!chose_to_end)
     {
@@ -236,14 +240,14 @@ const char *controller_settings_menu[8] =
     "Joystick", 
     "Sliders", 
     "R slider + joy", 
+    "Bluetooth + joy", 
     "Back", 
-    "", 
     "", 
     ""
 };
 
 const int controller_settings_menu_start =  1;
-const int controller_settings_menu_length = 4;
+const int controller_settings_menu_length = 5;
 
 void menu_controller_settings_menu()
 {
@@ -258,10 +262,11 @@ void menu_controller_settings_menu()
             case 1:
             case 2:
             case 3:
+            case 4:
                 m.data[0] = _position - 1;
                 CAN_send(&m);
                 return;
-            case 4:
+            case 5:
                 return;
                 // Back
             default:
@@ -294,13 +299,13 @@ void menu_difficulty_settings_menu()
         switch(_position)
         {
             case 1:
-                number_of_lives = 20;
+                set_number_of_lives(20);
                 return;
             case 2:
-                number_of_lives = 10;
+                set_number_of_lives(10);
                 return;
             case 3:
-                number_of_lives = 5;
+                set_number_of_lives(5);
                 return;
             case 4:
                 return;

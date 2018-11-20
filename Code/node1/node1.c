@@ -15,7 +15,8 @@
 static uint8_t number_of_lives = 100;
 
 void decrease_lives() { number_of_lives--; }
-
+uint8_t get_number_of_lives() { return number_of_lives; }
+void set_number_of_lives(uint8_t n_lives) { number_of_lives = n_lives; }
 
 void node1_init()
 {
@@ -60,6 +61,6 @@ void node1_main()
         //printf("ID: %d\n\n", m.id);
         _delay_ms(100);
         //node1_settings_menu();
-        node1_main_menu();
+        menu_main();
     }
 }

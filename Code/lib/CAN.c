@@ -8,6 +8,7 @@
     #include "../node2/motor.h"
     #include "../node2/controller.h"
     #include "../node2/solenoid.h"
+    #include "../node2/goal.h"
 #endif
 
 #ifdef __AVR_ATmega162__
@@ -29,8 +30,9 @@
 #define MCP_RXB0DLC     0x65
 #define MCP_RXB0D0  	0x66
 
-static int controller_setting = 2;
-static int using_bluetooth = 0;
+static int controller_setting = 3;
+static int using_bluetooth = 1;
+static int not_initialized = 1;
 
 void CAN_init()
 {
@@ -93,30 +95,44 @@ ISR(INTR_VECT)
     CAN_message m;
     CAN_receive(&m);
 
-    printf("ID: %d\n", m.id);
+    //printf("ID: %d\n", m.id);
 
     if (m.id == INPUT_COM)
     {
         #ifdef __AVR_ATmega2560__
+            if (not_initialized)
+            {
+                goal_init();
+                not_initialized = 0;
+            }
+            
             int8_t ang;
             int pos;
             if (controller_setting == 0)
             {
                 ang = (int8_t)m.data[1] - 10;
                 pos = (int)((int8_t)m.data[0]) + 128;
+                controller_set_reference(pos * 50);
             }
             else if (controller_setting == 1)
             {
                 ang = (int8_t)((int)m.data[2] - 10 - 120);
                 pos = m.data[3];
+                controller_set_reference(pos * 50);
             }
             else if (controller_setting == 2)
             {
                 ang = (int8_t)m.data[0] - 10;
                 pos = m.data[3];
+                controller_set_reference(pos * 50);
+            }
+            else if (controller_setting == 3)
+            {
+                ang = (int8_t)m.data[0] - 10;
+                using_bluetooth = 1;
             }
             pwm_set_angle(ang); //-10 is offset for the servo
-            controller_set_reference(pos * 50);
+            
             
             if (m.data[4] && !(solenoid_get_shot()))
             {
@@ -144,7 +160,14 @@ ISR(INTR_VECT)
     
 	if (m.id == BLUETOOTH_MSG)
 	{
-		printf("Bluetooth! %d", m.data[0]);
+		
+        #ifdef __AVR_ATmega2560__
+            printf("Bluetooth! %d", m.data[0]);
+            if (using_bluetooth)
+            {
+                controller_set_reference(m.data[0] * 50);
+            }
+        #endif
 	}
 }
 
