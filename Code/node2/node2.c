@@ -15,6 +15,9 @@
 #include "controller.h"
 
 
+#include <util/delay.h>
+
+
 void node2_init()
 {
     UART_Init(MYUBRR);
@@ -36,4 +39,13 @@ void node2_init()
     controller_init(4, 0, 4);
 
     printf("Initialized!\n");
+}
+
+void node2_main()
+{
+	while (1)
+	{ 
+		_delay_ms(100);   
+		controller_update();            
+	}
 }
